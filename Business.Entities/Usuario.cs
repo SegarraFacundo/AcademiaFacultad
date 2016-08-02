@@ -13,7 +13,7 @@ namespace Business.Entities
         }
 
         private string _NombreUsuario; 
-        public string nombreUSuario{
+        public string NombreUsuario{
             get { return _NombreUsuario; }
             set { _NombreUsuario = value; }
         }
