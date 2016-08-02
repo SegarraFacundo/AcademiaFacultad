@@ -1,0 +1,9 @@
+C:\NET projects\EntregaLab04\Business.Logic\bin\Debug\Business.Logic.dll
+C:\NET projects\EntregaLab04\Business.Logic\bin\Debug\Business.Logic.pdb
+C:\NET projects\EntregaLab04\Business.Logic\bin\Debug\Business.Entities.dll
+C:\NET projects\EntregaLab04\Business.Logic\bin\Debug\Data.Database.dll
+C:\NET projects\EntregaLab04\Business.Logic\bin\Debug\Business.Entities.pdb
+C:\NET projects\EntregaLab04\Business.Logic\bin\Debug\Data.Database.pdb
+C:\NET projects\EntregaLab04\Business.Logic\obj\Debug\Business.Logic.csprojResolveAssemblyReference.cache
+C:\NET projects\EntregaLab04\Business.Logic\obj\Debug\Business.Logic.dll
+C:\NET projects\EntregaLab04\Business.Logic\obj\Debug\Business.Logic.pdb

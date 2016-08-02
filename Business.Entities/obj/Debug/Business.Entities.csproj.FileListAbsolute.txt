@@ -1,0 +1,4 @@
+C:\NET projects\EntregaLab04\Business.Entities\bin\Debug\Business.Entities.dll
+C:\NET projects\EntregaLab04\Business.Entities\bin\Debug\Business.Entities.pdb
+C:\NET projects\EntregaLab04\Business.Entities\obj\Debug\Business.Entities.dll
+C:\NET projects\EntregaLab04\Business.Entities\obj\Debug\Business.Entities.pdb
