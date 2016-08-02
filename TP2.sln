@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util", "Util\Util.csproj", 
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "UI.Web", "UI.Web\", "{DF2E922A-E4CA-4AEE-B4B2-03049D566E61}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
 		ProjectReferences = "{8bbacaf9-563e-4b26-850e-3c30355adf66}|Business.Entities.dll;{cf1cd3c3-4263-4281-960e-2f9f27424081}|Business.Logic.dll;{18D1C50F-58E0-4D94-B05B-4A95A146E6BB}|Data.Database.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_56325"
 		Debug.AspNetCompiler.PhysicalPath = "UI.Web\"
