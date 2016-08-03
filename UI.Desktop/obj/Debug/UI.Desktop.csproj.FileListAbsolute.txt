@@ -15,3 +15,20 @@ C:\NET projects\EntregaLab04\UI.Desktop\obj\Debug\UI.Desktop.Properties.Resource
 C:\NET projects\EntregaLab04\UI.Desktop\obj\Debug\UI.Desktop.csproj.GenerateResource.Cache
 C:\NET projects\EntregaLab04\UI.Desktop\obj\Debug\UI.Desktop.exe
 C:\NET projects\EntregaLab04\UI.Desktop\obj\Debug\UI.Desktop.pdb
+C:\NET projects\TP 2 Academia\UI.Desktop\bin\Debug\UI.Desktop.exe.config
+C:\NET projects\TP 2 Academia\UI.Desktop\obj\Debug\UI.Desktop.exe
+C:\NET projects\TP 2 Academia\UI.Desktop\obj\Debug\UI.Desktop.pdb
+C:\NET projects\TP 2 Academia\UI.Desktop\bin\Debug\UI.Desktop.exe
+C:\NET projects\TP 2 Academia\UI.Desktop\bin\Debug\UI.Desktop.pdb
+C:\NET projects\TP 2 Academia\UI.Desktop\bin\Debug\Business.Entities.dll
+C:\NET projects\TP 2 Academia\UI.Desktop\bin\Debug\Business.Logic.dll
+C:\NET projects\TP 2 Academia\UI.Desktop\bin\Debug\Data.Database.dll
+C:\NET projects\TP 2 Academia\UI.Desktop\bin\Debug\Business.Entities.pdb
+C:\NET projects\TP 2 Academia\UI.Desktop\bin\Debug\Business.Logic.pdb
+C:\NET projects\TP 2 Academia\UI.Desktop\bin\Debug\Data.Database.pdb
+C:\NET projects\TP 2 Academia\UI.Desktop\obj\Debug\UI.Desktop.csprojResolveAssemblyReference.cache
+C:\NET projects\TP 2 Academia\UI.Desktop\obj\Debug\UI.Desktop.ApplicationForm.resources
+C:\NET projects\TP 2 Academia\UI.Desktop\obj\Debug\UI.Desktop.UsuarioDesktop.resources
+C:\NET projects\TP 2 Academia\UI.Desktop\obj\Debug\UI.Desktop.Usuarios.resources
+C:\NET projects\TP 2 Academia\UI.Desktop\obj\Debug\UI.Desktop.Properties.Resources.resources
+C:\NET projects\TP 2 Academia\UI.Desktop\obj\Debug\UI.Desktop.csproj.GenerateResource.Cache
