@@ -32,3 +32,4 @@ C:\NET projects\TP 2 Academia\UI.Desktop\obj\Debug\UI.Desktop.UsuarioDesktop.res
 C:\NET projects\TP 2 Academia\UI.Desktop\obj\Debug\UI.Desktop.Usuarios.resources
 C:\NET projects\TP 2 Academia\UI.Desktop\obj\Debug\UI.Desktop.Properties.Resources.resources
 C:\NET projects\TP 2 Academia\UI.Desktop\obj\Debug\UI.Desktop.csproj.GenerateResource.Cache
+C:\NET projects\TP 2 Academia\UI.Desktop\obj\Debug\UI.Desktop.LogIn.resources
