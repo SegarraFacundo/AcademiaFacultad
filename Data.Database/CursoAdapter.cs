@@ -10,7 +10,7 @@ using System;
 
 namespace Data.Database
 {
-    class CursoAdapter : Adapter
+    public class CursoAdapter : Adapter
     {
         public List<Curso> GetAll()
         {
