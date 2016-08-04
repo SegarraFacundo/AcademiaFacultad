@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Business.Logic;
+using Business.Entities;
 
 namespace UI.Desktop
 {
@@ -19,7 +21,33 @@ namespace UI.Desktop
 
         private void LogIn_Load(object sender, EventArgs e)
         {
-
+          
         }
+
+        private void btnIngresar_Click(object sender, EventArgs e)
+        {
+            UsuarioLogic UserLogic = new UsuarioLogic();
+            Usuario currentUser = UserLogic.LogIn(txtUser.Text, txtPass.Text);
+            if (currentUser == null)
+            {
+                Notificar("Error", "Credenciales incorrectas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                PersonaLogic personaLogic = new PersonaLogic();
+                Persona p = personaLogic.GetOne(currentUser.IdPersona);
+                switch (p.TipoPersona) { 
+                    case Persona.TiposPersona.Docente:
+                        Docentes docente = new Docentes(p);
+                        docente.ShowDialog();
+                        break;
+                    case Persona.TiposPersona.Alumno:
+                        Alumnos alumno = new Alumnos(p);
+                        alumno.ShowDialog();
+                        break;
+                }
+            }
+        }
+
     }
 }

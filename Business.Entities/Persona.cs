@@ -64,11 +64,17 @@ namespace Business.Entities
             set { _FechaNacimiento = value; }
         }
 
-        private TiposPersonas _TipoPersona;
-        public TiposPersonas TipoPersona
+        private TiposPersona _TipoPersona;
+        public TiposPersona TipoPersona
         {
             get { return _TipoPersona; }
             set { _TipoPersona = value; }
+        }
+
+        public enum TiposPersona
+        {
+           Docente,
+           Alumno
         }
     }
 }

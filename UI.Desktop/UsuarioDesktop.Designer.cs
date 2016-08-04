@@ -46,6 +46,8 @@
             this.lblConfirmarClave = new System.Windows.Forms.Label();
             this.lblId = new System.Windows.Forms.Label();
             this.chkHabilitado = new System.Windows.Forms.CheckBox();
+            this.rbAlumno = new System.Windows.Forms.RadioButton();
+            this.rbDocente = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,6 +75,8 @@
             this.tableLayoutPanel1.Controls.Add(this.lblConfirmarClave, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.lblId, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.chkHabilitado, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.rbAlumno, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.rbDocente, 1, 4);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
@@ -291,6 +295,28 @@
             this.chkHabilitado.UseVisualStyleBackColor = true;
             this.chkHabilitado.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // rbAlumno
+            // 
+            this.rbAlumno.AutoSize = true;
+            this.rbAlumno.Location = new System.Drawing.Point(3, 127);
+            this.rbAlumno.Name = "rbAlumno";
+            this.rbAlumno.Size = new System.Drawing.Size(60, 17);
+            this.rbAlumno.TabIndex = 17;
+            this.rbAlumno.TabStop = true;
+            this.rbAlumno.Text = "Alumno";
+            this.rbAlumno.UseVisualStyleBackColor = true;
+            // 
+            // rbDocente
+            // 
+            this.rbDocente.AutoSize = true;
+            this.rbDocente.Location = new System.Drawing.Point(103, 127);
+            this.rbDocente.Name = "rbDocente";
+            this.rbDocente.Size = new System.Drawing.Size(66, 17);
+            this.rbDocente.TabIndex = 18;
+            this.rbDocente.TabStop = true;
+            this.rbDocente.Text = "Docente";
+            this.rbDocente.UseVisualStyleBackColor = true;
+            // 
             // UsuarioDesktop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -325,5 +351,7 @@
         private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.Label lblConfirmarClave;
         private System.Windows.Forms.Label lblId;
+        private System.Windows.Forms.RadioButton rbAlumno;
+        private System.Windows.Forms.RadioButton rbDocente;
     }
 }

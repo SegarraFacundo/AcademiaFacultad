@@ -12,3 +12,10 @@ C:\NET projects\TP 2 Academia\Data.Database\bin\Debug\Business.Entities.pdb
 C:\NET projects\TP 2 Academia\Data.Database\obj\Debug\Data.Database.csprojResolveAssemblyReference.cache
 C:\NET projects\TP 2 Academia\Data.Database\obj\Debug\Data.Database.dll
 C:\NET projects\TP 2 Academia\Data.Database\obj\Debug\Data.Database.pdb
+E:\Alumnos\baskovich\AcademiaFacultad-master\Data.Database\bin\Debug\Data.Database.dll
+E:\Alumnos\baskovich\AcademiaFacultad-master\Data.Database\bin\Debug\Data.Database.pdb
+E:\Alumnos\baskovich\AcademiaFacultad-master\Data.Database\bin\Debug\Business.Entities.dll
+E:\Alumnos\baskovich\AcademiaFacultad-master\Data.Database\bin\Debug\Business.Entities.pdb
+E:\Alumnos\baskovich\AcademiaFacultad-master\Data.Database\obj\Debug\Data.Database.csprojResolveAssemblyReference.cache
+E:\Alumnos\baskovich\AcademiaFacultad-master\Data.Database\obj\Debug\Data.Database.dll
+E:\Alumnos\baskovich\AcademiaFacultad-master\Data.Database\obj\Debug\Data.Database.pdb

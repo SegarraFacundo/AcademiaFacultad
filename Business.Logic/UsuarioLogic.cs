@@ -39,5 +39,10 @@ namespace Business.Logic
         {
             UsuarioData.Delete(id);
         }
+        public Usuario LogIn(string user, string pass)
+        {
+            Usuario u = UsuarioData.LogIn(user, pass);
+            return u;
+        }
     }
 }

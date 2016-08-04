@@ -81,8 +81,8 @@ namespace Data.Database
                     currentUser.Nombre = (string)reader["nombre"];
                     currentUser.Apellido = (string)reader["apellido"];
                     currentUser.Email = (string)reader["email"];
+                    currentUser.IdPersona = (int)reader["id_persona"];
                     usuarios.Add(currentUser);
-
                 }
                 reader.Close();
             }
@@ -94,7 +94,6 @@ namespace Data.Database
             finally
             {
                 this.CloseConnection();
-
             }
             return usuarios;
             
@@ -107,7 +106,6 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-
                 SqlCommand cmd = new SqlCommand("SELECT * FROM usuarios WHERE id_usuario = @ID", sqlConn);
                 cmd.Parameters.AddWithValue("@ID", Id);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -120,6 +118,8 @@ namespace Data.Database
                     currentUser.Nombre = (string)reader["nombre"];
                     currentUser.Apellido = (string)reader["apellido"];
                     currentUser.Email = (string)reader["email"];
+                    currentUser.IdPersona = (int)reader["id_persona"];
+
                 }
                 reader.Close();
 
@@ -229,5 +229,42 @@ namespace Data.Database
                 usuario.State = BusinessEntity.States.Unmodified; 
             }
         }
+
+        public Usuario LogIn(string user, string pass)
+        {
+            Usuario u = new Usuario();
+            try
+            {
+                this.OpenConnection();
+                SqlCommand cmd = new SqlCommand("SELECT * FROM usuarios WHERE nombre_usuario = @user AND clave=@pass", sqlConn);
+                cmd.Parameters.AddWithValue("@user", user);
+                cmd.Parameters.AddWithValue("@pass", pass);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    u.Id = (int)reader["id_usuario"];
+                    u.NombreUsuario = (string)reader["nombre_usuario"];
+                    u.Clave = (string)reader["clave"];
+                    u.Habilitado = (bool)reader["habilitado"];
+                    u.Nombre = (string)reader["nombre"];
+                    u.Apellido = (string)reader["apellido"];
+                    u.Email = (string)reader["email"];
+                    u.IdPersona = (int)reader["id_persona"];
+                }
+                reader.Close();
+                
+            }
+            catch (Exception Ex)
+            {
+                Exception ExcepcionManejada = new Exception("Error al recuperar el usuarios", Ex);
+                throw ExcepcionManejada;
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+            return u;
+        }
+
     }
 }
