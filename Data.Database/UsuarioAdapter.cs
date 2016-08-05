@@ -85,6 +85,7 @@ namespace Data.Database
                     usuarios.Add(currentUser);
                 }
                 reader.Close();
+
             }
             catch (Exception Ex)
             {
@@ -119,9 +120,10 @@ namespace Data.Database
                     currentUser.Apellido = (string)reader["apellido"];
                     currentUser.Email = (string)reader["email"];
                     currentUser.IdPersona = (int)reader["id_persona"];
+                    reader.Close();
+                    return currentUser;
 
                 }
-                reader.Close();
 
             }
             catch (Exception Ex)
@@ -133,7 +135,7 @@ namespace Data.Database
             {
                 this.CloseConnection();
             }
-            return currentUser;
+            return null;
         }
 
         public void Delete(int Id)
@@ -190,14 +192,18 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("INSERT INTO usuarios (nombre_usuario, clave, habilitado, nombre, apellido, email)" +
-                    "VALUES (@nombre_usuario, @clave, @habilitado, @nombre, @apellido, @email) SELECT @@IDENTITY", sqlConn);
+                SqlCommand cmd = new SqlCommand("INSERT INTO usuarios (nombre_usuario, clave, habilitado, nombre, apellido, email, cambia_clave, id_persona)" +
+                    "VALUES (@nombre_usuario, @clave, @habilitado, @nombre, @apellido, @email, @cambia_clave, @id_persona) SELECT @@IDENTITY", sqlConn);
                 cmd.Parameters.AddWithValue("@nombre_usuario", usuario.NombreUsuario);
                 cmd.Parameters.AddWithValue("@clave", usuario.Clave);
                 cmd.Parameters.AddWithValue("@habilitado", usuario.Habilitado);
                 cmd.Parameters.AddWithValue("@nombre", usuario.Nombre);
                 cmd.Parameters.AddWithValue("@apellido", usuario.Apellido);
                 cmd.Parameters.AddWithValue("@email", usuario.Email);
+                cmd.Parameters.AddWithValue("@id_persona", usuario.IdPersona);
+                if (usuario.CambiaClave) { cmd.Parameters.AddWithValue("@cambia_clave", 1); }
+                else { cmd.Parameters.AddWithValue("@cambia_clave", 0); }
+               
                 cmd.ExecuteNonQuery();
             }
             catch (Exception Ex)
@@ -250,8 +256,10 @@ namespace Data.Database
                     u.Apellido = (string)reader["apellido"];
                     u.Email = (string)reader["email"];
                     u.IdPersona = (int)reader["id_persona"];
+                    return u;
                 }
                 reader.Close();
+                
                 
             }
             catch (Exception Ex)
@@ -263,7 +271,7 @@ namespace Data.Database
             {
                 this.CloseConnection();
             }
-            return u;
+            return null;
         }
 
     }

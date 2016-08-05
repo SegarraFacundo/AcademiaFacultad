@@ -29,20 +29,17 @@ namespace UI.Desktop
             UsuarioLogic UserLogic = new UsuarioLogic();
             Usuario currentUser = UserLogic.LogIn(txtUser.Text, txtPass.Text);
             if (currentUser == null)
-            {
-                Notificar("Error", "Credenciales incorrectas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else
+                Notificar("Error", "Error de incio de seción, credenciales incorrectas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             {
                 PersonaLogic personaLogic = new PersonaLogic();
                 Persona p = personaLogic.GetOne(currentUser.IdPersona);
                 switch (p.TipoPersona) { 
                     case Persona.TiposPersona.Docente:
-                        Docentes docente = new Docentes(p);
+                        MenuDocentes docente = new MenuDocentes(p);
                         docente.ShowDialog();
                         break;
                     case Persona.TiposPersona.Alumno:
-                        Alumnos alumno = new Alumnos(p);
+                        MenuAlumnos alumno = new MenuAlumnos(p);
                         alumno.ShowDialog();
                         break;
                 }

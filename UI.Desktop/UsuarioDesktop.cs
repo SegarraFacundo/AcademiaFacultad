@@ -90,8 +90,6 @@ namespace UI.Desktop
                     usuario.Email = this.txtEmail.Text;
                     usuario.NombreUsuario = this.txtUsuario.Text;
                     usuario.Clave = this.txtClave.Text;
-                    Persona p = new Persona();
-
                     this.UsuarioActual = usuario;
                     this.UsuarioActual.State = BusinessEntity.States.New;
                     break;

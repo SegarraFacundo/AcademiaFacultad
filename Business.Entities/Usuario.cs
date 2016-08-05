@@ -54,5 +54,7 @@ namespace Business.Entities
         }
         public int IdPersona { get; set; }
 
+        public bool CambiaClave { get; set; }
+
     }
 }
