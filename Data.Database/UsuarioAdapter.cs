@@ -81,7 +81,7 @@ namespace Data.Database
                     currentUser.Nombre = (string)reader["nombre"];
                     currentUser.Apellido = (string)reader["apellido"];
                     currentUser.Email = (string)reader["email"];
-                    currentUser.IdPersona = (int)reader["id_persona"];
+                    //currentUser.IdPersona = (int)reader["id_persona"];
                     usuarios.Add(currentUser);
                 }
                 reader.Close();
@@ -90,7 +90,6 @@ namespace Data.Database
             catch (Exception Ex)
             {
                 Exception ExcepcionManejada = new Exception("Error al recuperar lista de usuarios", Ex);
-                throw ExcepcionManejada;
             }
             finally
             {
@@ -119,7 +118,7 @@ namespace Data.Database
                     currentUser.Nombre = (string)reader["nombre"];
                     currentUser.Apellido = (string)reader["apellido"];
                     currentUser.Email = (string)reader["email"];
-                    currentUser.IdPersona = (int)reader["id_persona"];
+                    //currentUser.IdPersona = (int)reader["id_persona"];
                     reader.Close();
                     return currentUser;
 
@@ -192,15 +191,17 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("INSERT INTO usuarios (nombre_usuario, clave, habilitado, nombre, apellido, email, cambia_clave, id_persona)" +
-                    "VALUES (@nombre_usuario, @clave, @habilitado, @nombre, @apellido, @email, @cambia_clave, @id_persona) SELECT @@IDENTITY", sqlConn);
+
+                SqlCommand cmd = new SqlCommand("INSERT INTO usuarios (nombre_usuario, clave, habilitado, nombre, apellido, email, cambia_clave)" +
+                    "VALUES (@nombre_usuario, @clave, @habilitado, @nombre, @apellido, @email, @cambia_clave) SELECT @@IDENTITY", sqlConn);
+
                 cmd.Parameters.AddWithValue("@nombre_usuario", usuario.NombreUsuario);
                 cmd.Parameters.AddWithValue("@clave", usuario.Clave);
-                cmd.Parameters.AddWithValue("@habilitado", usuario.Habilitado);
+                if (usuario.Habilitado) { cmd.Parameters.AddWithValue("@habilitado", 1); }
+                else { cmd.Parameters.AddWithValue("@habilitado", 0); }
                 cmd.Parameters.AddWithValue("@nombre", usuario.Nombre);
                 cmd.Parameters.AddWithValue("@apellido", usuario.Apellido);
                 cmd.Parameters.AddWithValue("@email", usuario.Email);
-                cmd.Parameters.AddWithValue("@id_persona", usuario.IdPersona);
                 if (usuario.CambiaClave) { cmd.Parameters.AddWithValue("@cambia_clave", 1); }
                 else { cmd.Parameters.AddWithValue("@cambia_clave", 0); }
                
@@ -209,7 +210,6 @@ namespace Data.Database
             catch (Exception Ex)
             {
                 Exception ExcepcionManejada = new Exception("Error al guardar el usuarios", Ex);
-                throw ExcepcionManejada;
             }
             finally
             {
@@ -255,7 +255,7 @@ namespace Data.Database
                     u.Nombre = (string)reader["nombre"];
                     u.Apellido = (string)reader["apellido"];
                     u.Email = (string)reader["email"];
-                    u.IdPersona = (int)reader["id_persona"];
+                    //u.IdPersona = (int)reader["id_persona"];
                     return u;
                 }
                 reader.Close();
