@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Business.Entities;
 using System.Data.SqlClient;
-using System;
-
 
 namespace Data.Database
 {
