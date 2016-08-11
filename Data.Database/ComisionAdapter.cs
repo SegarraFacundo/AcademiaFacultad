@@ -15,7 +15,7 @@ namespace Data.Database
         }
         public Comision GetOne(int Id)
         {
-            
+            return new Comision();
         }
 
 
