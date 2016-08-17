@@ -86,6 +86,7 @@ public partial class Usuarios : System.Web.UI.Page
     protected void gridView_SelectedIndexChanged(object sender, EventArgs e)
     {
         this.SelectedID = (int)this.gridView.SelectedValue;
+        this.formPanel.Visible = false;
     }
 
     private void LoadForm(int id)
@@ -106,5 +107,32 @@ public partial class Usuarios : System.Web.UI.Page
             this.FormMode = FormModes.Modificacion;
             this.LoadForm(this.SelectedID);
         }
+    }
+
+    private void LoadEntity(Usuario usuario)
+    {
+        usuario.Nombre = this.nombreTextBox.Text;
+        usuario.Apellido = this.apellidoTextBox.Text;
+        usuario.Email = this.emailTextBox.Text;
+        usuario.NombreUsuario = this.nombreUsuarioTextBox.Text;
+        usuario.Clave = this.claveTextBox.Text;
+        usuario.Habilitado = this.habilidadoCheckBox.Checked;
+    }
+
+    private void SaveEntity(Usuario usuario)
+    {
+        this.Logic.Save(usuario);
+    }
+
+    protected void aceptarLinkButton_Click(object sender, EventArgs e)
+    {
+        this.Entity = new Usuario();
+        this.Entity.Id = this.SelectedID;
+        this.Entity.State = BusinessEntity.States.Modified;
+        this.LoadEntity(this.Entity);
+        this.SaveEntity(this.Entity);
+        this.LoadGrid();
+
+        this.formPanel.Visible = false;
     }
 }
