@@ -18,7 +18,7 @@
     </asp:GridView>
     <asp:Panel ID="gridActionsPanel" runat="server">
         <asp:LinkButton ID="editarLinkButton" runat="server" OnClick="editarLinkButton_Click">Editar</asp:LinkButton>
-        <asp:LinkButton ID="eliminarLinkButton" runat="server">Eliminar</asp:LinkButton>
+        <asp:LinkButton ID="eliminarLinkButton" runat="server" OnClick="eliminarLinkButton_Click">Eliminar</asp:LinkButton>
         <asp:LinkButton ID="nuevoLinkButton" runat="server">Nuevo</asp:LinkButton>
     </asp:Panel>
     <asp:Panel ID="formPanel" Visible="false" runat="server">

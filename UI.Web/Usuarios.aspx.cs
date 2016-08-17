@@ -105,6 +105,7 @@ public partial class Usuarios : System.Web.UI.Page
         {
             this.formPanel.Visible = true;
             this.FormMode = FormModes.Modificacion;
+            this.EnableForm(true);
             this.LoadForm(this.SelectedID);
         }
     }
@@ -126,13 +127,53 @@ public partial class Usuarios : System.Web.UI.Page
 
     protected void aceptarLinkButton_Click(object sender, EventArgs e)
     {
-        this.Entity = new Usuario();
-        this.Entity.Id = this.SelectedID;
-        this.Entity.State = BusinessEntity.States.Modified;
-        this.LoadEntity(this.Entity);
-        this.SaveEntity(this.Entity);
-        this.LoadGrid();
-
+        switch(this.FormMode)
+        {
+            case FormModes.Modificacion:
+                this.Entity = new Usuario();
+                this.Entity.Id = this.SelectedID;
+                this.Entity.State = BusinessEntity.States.Modified;
+                this.LoadEntity(this.Entity);
+                this.SaveEntity(this.Entity);
+                this.LoadGrid();
+                
+                break;
+            case FormModes.Baja:
+                this.DeleteEntity(this.SelectedID);
+                this.LoadGrid();
+                break;
+            default:
+                break;
+        }
         this.formPanel.Visible = false;
+    }
+
+    private void EnableForm(bool enable)
+    {
+        this.nombreTextBox.Enabled = enable;
+        this.apellidoTextBox.Enabled = enable;
+        this.nombreUsuarioTextBox.Enabled = enable;
+        this.emailTextBox.Enabled = enable;
+        this.habilidadoCheckBox.Enabled = enable;
+        this.claveTextBox.Visible = enable;
+        this.repetirClaveTextBox.Visible = enable;
+        this.claveLabel.Visible = enable;
+        this.repetirClaveLabel.Visible = enable;
+    }
+
+    protected void eliminarLinkButton_Click(object sender, EventArgs e)
+    {
+        if (this.IsEntitySelected)
+        {
+            this.formPanel.Visible = true;
+            this.FormMode = FormModes.Baja;
+            this.EnableForm(false);
+            this.LoadForm(this.SelectedID);
+        }
+    }
+
+    private void DeleteEntity(int id)
+    {
+        this.Logic.Delete(id);
     }
 }
