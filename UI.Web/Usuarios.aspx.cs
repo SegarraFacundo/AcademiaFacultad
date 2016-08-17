@@ -129,6 +129,12 @@ public partial class Usuarios : System.Web.UI.Page
     {
         switch(this.FormMode)
         {
+            case FormModes.Alta:
+                this.Entity = new Usuario();
+                this.LoadEntity(this.Entity);
+                this.SaveEntity(this.Entity);
+                this.LoadGrid();
+                break;
             case FormModes.Modificacion:
                 this.Entity = new Usuario();
                 this.Entity.Id = this.SelectedID;
@@ -175,5 +181,28 @@ public partial class Usuarios : System.Web.UI.Page
     private void DeleteEntity(int id)
     {
         this.Logic.Delete(id);
+    }
+
+    protected void nuevoLinkButton_Click(object sender, EventArgs e)
+    {
+        this.formPanel.Visible = true;
+        this.FormMode = FormModes.Alta;
+        this.ClearForm();
+        this.EnableForm(true);
+    }
+
+    private void ClearForm()
+    {
+        this.nombreTextBox.Text = string.Empty;
+        this.apellidoTextBox.Text = string.Empty;
+        this.emailTextBox.Text = string.Empty;
+        this.habilidadoCheckBox.Checked = false;
+        this.nombreUsuarioTextBox.Text = string.Empty;
+    }
+
+    protected void cancelarLinkButton_Click(object sender, EventArgs e)
+    {
+        this.ClearForm();
+        this.formPanel.Visible = false;
     }
 }
