@@ -28,55 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtUser = new System.Windows.Forms.TextBox();
-            this.txtPass = new System.Windows.Forms.TextBox();
-            this.btnIngresar = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.btnIngresar = new System.Windows.Forms.Button();
+            this.txtPass = new System.Windows.Forms.TextBox();
+            this.txtUser = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.chkRecordar = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 99);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Contraseña:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 62);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Usuario:";
-            // 
-            // txtUser
-            // 
-            this.txtUser.Location = new System.Drawing.Point(91, 59);
-            this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(149, 20);
-            this.txtUser.TabIndex = 2;
-            // 
-            // txtPass
-            // 
-            this.txtPass.Location = new System.Drawing.Point(91, 96);
-            this.txtPass.Name = "txtPass";
-            this.txtPass.Size = new System.Drawing.Size(149, 20);
-            this.txtPass.TabIndex = 3;
-            // 
-            // btnIngresar
-            // 
-            this.btnIngresar.Location = new System.Drawing.Point(134, 136);
-            this.btnIngresar.Name = "btnIngresar";
-            this.btnIngresar.Size = new System.Drawing.Size(106, 23);
-            this.btnIngresar.TabIndex = 4;
-            this.btnIngresar.Text = "Ingresar";
-            this.btnIngresar.UseVisualStyleBackColor = true;
-            this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
             // 
             // linkLabel1
             // 
@@ -88,11 +47,65 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Olvidó su contraseña?";
             // 
+            // btnIngresar
+            // 
+            this.btnIngresar.Location = new System.Drawing.Point(134, 122);
+            this.btnIngresar.Name = "btnIngresar";
+            this.btnIngresar.Size = new System.Drawing.Size(106, 23);
+            this.btnIngresar.TabIndex = 4;
+            this.btnIngresar.Text = "Ingresar";
+            this.btnIngresar.UseVisualStyleBackColor = true;
+            this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
+            // 
+            // txtPass
+            // 
+            this.txtPass.Location = new System.Drawing.Point(91, 96);
+            this.txtPass.Name = "txtPass";
+            this.txtPass.PasswordChar = '*';
+            this.txtPass.Size = new System.Drawing.Size(149, 20);
+            this.txtPass.TabIndex = 3;
+            // 
+            // txtUser
+            // 
+            this.txtUser.Location = new System.Drawing.Point(91, 59);
+            this.txtUser.Name = "txtUser";
+            this.txtUser.Size = new System.Drawing.Size(149, 20);
+            this.txtUser.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(21, 62);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(46, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Usuario:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(21, 99);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Contraseña:";
+            // 
+            // chkRecordar
+            // 
+            this.chkRecordar.AutoSize = true;
+            this.chkRecordar.Location = new System.Drawing.Point(18, 164);
+            this.chkRecordar.Name = "chkRecordar";
+            this.chkRecordar.Size = new System.Drawing.Size(84, 17);
+            this.chkRecordar.TabIndex = 7;
+            this.chkRecordar.Text = "Recordarme";
+            this.chkRecordar.UseVisualStyleBackColor = true;
+            // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(272, 218);
+            this.Controls.Add(this.chkRecordar);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.btnIngresar);
             this.Controls.Add(this.txtPass);
@@ -100,6 +113,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "LogIn";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "LogIn";
             this.Load += new System.EventHandler(this.LogIn_Load);
             this.ResumeLayout(false);
@@ -115,5 +129,6 @@
         private System.Windows.Forms.TextBox txtPass;
         private System.Windows.Forms.Button btnIngresar;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.CheckBox chkRecordar;
     }
 }

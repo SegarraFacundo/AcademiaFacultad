@@ -21,7 +21,12 @@ namespace UI.Desktop
 
         private void LogIn_Load(object sender, EventArgs e)
         {
-          
+            if (Properties.Settings.Default.userName != string.Empty)
+            {
+                txtUser.Text = Properties.Settings.Default.userName;
+                txtPass.Text = Properties.Settings.Default.passUser;
+                chkRecordar.Checked = Properties.Settings.Default.rememberMe;
+            }
         }
 
         private void btnIngresar_Click(object sender, EventArgs e)
@@ -36,8 +41,28 @@ namespace UI.Desktop
             }
             else
             {
-                
+                if (chkRecordar.Checked)
+                {
+                    //Estas son propiedades que yo mismo defini del proyecto UI.Desktop, son como variables a las cuales se puede acceder
+                    //Para acceder: click derecho UI.Desktop->Propiedades->Configuraciones y ahi estan, no se si es la manera mas eficiente, pero funciona.
+                    Properties.Settings.Default.userName = txtUser.Text;
+                    Properties.Settings.Default.passUser = txtPass.Text;
+                    Properties.Settings.Default.rememberMe = chkRecordar.Checked;
+                    Properties.Settings.Default.Save();
+                }
+                else
+                {
+                    Properties.Settings.Default.userName = "";
+                    Properties.Settings.Default.passUser = "";
+                    Properties.Settings.Default.rememberMe = false;
+                    Properties.Settings.Default.Save();
+                }
+                this.Hide();
+                MainMenu mainMenu = new MainMenu(currentUser);                
+                mainMenu.ShowDialog();
+                this.Close();
             }
         }
+
     }
 }

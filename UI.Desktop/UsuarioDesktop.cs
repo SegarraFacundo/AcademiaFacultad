@@ -147,7 +147,8 @@ namespace UI.Desktop
             
             return true; 
         }
-
+#region "Basura de los controles"
+#endregion
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -195,7 +196,7 @@ namespace UI.Desktop
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-           if  (Validar()) {
+           if  (this.Validar()) {
                GuardarCambios();
                this.Close();
            }

@@ -49,5 +49,17 @@ namespace UI.Desktop
             this.Notificar(this.Text, mensaje, botones, icono);
         }
 
+        public bool ValidarDGV(DataGridView dgv)
+        {
+            if (dgv.SelectedRows.Count == 0)
+            {
+                Notificar("Atención!", "Seleccione un item", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

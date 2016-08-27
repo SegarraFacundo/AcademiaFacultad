@@ -14,7 +14,7 @@ using Business.Logic;
 
 namespace UI.Desktop
 {
-    public partial class Usuarios : Form
+    public partial class Usuarios : ApplicationForm
     {
         public Usuarios()
         {
@@ -52,11 +52,7 @@ namespace UI.Desktop
 
         private void tsbEditar_Click(object sender, EventArgs e)
         {
-            if (this.dgvUsuarios.SelectedRows.Count == 0 )
-            {
-                MessageBox.Show("Seleccione un usuario primero", "Atención!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);                
-            }
-            else
+            if (base.ValidarDGV(dgvUsuarios))
             {
                 int ID = ((Business.Entities.Usuario)this.dgvUsuarios.SelectedRows[0].DataBoundItem).Id;
                 UsuarioDesktop ud = new UsuarioDesktop(ID, ApplicationForm.ModoForm.Modificacion);
@@ -67,11 +63,7 @@ namespace UI.Desktop
 
         private void tsbEliminar_Click(object sender, EventArgs e)
         {
-            if (this.dgvUsuarios.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Seleccione un usuario primero", "Atención!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else
+            if (base.ValidarDGV(dgvUsuarios))
             {
                 int ID = ((Business.Entities.Usuario)this.dgvUsuarios.SelectedRows[0].DataBoundItem).Id;
                 UsuarioDesktop ud = new UsuarioDesktop(ID, ApplicationForm.ModoForm.Baja);

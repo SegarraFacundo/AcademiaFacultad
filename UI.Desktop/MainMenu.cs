@@ -13,12 +13,26 @@ namespace UI.Desktop
 {
     public partial class MainMenu : ApplicationForm
     {
-        private Persona persona;
-        public MainMenu(Persona p)
+        private Usuario usuario;
+        public MainMenu(Usuario u)
         {
             InitializeComponent();
-            persona = p;
-            label1.Text = p.Apellido + ", " + p.Nombre + ". Legajo: " + p.Legajo;
+            usuario = u;
+            label1.Text = u.Apellido + ", " + u.Nombre;
         }
+
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Usuarios formUsuarios = new Usuarios();
+            formUsuarios.ShowDialog();
+        }
+
+        private void especialidadesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Especialidades frmEspecialidades = new Especialidades();
+            frmEspecialidades.ShowDialog();
+        }
+
+
     }
 }

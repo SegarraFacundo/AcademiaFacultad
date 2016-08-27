@@ -298,6 +298,7 @@
             this.ClientSize = new System.Drawing.Size(507, 155);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "UsuarioDesktop";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "UsuarioDesktop";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

@@ -18,7 +18,7 @@ namespace Business.Logic
             List<ModuloUsuario> listaPermisos = moduloUsuarioData.getPermisosUsuario(idUsuario);
             foreach (ModuloUsuario mu in listaPermisos) 
             {
-
+                
             }
             
         }
