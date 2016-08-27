@@ -1,6 +1,6 @@
 ﻿namespace UI.Desktop
 {
-    partial class MenuAlumnos
+    partial class MainMenu
     {
         /// <summary>
         /// Required designer variable.

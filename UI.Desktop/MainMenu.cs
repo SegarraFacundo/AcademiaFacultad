@@ -11,15 +11,14 @@ using Business.Entities;
 
 namespace UI.Desktop
 {
-    public partial class MenuDocentes : ApplicationForm
+    public partial class MainMenu : ApplicationForm
     {
         private Persona persona;
-        public MenuDocentes(Persona p)
+        public MainMenu(Persona p)
         {
             InitializeComponent();
             persona = p;
+            label1.Text = p.Apellido + ", " + p.Nombre + ". Legajo: " + p.Legajo;
         }
-
-
     }
 }
