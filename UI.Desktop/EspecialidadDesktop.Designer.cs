@@ -65,7 +65,7 @@
             this.txtNombre.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNombre.Location = new System.Drawing.Point(103, 69);
+            this.txtNombre.Location = new System.Drawing.Point(103, 75);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(207, 20);
             this.txtNombre.TabIndex = 0;
@@ -78,7 +78,7 @@
             this.lblId.AutoSize = true;
             this.lblId.Location = new System.Drawing.Point(3, 0);
             this.lblId.Name = "lblId";
-            this.lblId.Size = new System.Drawing.Size(94, 33);
+            this.lblId.Size = new System.Drawing.Size(94, 36);
             this.lblId.TabIndex = 10;
             this.lblId.Text = "ID";
             this.lblId.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -89,7 +89,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(3, 66);
+            this.lblNombre.Location = new System.Drawing.Point(3, 72);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(94, 21);
             this.lblNombre.TabIndex = 11;
@@ -126,7 +126,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(313, 87);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(313, 93);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // lblPlan
@@ -135,9 +135,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPlan.AutoSize = true;
-            this.lblPlan.Location = new System.Drawing.Point(3, 33);
+            this.lblPlan.Location = new System.Drawing.Point(3, 36);
             this.lblPlan.Name = "lblPlan";
-            this.lblPlan.Size = new System.Drawing.Size(94, 33);
+            this.lblPlan.Size = new System.Drawing.Size(94, 36);
             this.lblPlan.TabIndex = 12;
             this.lblPlan.Text = "Plan";
             this.lblPlan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -148,7 +148,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPlan.Enabled = false;
-            this.txtPlan.Location = new System.Drawing.Point(103, 36);
+            this.txtPlan.Location = new System.Drawing.Point(103, 39);
             this.txtPlan.Name = "txtPlan";
             this.txtPlan.Size = new System.Drawing.Size(207, 20);
             this.txtPlan.TabIndex = 13;
