@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Business.Entities;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace Data.Database
 {
@@ -13,8 +13,8 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM alumnos_inscripciones", sqlConn);
-                SqlDataReader reader = cmd.ExecuteReader();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM alumnos_inscripciones", MySqlConn);
+                MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     AlumnoInscripto inscripcion = new AlumnoInscripto();
@@ -45,9 +45,9 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM alumnos_inscripciones WHERE id_inscripcion = @ID", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM alumnos_inscripciones WHERE id_inscripcion = @ID", MySqlConn);
                 cmd.Parameters.AddWithValue("@ID", ID);
-                SqlDataReader reader = cmd.ExecuteReader();
+                MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
                     inscripcion.Id = (int)reader["id_inscripcion"];
@@ -76,8 +76,8 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("INSERT INTO alumnos_inscripciones (id_inscripciones, id_alumno, id_curso, condicion, nota) " +
-                "VALUES (@id, @aidAlumno, @idCurso, @condicion, @nota) SELECT @@IDENTITY;", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO alumnos_inscripciones (id_inscripciones, id_alumno, id_curso, condicion, nota) " +
+                "VALUES (@id, @aidAlumno, @idCurso, @condicion, @nota) SELECT @@IDENTITY;", MySqlConn);
                 cmd.Parameters.AddWithValue("@id", inscripcion.Id);
                 cmd.Parameters.AddWithValue("@idAlumno", inscripcion.IdAlumno);
                 cmd.Parameters.AddWithValue("@idCurso", inscripcion.IdCurso);
@@ -101,7 +101,7 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("UPDATE alumnos_inscripciones SET id_alumno=@idAlumno, id_curso=@idCurso, condicion=@condicion, nota=@nota WHERE id_inscripcion=@id", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("UPDATE alumnos_inscripciones SET id_alumno=@idAlumno, id_curso=@idCurso, condicion=@condicion, nota=@nota WHERE id_inscripcion=@id", MySqlConn);
                 cmd.Parameters.AddWithValue("@id", inscripcion.Id);
                 cmd.Parameters.AddWithValue("@idAlumno", inscripcion.IdAlumno);
                 cmd.Parameters.AddWithValue("@idCurso", inscripcion.IdCurso);
@@ -125,7 +125,7 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("DELETE FROM alumnos_inscripciones WHERE id_inscripcion = @id", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM alumnos_inscripciones WHERE id_inscripcion = @id", MySqlConn);
                 cmd.Parameters.AddWithValue("@id", ID);
                 cmd.ExecuteNonQuery();
             }
@@ -164,9 +164,9 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM alumnos_inscripciones WHERE id_alumno = @ID", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM alumnos_inscripciones WHERE id_alumno = @ID", MySqlConn);
                 cmd.Parameters.AddWithValue("@ID", IdAlumno);
-                SqlDataReader reader = cmd.ExecuteReader();
+                MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
                     AlumnoInscripto inscripto = new AlumnoInscripto();
@@ -198,9 +198,9 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM alumnos_inscripciones WHERE id_curso = @ID", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM alumnos_inscripciones WHERE id_curso = @ID", MySqlConn);
                 cmd.Parameters.AddWithValue("@ID", IdCurso);
-                SqlDataReader reader = cmd.ExecuteReader();
+                MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
                     AlumnoInscripto inscripto = new AlumnoInscripto();

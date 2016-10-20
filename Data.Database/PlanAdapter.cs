@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 using Business.Entities;
-using System.Data;
-using System.Data.SqlClient;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 using System;
 
 
@@ -16,8 +16,8 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM planes;", sqlConn);
-                SqlDataReader reader = cmd.ExecuteReader();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM planes;", MySqlConn);
+                MySqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
@@ -50,9 +50,9 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM planes WHERE id_plan = @ID", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM planes WHERE id_plan = @ID", MySqlConn);
                 cmd.Parameters.AddWithValue("@ID", Id);
-                SqlDataReader reader = cmd.ExecuteReader();
+                MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
                     currentPlan.Id = (int)reader["id_plan"];
@@ -81,7 +81,7 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("DELETE FROM planes WHERE id_plan = @ID", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM planes WHERE id_plan = @ID", MySqlConn);
                 cmd.Parameters.AddWithValue("@ID", Id);
                 cmd.ExecuteNonQuery();
 
@@ -102,7 +102,7 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("UPDATE planes SET desc_plan = @desc_plan, id_especialidad = @id_especialidad WHERE id_plan = @ID", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("UPDATE planes SET desc_plan = @desc_plan, id_especialidad = @id_especialidad WHERE id_plan = @ID", MySqlConn);
                 cmd.Parameters.AddWithValue("@desc_plan", plan.Descripcion);
                 cmd.Parameters.AddWithValue("@id_especialidad", plan.IdEspecialidad);
                 cmd.Parameters.AddWithValue("@ID", plan.Id);
@@ -126,8 +126,8 @@ namespace Data.Database
             {
                 this.OpenConnection();
 
-                SqlCommand cmd = new SqlCommand("INSERT INTO planes (desc_plan, id_especialidad)" +
-                    "VALUES ( @desc_plan, @id_especialidad) SELECT @@IDENTITY", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO planes (desc_plan, id_especialidad)" +
+                    "VALUES ( @desc_plan, @id_especialidad) SELECT @@IDENTITY", MySqlConn);
 
                 cmd.Parameters.AddWithValue("@desc_plan", plan.Descripcion);
                 cmd.Parameters.AddWithValue("@id_especialidad", plan.IdEspecialidad);

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Configuration;
 using Business.Entities;
-using System.Data;
-using System.Data.SqlClient;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 using System;
 
 
@@ -68,8 +68,8 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM usuarios;", sqlConn);
-                SqlDataReader reader = cmd.ExecuteReader();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM usuarios;", MySqlConn);
+                MySqlDataReader reader = cmd.ExecuteReader();
                 
                 while (reader.Read())
                 {
@@ -107,9 +107,9 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM usuarios WHERE id_usuario = @ID", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM usuarios WHERE id_usuario = @ID", MySqlConn);
                 cmd.Parameters.AddWithValue("@ID", Id);
-                SqlDataReader reader = cmd.ExecuteReader();
+                MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
                     currentUser.Id = (int)reader["id_usuario"];
@@ -143,7 +143,7 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("DELETE FROM usuarios WHERE id_usuario = @ID", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM usuarios WHERE id_usuario = @ID", MySqlConn);
                 cmd.Parameters.AddWithValue("@ID", Id);
                 cmd.ExecuteNonQuery();
 
@@ -164,8 +164,8 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("UPDATE usuarios SET nombre_usuario = @nombre_usuario, clave=@clave, habilitado=@habilitado, nombre=@nombre, apellido=@apellido, " +
-                "email=@email WHERE id_usuario = @ID", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("UPDATE usuarios SET nombre_usuario = @nombre_usuario, clave=@clave, habilitado=@habilitado, nombre=@nombre, apellido=@apellido, " +
+                "email=@email WHERE id_usuario = @ID", MySqlConn);
                 cmd.Parameters.AddWithValue("@nombre_usuario", usuario.NombreUsuario);
                 cmd.Parameters.AddWithValue("@clave", usuario.Clave);
                 cmd.Parameters.AddWithValue("@habilitado", usuario.Habilitado);
@@ -193,8 +193,8 @@ namespace Data.Database
             {
                 this.OpenConnection();
 
-                SqlCommand cmd = new SqlCommand("INSERT INTO usuarios (nombre_usuario, clave, habilitado, nombre, apellido, email, cambia_clave)" +
-                    "VALUES (@nombre_usuario, @clave, @habilitado, @nombre, @apellido, @email, @cambia_clave) SELECT @@IDENTITY", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO usuarios (nombre_usuario, clave, habilitado, nombre, apellido, email, cambia_clave)" +
+                    "VALUES (@nombre_usuario, @clave, @habilitado, @nombre, @apellido, @email, @cambia_clave); SELECT @@IDENTITY", MySqlConn);
 
                 cmd.Parameters.AddWithValue("@nombre_usuario", usuario.NombreUsuario);
                 cmd.Parameters.AddWithValue("@clave", usuario.Clave);
@@ -244,10 +244,10 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM usuarios WHERE nombre_usuario = @user AND clave=@pass", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM usuarios WHERE nombre_usuario = @user AND clave=@pass", MySqlConn);
                 cmd.Parameters.AddWithValue("@user", user);
                 cmd.Parameters.AddWithValue("@pass", pass);
-                SqlDataReader reader = cmd.ExecuteReader();
+                MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
                     u.Id = (int)reader["id_usuario"];
@@ -257,7 +257,17 @@ namespace Data.Database
                     u.Nombre = (string)reader["nombre"];
                     u.Apellido = (string)reader["apellido"];
                     u.Email = (string)reader["email"];
-                    //u.IdPersona = (int)reader["id_persona"];
+                    u.CambiaClave = (bool)reader["cambia_clave"];
+
+                    if (!(reader["id_persona"].Equals(System.DBNull.Value)))
+                    {
+                        u.IdPersona = (int)reader["id_persona"];
+                    }
+                    else
+                    {
+                        u.IdPersona = 0;
+                    }
+
                     return u;
                 }
                 reader.Close();

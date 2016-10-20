@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Entities;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace Data.Database
 {
@@ -18,8 +18,8 @@ namespace Data.Database
            try
            {
                this.OpenConnection();
-               SqlCommand cmd = new SqlCommand("SELECT * FROM especialidades", sqlConn);
-               SqlDataReader reader = cmd.ExecuteReader();
+               MySqlCommand cmd = new MySqlCommand("SELECT * FROM especialidades", MySqlConn);
+               MySqlDataReader reader = cmd.ExecuteReader();
                while(reader.Read())
                {
                    Especialidad e = new Especialidad();
@@ -48,9 +48,9 @@ namespace Data.Database
            try
            {
                this.OpenConnection();
-               SqlCommand cmd = new SqlCommand("SELECT * FROM especialidades WHERE id_especialidad = @id", sqlConn);
+               MySqlCommand cmd = new MySqlCommand("SELECT * FROM especialidades WHERE id_especialidad = @id", MySqlConn);
                cmd.Parameters.AddWithValue("@id", id);
-               SqlDataReader reader = cmd.ExecuteReader();
+               MySqlDataReader reader = cmd.ExecuteReader();
                if (reader.Read())
                {                   
                    e.Id = id;
@@ -93,7 +93,7 @@ namespace Data.Database
            try
            {
                this.OpenConnection();
-               SqlCommand cmd = new SqlCommand("INSERT INTO especialidades (desc_especialidad) VALUES (@descripcion); SELECT @@IDENTITY;", sqlConn);
+               MySqlCommand cmd = new MySqlCommand("INSERT INTO especialidades (desc_especialidad) VALUES (@descripcion); SELECT @@IDENTITY;", MySqlConn);
                cmd.Parameters.AddWithValue("@descripcion", e.Descripcion);
                cmd.ExecuteNonQuery();                           
            }
@@ -112,7 +112,7 @@ namespace Data.Database
            try
            {
                this.OpenConnection();
-               SqlCommand cmd = new SqlCommand("UPDATE especialidades SET desc_especialidad = @descripcion WHERE id_especialidad = @idEspecialidad", sqlConn);
+               MySqlCommand cmd = new MySqlCommand("UPDATE especialidades SET desc_especialidad = @descripcion WHERE id_especialidad = @idEspecialidad", MySqlConn);
                cmd.Parameters.AddWithValue("@descripcion", e.Descripcion);
                cmd.Parameters.AddWithValue("@idESpecialidad", e.Id);
                cmd.ExecuteNonQuery();
@@ -133,7 +133,7 @@ namespace Data.Database
            {
                this.OpenConnection();
 
-               SqlCommand cmd = new SqlCommand("DELETE FROM especialidades WHERE id_especialidad = @id", sqlConn);
+               MySqlCommand cmd = new MySqlCommand("DELETE FROM especialidades WHERE id_especialidad = @id", MySqlConn);
                cmd.Parameters.AddWithValue("@id", id);
                cmd.ExecuteNonQuery();
            }

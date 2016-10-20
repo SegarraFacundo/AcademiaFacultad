@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Entities;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace Data.Database
 {
@@ -16,9 +16,9 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();                
-                SqlCommand cmd = new SqlCommand("SELECT * FROM modulos_usuarios WHERE idUsuario = @idUsuario", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM modulos_usuarios WHERE idUsuario = @idUsuario", MySqlConn);
                 cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
-                SqlDataReader reader = cmd.ExecuteReader();
+                MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     ModuloUsuario moduloUsuario = new ModuloUsuario();

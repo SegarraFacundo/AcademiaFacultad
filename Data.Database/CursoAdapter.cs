@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Entities;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace Data.Database
 {
@@ -16,8 +16,8 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM cursos", sqlConn);
-                SqlDataReader reader = cmd.ExecuteReader();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM cursos", MySqlConn);
+                MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     Curso curso = new Curso();
@@ -50,9 +50,9 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM cursos WHERE id_curso = @id_curso", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM cursos WHERE id_curso = @id_curso", MySqlConn);
                 cmd.Parameters.AddWithValue("@id_curso", Id);
-                SqlDataReader reader = cmd.ExecuteReader();
+                MySqlDataReader reader = cmd.ExecuteReader();
 
                 if (reader.Read())
                 {
@@ -82,7 +82,7 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("DELETE FROM cursos WHERE id_curso=@id_curso", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM cursos WHERE id_curso=@id_curso", MySqlConn);
                 cmd.Parameters.AddWithValue("@id_curso", Id);
                 cmd.ExecuteNonQuery();
 
@@ -104,8 +104,8 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("UPDATE cursos SET anio_calendario=@anio_calendario, cupo=@cupo, id_comision=@id_comision, id_materia=@id_materia " +
-                "WHERE id_curso= @id_curso", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("UPDATE cursos SET anio_calendario=@anio_calendario, cupo=@cupo, id_comision=@id_comision, id_materia=@id_materia " +
+                "WHERE id_curso= @id_curso", MySqlConn);
                 cmd.Parameters.AddWithValue("@id_curso", curso.Id);
                 cmd.Parameters.AddWithValue("@anio_calendario", curso.AnioCalendario);
                 cmd.Parameters.AddWithValue("@cupo", curso.Cupo);
@@ -130,8 +130,8 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmd = new SqlCommand("INSERT INTO cursos (anio_calendario, cupo, id_comision, id_materia) VALUES (@anio_calendario, @cupo,@id_comision, @id_materia) " +
-                    " SELECT @@IDENTITY", sqlConn);
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO cursos (anio_calendario, cupo, id_comision, id_materia) VALUES (@anio_calendario, @cupo,@id_comision, @id_materia) " +
+                    " SELECT @@IDENTITY", MySqlConn);
                 cmd.Parameters.AddWithValue("@anio_calendario", curso.AnioCalendario);
                 cmd.Parameters.AddWithValue("@cupo", curso.Cupo);
                 cmd.Parameters.AddWithValue("@id_comision", curso.IdComision);

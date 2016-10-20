@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Entities;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace Data.Database
 {
@@ -19,8 +19,8 @@ namespace Data.Database
            try
            {
                this.OpenConnection();
-               SqlCommand cmd = new SqlCommand("SELECT * FROM personas", sqlConn);
-               SqlDataReader reader = cmd.ExecuteReader();
+               MySqlCommand cmd = new MySqlCommand("SELECT * FROM personas", MySqlConn);
+               MySqlDataReader reader = cmd.ExecuteReader();
                while (reader.Read())
                {
                    Persona p = new Persona();
@@ -54,9 +54,9 @@ namespace Data.Database
            try
            {
                this.OpenConnection();
-               SqlCommand cmd = new SqlCommand("SELECT * FROM personas WHERE id_persona = @ID", sqlConn);
+               MySqlCommand cmd = new MySqlCommand("SELECT * FROM personas WHERE id_persona = @ID", MySqlConn);
                cmd.Parameters.AddWithValue("@ID", ID);
-               SqlDataReader reader = cmd.ExecuteReader();
+               MySqlDataReader reader = cmd.ExecuteReader();
                if (reader.Read())
                {
                    p.Id = (int)reader["id_persona"];
@@ -87,8 +87,8 @@ namespace Data.Database
            try
            {
                this.OpenConnection();
-               SqlCommand cmd = new SqlCommand("INSERT INTO personas (nombre, apellido, direccion, email, telefono, fecha_nac, legajo, tipo_persona, id_plan) " +
-               "VALUES (@nombre, @apellido, @direccion, @email, @telefono, @fecha_nac, @legajo, @tipo_persona, @id_plan) SELECT @@IDENTITY;", sqlConn);               
+               MySqlCommand cmd = new MySqlCommand("INSERT INTO personas (nombre, apellido, direccion, email, telefono, fecha_nac, legajo, tipo_persona, id_plan) " +
+               "VALUES (@nombre, @apellido, @direccion, @email, @telefono, @fecha_nac, @legajo, @tipo_persona, @id_plan) SELECT @@IDENTITY;", MySqlConn);               
                cmd.Parameters.AddWithValue("@nombre", p.Nombre);
                cmd.Parameters.AddWithValue("@apellido", p.Apellido);
                cmd.Parameters.AddWithValue("@direccion", p.Direccion);
@@ -115,8 +115,8 @@ namespace Data.Database
            try
            {
                this.OpenConnection();
-               SqlCommand cmd = new SqlCommand("UPDATE personas SET id_persona=@id_persona, nombre=@nombre, apellido=@apellido, direccion=@direccion, email=@email, telefono=@telefono" +
-               "fecha_nac=@fecha_nac, legajo=@legajo, tipo_persona=@tipo_persona, id_plan=@id_plan WHERE id_persona=@id_persona", sqlConn);
+               MySqlCommand cmd = new MySqlCommand("UPDATE personas SET id_persona=@id_persona, nombre=@nombre, apellido=@apellido, direccion=@direccion, email=@email, telefono=@telefono" +
+               "fecha_nac=@fecha_nac, legajo=@legajo, tipo_persona=@tipo_persona, id_plan=@id_plan WHERE id_persona=@id_persona", MySqlConn);
                cmd.Parameters.AddWithValue("@id_persona", p.Id);
                cmd.Parameters.AddWithValue("@nombre", p.Nombre);
                cmd.Parameters.AddWithValue("@apellido", p.Apellido);
@@ -145,7 +145,7 @@ namespace Data.Database
            try
            {
                this.OpenConnection();
-               SqlCommand cmd = new SqlCommand("DELETE FROM personas WHERE id_persona = @id_persona", sqlConn);
+               MySqlCommand cmd = new MySqlCommand("DELETE FROM personas WHERE id_persona = @id_persona", MySqlConn);
                cmd.Parameters.AddWithValue("@id_persona", ID);
                cmd.ExecuteNonQuery();
            }
@@ -186,8 +186,8 @@ namespace Data.Database
            try
            {
                this.OpenConnection();
-               SqlCommand cmd = new SqlCommand("SELECT MAX(legajo) FROM personas", sqlConn);
-               SqlDataReader reader = cmd.ExecuteReader();
+               MySqlCommand cmd = new MySqlCommand("SELECT MAX(legajo) FROM personas", MySqlConn);
+               MySqlDataReader reader = cmd.ExecuteReader();
                if (reader.Read())
                {
                    legajo = (int)reader["legajo"];

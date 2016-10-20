@@ -1,32 +1,32 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Configuration;
 
 namespace Data.Database
 {
     public class Adapter
     {
-        //private SqlConnection sqlConnection = new SqlConnection("ConnectionString;");
+        //private MySqlConnection MySqlConnection = new MySqlConnection("ConnectionString;");
         const string consKeyDefaultCnnString = "ConnStringLocal";
 
-        public SqlConnection sqlConn;
+        public MySqlConnection MySqlConn;
         protected void OpenConnection()
         {
             var conString = ConfigurationManager.ConnectionStrings[consKeyDefaultCnnString].ConnectionString;
-            sqlConn = new SqlConnection(conString);
-            sqlConn.Open();
+            MySqlConn = new MySqlConnection(conString);
+            MySqlConn.Open();
         }
 
         protected void CloseConnection()
         {
-            sqlConn.Close();
-            sqlConn = null;
+            MySqlConn.Close();
+            MySqlConn = null;
         }
 
 
-        protected SqlDataReader ExecuteReader(String commandText)
+        protected MySqlDataReader ExecuteReader(String commandText)
         {
             throw new Exception("Metodo no implementado");
         }
