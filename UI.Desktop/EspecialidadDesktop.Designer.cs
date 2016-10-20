@@ -1,6 +1,6 @@
 ﻿namespace UI.Desktop
 {
-    partial class EspecialidadesDesktop
+    partial class EspecialidadDesktop
     {
         /// <summary>
         /// Required designer variable.
@@ -153,7 +153,7 @@
             this.txtPlan.Size = new System.Drawing.Size(207, 20);
             this.txtPlan.TabIndex = 13;
             // 
-            // EspecialidadesDesktop
+            // EspecialidadDesktop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -161,8 +161,8 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "EspecialidadesDesktop";
-            this.Text = "EspecialidadesDesktop";
+            this.Name = "EspecialidadDesktop";
+            this.Text = "EspecialidadDesktop";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

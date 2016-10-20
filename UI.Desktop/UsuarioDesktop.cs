@@ -33,9 +33,6 @@ namespace UI.Desktop
             this.MapearDeDatos();
         }
 
-
-
-
         public override void MapearDeDatos()
         {
             this.txtId.Text = this.UsuarioActual.Id.ToString();
@@ -147,8 +144,10 @@ namespace UI.Desktop
             
             return true; 
         }
-#region "Basura de los controles"
-#endregion
+
+        #region "Bbsura de los controles"
+        #endregion
+
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -197,7 +196,7 @@ namespace UI.Desktop
         private void btnAceptar_Click(object sender, EventArgs e)
         {
            if  (this.Validar()) {
-               GuardarCambios();
+               this.GuardarCambios();
                this.Close();
            }
         }

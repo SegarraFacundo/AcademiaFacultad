@@ -36,7 +36,20 @@ namespace Business.Logic
         }
         public void Save(Persona p)
         {
+
+            //Obtenemos el ultimo plan
+            Plan plan = new Plan();
+            
+
             PersonaData.Save(p);
+        }
+
+        public int obtenerProximoLegajo()
+        {
+            PersonaData = new PersonaAdapter();
+            int legajo = PersonaData.obtenerUltimoLegajo();
+            legajo = +1;
+            return legajo;
         }
     }
 }

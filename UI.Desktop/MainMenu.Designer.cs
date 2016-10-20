@@ -113,6 +113,7 @@
             this.menuAlumnosToolStripMenuItem.Name = "menuAlumnosToolStripMenuItem";
             this.menuAlumnosToolStripMenuItem.Size = new System.Drawing.Size(101, 20);
             this.menuAlumnosToolStripMenuItem.Text = "Menu Alumnos";
+            this.menuAlumnosToolStripMenuItem.Click += new System.EventHandler(this.menuAlumnosToolStripMenuItem_Click);
             // 
             // MainMenu
             // 

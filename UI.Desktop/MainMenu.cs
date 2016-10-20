@@ -33,6 +33,10 @@ namespace UI.Desktop
             frmEspecialidades.ShowDialog();
         }
 
-
+        private void menuAlumnosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Personas frmPersonas = new Personas();
+            frmPersonas.ShowDialog();
+        }
     }
 }

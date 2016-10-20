@@ -42,7 +42,7 @@ namespace UI.Desktop
 
         private void tsbNuevo_Click(object sender, EventArgs e)
         {
-            EspecialidadesDesktop frmEspecialidadesDesktop = new EspecialidadesDesktop(ApplicationForm.ModoForm.Alta);
+            EspecialidadDesktop frmEspecialidadesDesktop = new EspecialidadDesktop(ApplicationForm.ModoForm.Alta);
             frmEspecialidadesDesktop.ShowDialog();
             this.listar();
         }
@@ -52,7 +52,7 @@ namespace UI.Desktop
             if (base.ValidarDGV(dgvEspecialidades))
             {
                 int ID = ((Business.Entities.Especialidad)this.dgvEspecialidades.SelectedRows[0].DataBoundItem).Id;
-                EspecialidadesDesktop frmEspecialidadesDesktop = new EspecialidadesDesktop(ID, ModoForm.Modificacion);
+                EspecialidadDesktop frmEspecialidadesDesktop = new EspecialidadDesktop(ID, ModoForm.Modificacion);
                 frmEspecialidadesDesktop.ShowDialog();
                 this.listar();
             }
@@ -63,7 +63,7 @@ namespace UI.Desktop
             if (base.ValidarDGV(dgvEspecialidades))
             {
                 int ID = ((Business.Entities.Especialidad)this.dgvEspecialidades.SelectedRows[0].DataBoundItem).Id;
-                EspecialidadesDesktop frmEspecialidadesDesktop = new EspecialidadesDesktop(ID, ModoForm.Baja);
+                EspecialidadDesktop frmEspecialidadesDesktop = new EspecialidadDesktop(ID, ModoForm.Baja);
                 frmEspecialidadesDesktop.MapearADatos();
                 frmEspecialidadesDesktop.Show();
             }

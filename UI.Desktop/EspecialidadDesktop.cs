@@ -12,19 +12,19 @@ using Business.Logic;
 
 namespace UI.Desktop
 {
-    public partial class EspecialidadesDesktop : ApplicationForm
+    public partial class EspecialidadDesktop : ApplicationForm
     {
         public Especialidad e;
-        public EspecialidadesDesktop()
+        public EspecialidadDesktop()
         {
             InitializeComponent();
         }
 
-        public EspecialidadesDesktop (ModoForm modo) : this()
+        public EspecialidadDesktop (ModoForm modo) : this()
         {
             this.Modo = modo;
         }
-        public EspecialidadesDesktop (int id, ModoForm modo) : this(){
+        public EspecialidadDesktop (int id, ModoForm modo) : this(){
             this.Modo = modo;
             this.e = new EspecialidadLogic().GetOne(id);
             this.MapearDeDatos();

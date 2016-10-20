@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.Desktop", "UI.Desktop\UI.Desktop.csproj", "{5B41AAAA-4AC4-4610-8CC4-907119A291C2}"
 EndProject
@@ -11,10 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Logic", "Business.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util", "Util\Util.csproj", "{E745EA14-9BCC-41AF-82F0-99DA1508D0BA}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "UI.Web(1)", "UI.Web\", "{DF2E922A-E4CA-4AEE-B4B2-03049D566E61}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "UI.Web", "UI.Web\", "{DF2E922A-E4CA-4AEE-B4B2-03049D566E61}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		ProjectReferences = "{8bbacaf9-563e-4b26-850e-3c30355adf66}|Business.Entities.dll;{cf1cd3c3-4263-4281-960e-2f9f27424081}|Business.Logic.dll;{18D1C50F-58E0-4D94-B05B-4A95A146E6BB}|Data.Database.dll;"
+		ProjectReferences = "{8bbacaf9-563e-4b26-850e-3c30355adf66}|Business.Entities.dll;{cf1cd3c3-4263-4281-960e-2f9f27424081}|Business.Logic.dll;{18D1C50F-58E0-4D94-B05B-4A95A146E6BB}|Data.Database.dll;{E745EA14-9BCC-41AF-82F0-99DA1508D0BA}|Util.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_56325"
 		Debug.AspNetCompiler.PhysicalPath = "UI.Web\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_56325\"

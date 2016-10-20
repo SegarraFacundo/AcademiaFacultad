@@ -178,5 +178,34 @@ namespace Data.Database
                p.State = BusinessEntity.States.Unmodified;
            }
        }
+
+       public int obtenerUltimoLegajo()
+       {
+           int legajo = 0;
+
+           try
+           {
+               this.OpenConnection();
+               SqlCommand cmd = new SqlCommand("SELECT MAX(legajo) FROM personas", sqlConn);
+               SqlDataReader reader = cmd.ExecuteReader();
+               if (reader.Read())
+               {
+                   legajo = (int)reader["legajo"];
+               }
+               reader.Close();
+           }
+           catch (Exception Ex)
+           {
+               Exception ExcepcionManejada = new Exception("Error al recuperar el legajo: ", Ex);
+               throw ExcepcionManejada;
+           }
+           finally
+           {
+               this.CloseConnection();
+           }
+
+           return legajo;
+
+       }
     }
 }
