@@ -30,6 +30,7 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.txtId = new System.Windows.Forms.TextBox();
+            this.lblApellido = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.txtNombre = new System.Windows.Forms.TextBox();
@@ -41,7 +42,6 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
             this.lblClave = new System.Windows.Forms.Label();
-            this.lblApellido = new System.Windows.Forms.Label();
             this.lblUsuario = new System.Windows.Forms.Label();
             this.lblConfirmarClave = new System.Windows.Forms.Label();
             this.lblId = new System.Windows.Forms.Label();
@@ -97,6 +97,19 @@
             this.txtId.Size = new System.Drawing.Size(129, 20);
             this.txtId.TabIndex = 0;
             this.txtId.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // lblApellido
+            // 
+            this.lblApellido.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblApellido.AutoSize = true;
+            this.lblApellido.Location = new System.Drawing.Point(238, 31);
+            this.lblApellido.Name = "lblApellido";
+            this.lblApellido.Size = new System.Drawing.Size(129, 31);
+            this.lblApellido.TabIndex = 14;
+            this.lblApellido.Text = "Apellido";
+            this.lblApellido.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnAceptar
             // 
@@ -222,19 +235,6 @@
             this.lblClave.TabIndex = 13;
             this.lblClave.Text = "Clave";
             this.lblClave.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblApellido
-            // 
-            this.lblApellido.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblApellido.AutoSize = true;
-            this.lblApellido.Location = new System.Drawing.Point(238, 31);
-            this.lblApellido.Name = "lblApellido";
-            this.lblApellido.Size = new System.Drawing.Size(129, 31);
-            this.lblApellido.TabIndex = 14;
-            this.lblApellido.Text = "Apellido";
-            this.lblApellido.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblUsuario
             // 
