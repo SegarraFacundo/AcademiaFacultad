@@ -26,6 +26,7 @@ namespace UI.Desktop
 
         private void listar()
         {
+            this.dgvEspecialidades.AutoGenerateColumns = false;
             EspecialidadLogic eLogic = new EspecialidadLogic();
             dgvEspecialidades.DataSource = eLogic.getAll();
         }
