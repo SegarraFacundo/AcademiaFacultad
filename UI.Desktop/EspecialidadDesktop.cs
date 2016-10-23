@@ -15,6 +15,7 @@ namespace UI.Desktop
     public partial class EspecialidadDesktop : ApplicationForm
     {
         public Especialidad e;
+
         public EspecialidadDesktop()
         {
             InitializeComponent();
@@ -28,13 +29,32 @@ namespace UI.Desktop
             this.Modo = modo;
             this.e = new EspecialidadLogic().GetOne(id);
             this.MapearDeDatos();
-
         }
 
         public override void MapearDeDatos()
         {
             txtNombre.Text = this.e.Descripcion;
             txtId.Text = this.e.Id.ToString();
+
+            switch (this.Modo)
+            {
+                case ModoForm.Baja:
+                    this.txtNombre.Enabled = false;
+                    this.txtId.Enabled = false;
+                    this.btnAceptar.Text = "Eliminar";
+                    break;
+                case ModoForm.Consulta:
+                    this.txtNombre.Enabled = false;
+                    this.txtId.Enabled = false;
+                    this.btnAceptar.Text = "Aceptar";
+                    break;
+                case ModoForm.Modificacion:
+                    this.btnAceptar.Text = "Guardar";
+                    break;
+                case ModoForm.Alta:
+                    this.btnAceptar.Text = "Guardar";
+                    break;
+            }
         }
 
         public override void MapearADatos()
