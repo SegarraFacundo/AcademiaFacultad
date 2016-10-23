@@ -36,11 +36,6 @@ namespace UI.Desktop
             this.listar();
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void tsbNuevo_Click(object sender, EventArgs e)
         {
             EspecialidadDesktop frmEspecialidadesDesktop = new EspecialidadDesktop(ApplicationForm.ModoForm.Alta);
@@ -71,9 +66,9 @@ namespace UI.Desktop
             
         }
 
-
-
-        
-
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
