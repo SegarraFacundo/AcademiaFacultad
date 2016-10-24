@@ -27,14 +27,19 @@ namespace UI.Desktop
         public AlumnoDesktop(ModoForm modo) : this()
         {
             this.Modo = modo;
+            AlumnoLogic alumnoLogic = new AlumnoLogic();
+            if (this.Modo == ModoForm.Alta)
+            {
+                AlumnoLogic alumnoLogico = new AlumnoLogic();
+                txtLegajo.Text = alumnoLogico.obtenerProximoLegajo().ToString();
+            }
+
             this.loadEspecialidades();
         }
 
         public AlumnoDesktop(int ID, ModoForm modo) : this()
         {
             this.Modo = modo;
-            this.loadEspecialidades();
-            this.AlumnoActual = new AlumnoLogic().GetOne(ID);
             this.MapearDeDatos();
         }
 
@@ -42,7 +47,7 @@ namespace UI.Desktop
         {
 
 
-            if (txtApellido.Text == "" || txtNombre.Text == "" || dtpFechaNacimiento.Text == "")
+            if (txtApellido.Text == "" || txtNombre.Text == "" || dtpFechaNacimiento.Text == "" || cbPlan.SelectedItem == null)
             {
                 Notificar("Atención", "Primero complete todos los datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
@@ -68,6 +73,9 @@ namespace UI.Desktop
             this.txtTelefono.Text = this.AlumnoActual.Telefono;
             this.dtpFechaNacimiento.Value = this.AlumnoActual.FechaNacimiento;
             this.txtLegajo.Text = this.AlumnoActual.Legajo.ToString();
+
+           
+            
             //this.cbPlan.SelectedValue = this.AlumnoActual.IdPlan;
 
             switch (this.Modo)
@@ -119,6 +127,7 @@ namespace UI.Desktop
                     a.Telefono = this.txtTelefono.Text;
                     a.FechaNacimiento = this.dtpFechaNacimiento.Value;
                     a.State = TiposDatos.States.New;
+                    
                     this.AlumnoActual = a;
                     break;
                 case ModoForm.Consulta:

@@ -16,12 +16,19 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                MySqlCommand cmd = new MySqlCommand("SELECT MAX(legajo) FROM personas AND tipo_persona=@tipoPersona", MySqlConn);
+                MySqlCommand cmd = new MySqlCommand("SELECT MAX(legajo) AS legajo FROM personas WHERE tipo_persona=@tipoPersona", MySqlConn);
                 cmd.Parameters.AddWithValue("@tipoPersona", tipoPersona);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    legajo = (int)reader["legajo"];
+                    if (!(reader["legajo"].Equals(DBNull.Value)))
+                    {
+                        legajo = (int)reader["legajo"];
+                    }
+                    else
+                    {
+                        legajo = 0;
+                    }
                 }
                 reader.Close();
             }

@@ -28,7 +28,14 @@ namespace UI.Desktop
         {
             this.dgvEspecialidades.AutoGenerateColumns = false;
             EspecialidadLogic eLogic = new EspecialidadLogic();
-            dgvEspecialidades.DataSource = eLogic.getAll();
+            try
+            {
+                dgvEspecialidades.DataSource = eLogic.getAll();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
