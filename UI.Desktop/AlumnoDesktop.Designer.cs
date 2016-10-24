@@ -243,6 +243,7 @@
             // txtLegajo
             // 
             this.txtLegajo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLegajo.Enabled = false;
             this.txtLegajo.Location = new System.Drawing.Point(513, 53);
             this.txtLegajo.Name = "txtLegajo";
             this.txtLegajo.Size = new System.Drawing.Size(166, 20);
