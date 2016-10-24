@@ -35,8 +35,8 @@ namespace UI.Desktop
 
         private void menuAlumnosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Personas frmPersonas = new Personas();
-            frmPersonas.ShowDialog();
+            Alumnos frmAlumnos = new Alumnos();
+            frmAlumnos.ShowDialog();
         }
     }
 }
