@@ -14,6 +14,7 @@ namespace UI.Desktop
 {
     public partial class LogIn : ApplicationForm
     {
+        private Usuario currentUser;
         public LogIn()
         {
             InitializeComponent();
@@ -31,8 +32,17 @@ namespace UI.Desktop
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            UsuarioLogic UserLogic = new UsuarioLogic();
-            Usuario currentUser = UserLogic.LogIn(txtUser.Text, txtPass.Text);
+            try
+            {
+                UsuarioLogic UserLogic = new UsuarioLogic();
+                currentUser = UserLogic.LogIn(txtUser.Text, txtPass.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }          
+           
 
             if (currentUser == null) {
                 Notificar("Error", "Error de incio de seción, credenciales incorrectas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -63,6 +73,18 @@ namespace UI.Desktop
                 this.Close();
             }
         }
+
+        private void txtPass_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnIngresar_Click(null, null);
+            }
+
+
+        }
+
+
 
     }
 }

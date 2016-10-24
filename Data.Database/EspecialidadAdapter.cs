@@ -25,7 +25,7 @@ namespace Data.Database
                {
                    Especialidad e = new Especialidad();
                    e.Id = (int)reader["id_especialidad"];
-                   e.Descripcion = (string)reader["desc_especialidadgg"];
+                   e.Descripcion = (string)reader["desc_especialidad"];
                    listaEspecialidades.Add(e);
                }
                reader.Close();
