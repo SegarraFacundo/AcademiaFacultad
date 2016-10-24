@@ -6,12 +6,13 @@ using System.Configuration;
 
 namespace Data.Database
 {
-    public class Adapter
+    public abstract class Adapter
     {
         //private MySqlConnection MySqlConnection = new MySqlConnection("ConnectionString;");
         const string consKeyDefaultCnnString = "ConnStringLocal";
 
         public MySqlConnection MySqlConn;
+
         protected void OpenConnection()
         {
             var conString = ConfigurationManager.ConnectionStrings[consKeyDefaultCnnString].ConnectionString;
@@ -24,7 +25,6 @@ namespace Data.Database
             MySqlConn.Close();
             MySqlConn = null;
         }
-
 
         protected MySqlDataReader ExecuteReader(String commandText)
         {
