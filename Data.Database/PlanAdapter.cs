@@ -4,7 +4,7 @@ using Business.Entities;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System;
-
+using Util;
 
 namespace Data.Database
 {
@@ -119,7 +119,6 @@ namespace Data.Database
             }
         }
 
-
         protected void Insert(Plan plan)
         {
             try
@@ -143,24 +142,59 @@ namespace Data.Database
                 this.CloseConnection();
             }
         }
+
         public void Save(Plan plan)
         {
-            if (plan.State == BusinessEntity.States.New)
+            if (plan.State == TiposDatos.States.New)
             {
                 this.Insert(plan);
             }
-            else if (plan.State == BusinessEntity.States.Deleted)
+            else if (plan.State == TiposDatos.States.Deleted)
             {
                 this.Delete(plan.Id);
             }
-            else if (plan.State == BusinessEntity.States.Modified)
+            else if (plan.State == TiposDatos.States.Modified)
             {
                 this.Update(plan);
             }
             else
             {
-                plan.State = BusinessEntity.States.Unmodified;
+                plan.State = TiposDatos.States.Unmodified;
             }
+        }
+
+        public List<Plan> GetByEspecialidad(int idEspecialidad)
+        {
+            List<Plan> planes = new List<Plan>();
+            try
+            {
+                this.OpenConnection();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM planes WHERE id_especialidad = @idEspecialidad;", MySqlConn);
+                cmd.Parameters.AddWithValue("@idEspecialidad", idEspecialidad);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Plan currentPlan = new Plan();
+                    currentPlan.Id = (int)reader["id_plan"];
+                    currentPlan.IdEspecialidad = (int)reader["id_especialidad"];
+                    currentPlan.Descripcion = (string)reader["desc_plan"];
+                    planes.Add(currentPlan);
+                }
+                reader.Close();
+
+            }
+            catch (Exception Ex)
+            {
+                Exception ExcepcionManejada = new Exception("Error al recuperar lista de planes por la especialidad", Ex);
+                throw ExcepcionManejada;
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+            return planes;
+
         }
 
     }

@@ -40,5 +40,10 @@ namespace Business.Logic
             PlanData.Delete(id);
         }
 
+        public List<Plan> GetByEspecialidad(int idEspecialidad)
+        {
+            return PlanData.GetByEspecialidad(idEspecialidad);
+        }
+
     }
 }
