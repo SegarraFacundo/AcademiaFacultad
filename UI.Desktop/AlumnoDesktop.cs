@@ -27,19 +27,21 @@ namespace UI.Desktop
         public AlumnoDesktop(ModoForm modo) : this()
         {
             this.Modo = modo;
-            AlumnoLogic alumnoLogic = new AlumnoLogic();
+
             if (this.Modo == ModoForm.Alta)
             {
                 AlumnoLogic alumnoLogico = new AlumnoLogic();
                 txtLegajo.Text = alumnoLogico.obtenerProximoLegajo().ToString();
             }
-
             this.loadEspecialidades();
+            this.MapearDeDatos();
         }
 
         public AlumnoDesktop(int ID, ModoForm modo) : this()
         {
             this.Modo = modo;
+            this.AlumnoActual = new AlumnoLogic().GetOne(ID);
+            this.loadEspecialidades();
             this.MapearDeDatos();
         }
 
