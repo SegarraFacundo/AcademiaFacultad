@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Util;
 
 namespace Business.Entities
 {
-    public class Persona : BusinessEntity
+    abstract public class Persona : BusinessEntity
     {
         private string _Nombre;
         public string Nombre
@@ -43,13 +44,6 @@ namespace Business.Entities
             set { _Telefono = value; }
         }
 
-        private int _IdPlan;
-        public int IdPlan
-        {
-            get { return _IdPlan; }
-            set { _IdPlan = value; }
-        }
-
         private int _Legajo;
         public int Legajo
         {
@@ -64,17 +58,11 @@ namespace Business.Entities
             set { _FechaNacimiento = value; }
         }
 
-        private TiposPersona _TipoPersona;
-        public TiposPersona TipoPersona
+        private TiposDatos.TiposDePersona _TipoDePersona;
+        protected TiposDatos.TiposDePersona TipoDePersona
         {
-            get { return _TipoPersona; }
-            set { _TipoPersona = value; }
-        }
-
-        public enum TiposPersona
-        {
-           Docente,
-           Alumno
+            get { return _TipoDePersona; }
+            set { _TipoDePersona = value; }
         }
     }
 }
