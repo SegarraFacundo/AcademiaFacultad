@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Business.Entities;
 using MySql.Data.MySqlClient;
+using Util;
 
 namespace Data.Database
 {
@@ -143,17 +144,17 @@ namespace Data.Database
 
             switch (dictado.State)
             {
-                case BusinessEntity.States.New:
+                case TiposDatos.States.New:
                     this.Insert(dictado);
                     break;
-                case BusinessEntity.States.Modified:
+                case TiposDatos.States.Modified:
                     this.Update(dictado);
                     break;
-                case BusinessEntity.States.Deleted:
+                case TiposDatos.States.Deleted:
                     this.Delete(dictado.Id);
                     break;
                 default:
-                    dictado.State = BusinessEntity.States.Unmodified;
+                    dictado.State = TiposDatos.States.Unmodified;
                     break;
             }
         }

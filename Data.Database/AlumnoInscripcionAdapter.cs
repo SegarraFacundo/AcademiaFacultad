@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Business.Entities;
 using MySql.Data.MySqlClient;
+using Util;
 
 namespace Data.Database
 {
@@ -143,17 +144,17 @@ namespace Data.Database
         public void Save(AlumnoInscripto inscripcion) {
 
             switch (inscripcion.State ) {
-                case BusinessEntity.States.New:
+                case TiposDatos.States.New:
                     this.Insert(inscripcion);
                     break;
-                case BusinessEntity.States.Modified:
+                case TiposDatos.States.Modified:
                     this.Update(inscripcion);
                     break;
-                case BusinessEntity.States.Deleted:
+                case TiposDatos.States.Deleted:
                     this.Delete(inscripcion.Id);
                     break;
                 default:
-                    inscripcion.State = BusinessEntity.States.Unmodified;
+                    inscripcion.State = TiposDatos.States.Unmodified;
                     break;
             }
         }

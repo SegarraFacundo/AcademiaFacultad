@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Business.Entities;
 using Business.Logic;
+using Util;
 
 namespace UI.Desktop
 {
@@ -65,18 +66,18 @@ namespace UI.Desktop
                     Especialidad especialidadActual = new Especialidad();
                     especialidadActual.Descripcion = txtNombre.Text;
                     this.e = especialidadActual;
-                    this.e.State = BusinessEntity.States.New;
+                    this.e.State = TiposDatos.States.New;
 
                     break;
                 case ModoForm.Baja:
-                    e.State = BusinessEntity.States.Deleted;
+                    e.State = TiposDatos.States.Deleted;
                     break;
                 case ModoForm.Modificacion:
                     e.Descripcion = txtNombre.Text;
-                    this.e.State = BusinessEntity.States.Modified;
+                    this.e.State = TiposDatos.States.Modified;
                     break;
                 default:
-                    this.e.State = BusinessEntity.States.Unmodified;
+                    this.e.State = TiposDatos.States.Unmodified;
                     break;
             }
 

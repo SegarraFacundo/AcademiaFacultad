@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Business.Entities;
 using MySql.Data.MySqlClient;
+using Util;
 
 namespace Data.Database
 {
@@ -152,21 +153,21 @@ namespace Data.Database
 
         public void Save(Curso curso)
         {
-            if (curso.State == BusinessEntity.States.New)
+            if (curso.State == TiposDatos.States.New)
             {
                 this.Insert(curso);
             }
-            else if(curso.State == BusinessEntity.States.Modified)
+            else if(curso.State == TiposDatos.States.Modified)
             {
                 this.Update(curso);
             }
-            else if (curso.State == BusinessEntity.States.Deleted)
+            else if (curso.State == TiposDatos.States.Deleted)
             {
                 this.Delete(curso.Id);
             }
             else
             {
-                curso.State = BusinessEntity.States.Unmodified;
+                curso.State = TiposDatos.States.Unmodified;
             }
         }
 

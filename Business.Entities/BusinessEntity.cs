@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Util;
+
 namespace Business.Entities
 {
     public class BusinessEntity
     {
         public BusinessEntity()
         {
-            this.State = States.New;
+            this.State = TiposDatos.States.New;
         }
 
         private int _Id;
@@ -20,19 +22,11 @@ namespace Business.Entities
             set { _Id = value; }
         }
 
-        private States _State;
-        public States State
+        private TiposDatos.States _State;
+        public TiposDatos.States State
         {
             get { return _State; }
             set { _State = value; }
-        }
-
-        public enum States
-        {
-            Deleted,
-            New,
-            Modified,
-            Unmodified
         }
     }
 

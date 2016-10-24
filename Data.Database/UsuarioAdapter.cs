@@ -4,7 +4,7 @@ using Business.Entities;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System;
-
+using Util;
 
 namespace Data.Database
 {
@@ -220,21 +220,21 @@ namespace Data.Database
         }
         public void Save(Usuario usuario)
         {
-            if (usuario.State == BusinessEntity.States.New)
+            if (usuario.State == TiposDatos.States.New)
             {
                 this.Insert(usuario);
             }
-            else if (usuario.State == BusinessEntity.States.Deleted)
+            else if (usuario.State == TiposDatos.States.Deleted)
             {
                 this.Delete(usuario.Id);
             }
-            else if (usuario.State == BusinessEntity.States.Modified)
+            else if (usuario.State == TiposDatos.States.Modified)
             {
                 this.Update(usuario);
             }
             else 
             {
-                usuario.State = BusinessEntity.States.Unmodified; 
+                usuario.State = TiposDatos.States.Unmodified; 
             }
         }
 

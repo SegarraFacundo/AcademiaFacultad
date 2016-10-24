@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Business.Entities;
 using Business.Logic;
+using Util;
 
 namespace UI.Desktop
 {
@@ -88,10 +89,10 @@ namespace UI.Desktop
                     usuario.NombreUsuario = this.txtUsuario.Text;
                     usuario.Clave = this.txtClave.Text;
                     this.UsuarioActual = usuario;
-                    this.UsuarioActual.State = BusinessEntity.States.New;
+                    this.UsuarioActual.State = TiposDatos.States.New;
                     break;
                 case ModoForm.Consulta:
-                    this.UsuarioActual.State = BusinessEntity.States.Unmodified;
+                    this.UsuarioActual.State = TiposDatos.States.Unmodified;
                     break;
                 case ModoForm.Modificacion:                    
                     this.UsuarioActual.Habilitado = this.chkHabilitado.Checked;
@@ -100,13 +101,13 @@ namespace UI.Desktop
                     this.UsuarioActual.Email = this.txtEmail.Text;
                     this.UsuarioActual.NombreUsuario = this.txtUsuario.Text;
                     this.UsuarioActual.Clave = this.txtClave.Text;
-                    this.UsuarioActual.State = BusinessEntity.States.Modified;
+                    this.UsuarioActual.State = TiposDatos.States.Modified;
                     break;
                 case ModoForm.Baja:
-                    this.UsuarioActual.State = BusinessEntity.States.Deleted;
+                    this.UsuarioActual.State = TiposDatos.States.Deleted;
                     break;
                 default:
-                    this.UsuarioActual.State = BusinessEntity.States.Unmodified;
+                    this.UsuarioActual.State = TiposDatos.States.Unmodified;
                     break;
             }
         }
