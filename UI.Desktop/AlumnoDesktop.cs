@@ -15,9 +15,10 @@ namespace UI.Desktop
 {
     public partial class AlumnoDesktop : ApplicationForm
     {
-        public Alumno AlumnoActual;
-
-        public List<Especialidad> especialidades;
+        private Alumno alumno;
+        private AlumnoLogic alumnoLogic = new AlumnoLogic();
+        private PlanLogic planLogic = new PlanLogic();
+        private EspecialidadLogic especialidadLogic = new EspecialidadLogic();
 
         public AlumnoDesktop()
         {
@@ -27,14 +28,19 @@ namespace UI.Desktop
         public AlumnoDesktop(ModoForm modo) : this()
         {
             this.Modo = modo;
+
+            if (this.Modo == ModoForm.Alta)
+            {
+                txtLegajo.Text = alumnoLogic.obtenerProximoLegajo().ToString();
+            }
             this.loadEspecialidades();
         }
 
         public AlumnoDesktop(int ID, ModoForm modo) : this()
         {
             this.Modo = modo;
+            this.alumno = alumnoLogic.GetOne(ID);
             this.loadEspecialidades();
-            this.AlumnoActual = new AlumnoLogic().GetOne(ID);
             this.MapearDeDatos();
         }
 
@@ -42,7 +48,7 @@ namespace UI.Desktop
         {
 
 
-            if (txtApellido.Text == "" || txtNombre.Text == "" || dtpFechaNacimiento.Text == "")
+            if (txtApellido.Text == "" || txtNombre.Text == "" || dtpFechaNacimiento.Text == "" || cbPlan.SelectedItem == null)
             {
                 Notificar("Atención", "Primero complete todos los datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
@@ -60,16 +66,19 @@ namespace UI.Desktop
 
         public override void MapearDeDatos()
         {
-            this.txtId.Text = this.AlumnoActual.Id.ToString();
-            this.txtApellido.Text = this.AlumnoActual.Apellido;
-            this.txtNombre.Text = this.AlumnoActual.Nombre;
-            this.txtDireccion.Text = this.AlumnoActual.Direccion;
-            this.txtEmail.Text = this.AlumnoActual.Email;
-            this.txtTelefono.Text = this.AlumnoActual.Telefono;
-            this.dtpFechaNacimiento.Value = this.AlumnoActual.FechaNacimiento;
-            this.txtLegajo.Text = this.AlumnoActual.Legajo.ToString();
-            //this.cbPlan.SelectedValue = this.AlumnoActual.IdPlan;
+            this.txtId.Text = this.alumno.Id.ToString();
+            this.txtApellido.Text = this.alumno.Apellido;
+            this.txtNombre.Text = this.alumno.Nombre;
+            this.txtDireccion.Text = this.alumno.Direccion;
+            this.txtEmail.Text = this.alumno.Email;
+            this.txtTelefono.Text = this.alumno.Telefono;
+            this.dtpFechaNacimiento.Value = this.alumno.FechaNacimiento;
+            this.txtLegajo.Text = this.alumno.Legajo.ToString();
 
+            Plan p = this.planLogic.GetOne(this.alumno.IdPlan);
+            this.cbPlan.SelectedValue = p.Id;
+            this.cbEspecialidad.SelectedValue = p.IdEspecialidad;
+            
             switch (this.Modo)
             {
                 case ModoForm.Baja:
@@ -119,30 +128,31 @@ namespace UI.Desktop
                     a.Telefono = this.txtTelefono.Text;
                     a.FechaNacimiento = this.dtpFechaNacimiento.Value;
                     a.State = TiposDatos.States.New;
-                    this.AlumnoActual = a;
+                    
+                    this.alumno = a;
                     break;
                 case ModoForm.Consulta:
-                    this.AlumnoActual.State = TiposDatos.States.Unmodified;
+                    this.alumno.State = TiposDatos.States.Unmodified;
                     break;
                 case ModoForm.Modificacion:
-                    this.AlumnoActual.Nombre = this.txtNombre.Text;
-                    this.AlumnoActual.Apellido = this.txtApellido.Text;
-                    this.AlumnoActual.Email = this.txtEmail.Text;
-                    this.AlumnoActual.Direccion = this.txtDireccion.Text;
-                    this.AlumnoActual.Legajo = Int32.Parse(this.txtLegajo.Text);
-                    this.AlumnoActual.Telefono = this.txtTelefono.Text;
-                    this.AlumnoActual.FechaNacimiento = this.dtpFechaNacimiento.Value;
+                    this.alumno.Nombre = this.txtNombre.Text;
+                    this.alumno.Apellido = this.txtApellido.Text;
+                    this.alumno.Email = this.txtEmail.Text;
+                    this.alumno.Direccion = this.txtDireccion.Text;
+                    this.alumno.Legajo = Int32.Parse(this.txtLegajo.Text);
+                    this.alumno.Telefono = this.txtTelefono.Text;
+                    this.alumno.FechaNacimiento = this.dtpFechaNacimiento.Value;
                     if (this.cbPlan.SelectedValue != null)
                     {
-                        this.AlumnoActual.IdPlan = Int32.Parse(this.cbPlan.SelectedValue.ToString());
+                        this.alumno.IdPlan = Int32.Parse(this.cbPlan.SelectedValue.ToString());
                     }
-                    this.AlumnoActual.State = TiposDatos.States.Modified;
+                    this.alumno.State = TiposDatos.States.Modified;
                     break;
                 case ModoForm.Baja:
-                    this.AlumnoActual.State = TiposDatos.States.Deleted;
+                    this.alumno.State = TiposDatos.States.Deleted;
                     break;
                 default:
-                    this.AlumnoActual.State = TiposDatos.States.Unmodified;
+                    this.alumno.State = TiposDatos.States.Unmodified;
                     break;
             }
         }
@@ -150,8 +160,7 @@ namespace UI.Desktop
         public override void GuardarCambios()
         {
             MapearADatos();
-            AlumnoLogic al = new AlumnoLogic();
-            al.Save(AlumnoActual);
+            alumnoLogic.Save(alumno);
 
         }
 
@@ -185,7 +194,8 @@ namespace UI.Desktop
             this.cbPlan.DisplayMember = "Descripcion";
             if(this.cbEspecialidad.SelectedValue != null)
             {
-                this.cbPlan.DataSource = new PlanLogic().GetByEspecialidad(Int32.Parse(this.cbEspecialidad.SelectedValue.ToString()));
+                int idEspecialidad = Int32.Parse(this.cbEspecialidad.SelectedValue.ToString());
+                this.cbPlan.DataSource = new PlanLogic().GetByEspecialidad(idEspecialidad);
                 this.cbPlan.Visible = true;
                 this.lblPlan.Visible = true;
             }
@@ -199,10 +209,9 @@ namespace UI.Desktop
 
         private void loadEspecialidades()
         {
-            this.especialidades = new EspecialidadLogic().getAll();
             this.cbEspecialidad.ValueMember = "Id";
             this.cbEspecialidad.DisplayMember = "Descripcion";
-            this.cbEspecialidad.DataSource = this.especialidades;
+            this.cbEspecialidad.DataSource = this.especialidadLogic.getAll();
         }
     }
 }

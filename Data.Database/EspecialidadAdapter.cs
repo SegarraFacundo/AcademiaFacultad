@@ -25,15 +25,15 @@ namespace Data.Database
                {
                    Especialidad e = new Especialidad();
                    e.Id = (int)reader["id_especialidad"];
-                   e.Descripcion = (string)reader["desc_especialidad"];
+                   e.Descripcion = (string)reader["desc_especialidadgg"];
                    listaEspecialidades.Add(e);
                }
                reader.Close();
            }
            catch (Exception ex)
            {
-               Exception excepcionManejada = new Exception("Error al recuperar las especialidades: ", ex);
-               throw ex;
+              Exception excepcionManejada = new Exception("Error al recuperar las especialidades: ", ex);
+              throw excepcionManejada;
            }
            finally
            {
