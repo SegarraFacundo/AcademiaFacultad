@@ -28,8 +28,15 @@ namespace UI.Desktop
         }
         public EspecialidadDesktop (int id, ModoForm modo) : this(){
             this.Modo = modo;
-            this.e = new EspecialidadLogic().GetOne(id);
-            this.MapearDeDatos();
+            try
+            {
+                this.e = new EspecialidadLogic().GetOne(id);
+                this.MapearDeDatos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public override void MapearDeDatos()
@@ -84,11 +91,19 @@ namespace UI.Desktop
         }
         public override void GuardarCambios()
         {
-            MapearADatos();
-            EspecialidadLogic el = new EspecialidadLogic();
-            el.Save(e);
-            Notificar("Información", "Cambios realizados exitosamente", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Close();
+            try
+            {
+                MapearADatos();
+                EspecialidadLogic el = new EspecialidadLogic();
+                el.Save(e);
+                Notificar("Información", "Cambios realizados exitosamente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

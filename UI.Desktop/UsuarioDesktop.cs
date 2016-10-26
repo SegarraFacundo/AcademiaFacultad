@@ -29,9 +29,17 @@ namespace UI.Desktop
 
         public UsuarioDesktop(int ID, ModoForm modo) : this()
         {
-            this.Modo = modo;
-            this.UsuarioActual = new UsuarioLogic().GetOne(ID);
-            this.MapearDeDatos();
+            try
+            {
+                this.Modo = modo;
+                this.UsuarioActual = new UsuarioLogic().GetOne(ID);
+                this.MapearDeDatos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         public override void MapearDeDatos()
@@ -114,9 +122,16 @@ namespace UI.Desktop
 
         public override void GuardarCambios()
         {
-            MapearADatos();
-            UsuarioLogic ul = new UsuarioLogic();
-            ul.Save(UsuarioActual);
+            try
+            {
+                MapearADatos();
+                UsuarioLogic ul = new UsuarioLogic();
+                ul.Save(UsuarioActual);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 

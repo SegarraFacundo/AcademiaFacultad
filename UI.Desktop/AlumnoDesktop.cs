@@ -31,7 +31,14 @@ namespace UI.Desktop
 
             if (this.Modo == ModoForm.Alta)
             {
-                txtLegajo.Text = alumnoLogic.obtenerProximoLegajo().ToString();
+                try
+                {
+                    txtLegajo.Text = alumnoLogic.obtenerProximoLegajo().ToString();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             this.loadEspecialidades();
         }
@@ -39,13 +46,20 @@ namespace UI.Desktop
         public AlumnoDesktop(int ID, ModoForm modo) : this()
         {
             this.Modo = modo;
-            this.alumno = alumnoLogic.GetOne(ID);
-            this.loadEspecialidades();
-            this.MapearDeDatos();
+            try
+            {
+                this.alumno = alumnoLogic.GetOne(ID);
+                this.loadEspecialidades();
+                this.MapearDeDatos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+                       
         }
 
-        public override bool Validar()
-        {
+        public override bool Validar()        {
 
 
             if (txtApellido.Text == "" || txtNombre.Text == "" || dtpFechaNacimiento.Text == "" || cbPlan.SelectedItem == null)
@@ -159,8 +173,16 @@ namespace UI.Desktop
 
         public override void GuardarCambios()
         {
-            MapearADatos();
-            alumnoLogic.Save(alumno);
+            try
+            {
+                MapearADatos();
+                alumnoLogic.Save(alumno);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+          
 
         }
 
@@ -212,6 +234,11 @@ namespace UI.Desktop
             this.cbEspecialidad.ValueMember = "Id";
             this.cbEspecialidad.DisplayMember = "Descripcion";
             this.cbEspecialidad.DataSource = this.especialidadLogic.getAll();
+        }
+
+        private void txtId_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
