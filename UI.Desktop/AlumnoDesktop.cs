@@ -235,5 +235,10 @@ namespace UI.Desktop
             this.cbEspecialidad.DisplayMember = "Descripcion";
             this.cbEspecialidad.DataSource = this.especialidadLogic.getAll();
         }
+
+        private void txtId_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
