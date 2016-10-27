@@ -10,15 +10,19 @@ using System.Windows.Forms;
 using Business.Entities;
 using Business.Logic;
 using Util;
+using Util.CustomException;
 
 namespace UI.Desktop
 {
     public partial class UsuarioDesktop : ApplicationForm
     {
-        public Usuario UsuarioActual;
+        private Usuario usuario;
+
+        private UsuarioLogic usuarioLogic;
         
         public UsuarioDesktop()
         {
+            this.usuarioLogic = new UsuarioLogic();
             InitializeComponent();
         }
 
@@ -29,57 +33,55 @@ namespace UI.Desktop
 
         public UsuarioDesktop(int ID, ModoForm modo) : this()
         {
-            try
-            {
-                this.Modo = modo;
-                this.UsuarioActual = new UsuarioLogic().GetOne(ID);
-                this.MapearDeDatos();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
+            this.Modo = modo;
+            this.InitializeWithData(ID);
         }
 
         public override void MapearDeDatos()
         {
-            this.txtId.Text = this.UsuarioActual.Id.ToString();
-            this.chkHabilitado.Checked = this.UsuarioActual.Habilitado;
-            this.txtNombre.Text = this.UsuarioActual.Nombre;
-            this.txtApellido.Text = this.UsuarioActual.Apellido;
-            this.txtEmail.Text = this.UsuarioActual.Email;
-            this.txtUsuario.Text = this.UsuarioActual.NombreUsuario;
-            this.txtClave.Text = this.UsuarioActual.Clave;
-            this.txtConfirmarClave.Text = this.UsuarioActual.Clave;
-            switch ( this.Modo)
+            if (this.usuario != null)
             {
-                case ModoForm.Baja:
-                    this.chkHabilitado.Enabled = false;
-                    this.txtClave.Enabled = false;
-                    this.txtConfirmarClave.Enabled = false;
-                    this.txtNombre.Enabled = false;
-                    this.txtApellido.Enabled = false;
-                    this.txtEmail.Enabled = false;
-                    this.txtUsuario.Enabled = false;
-                    this.btnAceptar.Text = "Eliminar";
-                    break;
-                case ModoForm.Consulta:
-                    this.chkHabilitado.Enabled = false;
-                    this.txtClave.Enabled = false;
-                    this.txtConfirmarClave.Enabled = false;
-                    this.txtNombre.Enabled = false;
-                    this.txtApellido.Enabled = false;
-                    this.txtEmail.Enabled = false;
-                    this.txtUsuario.Enabled = false;
-                    this.btnAceptar.Text = "Aceptar";
-                    break;
-                case ModoForm.Modificacion:
-                    this.btnAceptar.Text = "Guardar";
-                    break;
-                case ModoForm.Alta:
-                    this.btnAceptar.Text = "Guardar";
-                    break;
+                this.txtId.Text = this.usuario.Id.ToString();
+                this.chkHabilitado.Checked = this.usuario.Habilitado;
+                this.txtNombre.Text = this.usuario.Nombre;
+                this.txtApellido.Text = this.usuario.Apellido;
+                this.txtEmail.Text = this.usuario.Email;
+                this.txtUsuario.Text = this.usuario.NombreUsuario;
+                this.txtClave.Text = this.usuario.Clave;
+                this.txtConfirmarClave.Text = this.usuario.Clave;
+                switch (this.Modo)
+                {
+                    case ModoForm.Baja:
+                        this.chkHabilitado.Enabled = false;
+                        this.txtClave.Enabled = false;
+                        this.txtConfirmarClave.Enabled = false;
+                        this.txtNombre.Enabled = false;
+                        this.txtApellido.Enabled = false;
+                        this.txtEmail.Enabled = false;
+                        this.txtUsuario.Enabled = false;
+                        this.btnAceptar.Text = "Eliminar";
+                        break;
+                    case ModoForm.Consulta:
+                        this.chkHabilitado.Enabled = false;
+                        this.txtClave.Enabled = false;
+                        this.txtConfirmarClave.Enabled = false;
+                        this.txtNombre.Enabled = false;
+                        this.txtApellido.Enabled = false;
+                        this.txtEmail.Enabled = false;
+                        this.txtUsuario.Enabled = false;
+                        this.btnAceptar.Text = "Aceptar";
+                        break;
+                    case ModoForm.Modificacion:
+                        this.btnAceptar.Text = "Guardar";
+                        break;
+                    case ModoForm.Alta:
+                        this.btnAceptar.Text = "Guardar";
+                        break;
+                }
+            }
+            else
+            {
+                Notificar("No se pudo encontrar el usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -96,26 +98,26 @@ namespace UI.Desktop
                     usuario.Email = this.txtEmail.Text;
                     usuario.NombreUsuario = this.txtUsuario.Text;
                     usuario.Clave = this.txtClave.Text;
-                    this.UsuarioActual = usuario;
-                    this.UsuarioActual.State = TiposDatos.States.New;
+                    this.usuario = usuario;
+                    this.usuario.State = TiposDatos.States.New;
                     break;
                 case ModoForm.Consulta:
-                    this.UsuarioActual.State = TiposDatos.States.Unmodified;
+                    this.usuario.State = TiposDatos.States.Unmodified;
                     break;
                 case ModoForm.Modificacion:                    
-                    this.UsuarioActual.Habilitado = this.chkHabilitado.Checked;
-                    this.UsuarioActual.Nombre = this.txtNombre.Text;
-                    this.UsuarioActual.Apellido = this.txtApellido.Text;
-                    this.UsuarioActual.Email = this.txtEmail.Text;
-                    this.UsuarioActual.NombreUsuario = this.txtUsuario.Text;
-                    this.UsuarioActual.Clave = this.txtClave.Text;
-                    this.UsuarioActual.State = TiposDatos.States.Modified;
+                    this.usuario.Habilitado = this.chkHabilitado.Checked;
+                    this.usuario.Nombre = this.txtNombre.Text;
+                    this.usuario.Apellido = this.txtApellido.Text;
+                    this.usuario.Email = this.txtEmail.Text;
+                    this.usuario.NombreUsuario = this.txtUsuario.Text;
+                    this.usuario.Clave = this.txtClave.Text;
+                    this.usuario.State = TiposDatos.States.Modified;
                     break;
                 case ModoForm.Baja:
-                    this.UsuarioActual.State = TiposDatos.States.Deleted;
+                    this.usuario.State = TiposDatos.States.Deleted;
                     break;
                 default:
-                    this.UsuarioActual.State = TiposDatos.States.Unmodified;
+                    this.usuario.State = TiposDatos.States.Unmodified;
                     break;
             }
         }
@@ -125,19 +127,38 @@ namespace UI.Desktop
             try
             {
                 MapearADatos();
-                UsuarioLogic ul = new UsuarioLogic();
-                ul.Save(UsuarioActual);
+                this.usuarioLogic.Save(usuario);
             }
+            catch (NotFoundException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (InsertException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (DeleteException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (UpdateException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (CustomException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
 
         public override bool Validar()
         {
-           
 
             if (txtApellido.Text == "" || txtClave.Text == "" || txtConfirmarClave.Text == "" || txtEmail.Text == "" || txtNombre.Text == "" || txtUsuario.Text == "" ) 
             {
@@ -161,6 +182,27 @@ namespace UI.Desktop
             return true; 
         }
 
+        private void InitializeWithData(int ID)
+        {
+            try
+            {
+                this.usuario = this.usuarioLogic.GetOne(ID);
+                this.MapearDeDatos();
+            }
+            catch (NotFoundException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (CustomException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        
         #region "Bbsura de los controles"
         #endregion
 

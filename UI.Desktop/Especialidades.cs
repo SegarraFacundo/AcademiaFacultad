@@ -9,13 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Business.Entities;
 using Business.Logic;
+using Util;
+using Util.CustomException;
 
 namespace UI.Desktop
 {
     public partial class Especialidades : ApplicationForm
     {
+
+        private EspecialidadLogic especialidadLogic;
+
         public Especialidades()
         {
+            this.especialidadLogic = new EspecialidadLogic();
             InitializeComponent();
         }
 
@@ -27,14 +33,21 @@ namespace UI.Desktop
         private void listar()
         {
             this.dgvEspecialidades.AutoGenerateColumns = false;
-            EspecialidadLogic eLogic = new EspecialidadLogic();
             try
             {
-                dgvEspecialidades.DataSource = eLogic.getAll();
+                dgvEspecialidades.DataSource = this.especialidadLogic.GetAll();
+            }
+            catch (NotFoundException ex)
+            {
+                Notificar(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (CustomException ex)
+            {
+                Notificar(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Notificar(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -54,10 +67,25 @@ namespace UI.Desktop
         {
             if (base.ValidarDGV(dgvEspecialidades))
             {
-                int ID = ((Business.Entities.Especialidad)this.dgvEspecialidades.SelectedRows[0].DataBoundItem).Id;
-                EspecialidadDesktop frmEspecialidadesDesktop = new EspecialidadDesktop(ID, ModoForm.Modificacion);
-                frmEspecialidadesDesktop.ShowDialog();
-                this.listar();
+                try
+                {
+                    int ID = ((Business.Entities.Especialidad)this.dgvEspecialidades.SelectedRows[0].DataBoundItem).Id;
+                    EspecialidadDesktop frmEspecialidadesDesktop = new EspecialidadDesktop(ID, ModoForm.Modificacion);
+                    frmEspecialidadesDesktop.ShowDialog();
+                    this.listar();
+                }
+                catch (NotFoundException ex)
+                {
+                    Notificar(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (CustomException ex)
+                {
+                    Notificar(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    Notificar(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -65,10 +93,25 @@ namespace UI.Desktop
         {
             if (base.ValidarDGV(dgvEspecialidades))
             {
-                int ID = ((Business.Entities.Especialidad)this.dgvEspecialidades.SelectedRows[0].DataBoundItem).Id;
-                EspecialidadDesktop frmEspecialidadesDesktop = new EspecialidadDesktop(ID, ModoForm.Baja);
-                frmEspecialidadesDesktop.MapearADatos();
-                frmEspecialidadesDesktop.Show();
+                try
+                {
+                    int ID = ((Business.Entities.Especialidad)this.dgvEspecialidades.SelectedRows[0].DataBoundItem).Id;
+                    EspecialidadDesktop frmEspecialidadesDesktop = new EspecialidadDesktop(ID, ModoForm.Baja);
+                    frmEspecialidadesDesktop.MapearADatos();
+                    frmEspecialidadesDesktop.Show();
+                }
+                catch (NotFoundException ex)
+                {
+                    Notificar(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (CustomException ex)
+                {
+                    Notificar(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    Notificar(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             
         }

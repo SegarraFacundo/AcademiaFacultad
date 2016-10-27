@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Business.Entities;
 using Business.Logic;
 using Util;
+using Util.CustomException;
 
 namespace UI.Desktop
 {
@@ -34,13 +28,22 @@ namespace UI.Desktop
                 try
                 {
                     txtLegajo.Text = alumnoLogic.obtenerProximoLegajo().ToString();
+                    this.loadEspecialidades();
+                }
+                catch (NotFoundException ex)
+                {
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (CustomException ex)
+                {
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            this.loadEspecialidades();
+            
         }
 
         public AlumnoDesktop(int ID, ModoForm modo) : this()
@@ -52,11 +55,18 @@ namespace UI.Desktop
                 this.loadEspecialidades();
                 this.MapearDeDatos();
             }
+            catch (NotFoundException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (CustomException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-                       
         }
 
         public override bool Validar()        {
@@ -80,50 +90,58 @@ namespace UI.Desktop
 
         public override void MapearDeDatos()
         {
-            this.txtId.Text = this.alumno.Id.ToString();
-            this.txtApellido.Text = this.alumno.Apellido;
-            this.txtNombre.Text = this.alumno.Nombre;
-            this.txtDireccion.Text = this.alumno.Direccion;
-            this.txtEmail.Text = this.alumno.Email;
-            this.txtTelefono.Text = this.alumno.Telefono;
-            this.dtpFechaNacimiento.Value = this.alumno.FechaNacimiento;
-            this.txtLegajo.Text = this.alumno.Legajo.ToString();
-
-            Plan p = this.planLogic.GetOne(this.alumno.IdPlan);
-            this.cbPlan.SelectedValue = p.Id;
-            this.cbEspecialidad.SelectedValue = p.IdEspecialidad;
-            
-            switch (this.Modo)
+            if ( this.alumno != null )
             {
-                case ModoForm.Baja:
-                    this.txtNombre.Enabled = false;
-                    this.txtApellido.Enabled = false;
-                    this.txtEmail.Enabled = false;
-                    this.txtDireccion.Enabled = false;
-                    this.txtTelefono.Enabled = false;
-                    this.dtpFechaNacimiento.Enabled = false;
-                    this.cbPlan.Enabled = false;
-                    this.cbEspecialidad.Enabled = false;
-                    this.btnAceptar.Text = "Eliminar";
-                    break;
-                case ModoForm.Consulta:
-                    this.txtNombre.Enabled = false;
-                    this.txtApellido.Enabled = false;
-                    this.txtEmail.Enabled = false;
-                    this.txtDireccion.Enabled = false;
-                    this.txtTelefono.Enabled = false;
-                    this.dtpFechaNacimiento.Enabled = false;
-                    this.cbPlan.Enabled = false;
-                    this.cbEspecialidad.Enabled = false;
-                    this.btnAceptar.Text = "Aceptar";
-                    break;
-                case ModoForm.Modificacion:
-                    this.btnAceptar.Text = "Guardar";
-                    break;
-                case ModoForm.Alta:
-                    this.btnAceptar.Text = "Guardar";
-                    break;
+                this.txtId.Text = this.alumno.Id.ToString();
+                this.txtApellido.Text = this.alumno.Apellido;
+                this.txtNombre.Text = this.alumno.Nombre;
+                this.txtDireccion.Text = this.alumno.Direccion;
+                this.txtEmail.Text = this.alumno.Email;
+                this.txtTelefono.Text = this.alumno.Telefono;
+                this.dtpFechaNacimiento.Value = this.alumno.FechaNacimiento;
+                this.txtLegajo.Text = this.alumno.Legajo.ToString();
+
+                Plan p = this.planLogic.GetOne(this.alumno.IdPlan);
+                this.cbPlan.SelectedValue = p.Id;
+                this.cbEspecialidad.SelectedValue = p.IdEspecialidad;
+
+                switch (this.Modo)
+                {
+                    case ModoForm.Baja:
+                        this.txtNombre.Enabled = false;
+                        this.txtApellido.Enabled = false;
+                        this.txtEmail.Enabled = false;
+                        this.txtDireccion.Enabled = false;
+                        this.txtTelefono.Enabled = false;
+                        this.dtpFechaNacimiento.Enabled = false;
+                        this.cbPlan.Enabled = false;
+                        this.cbEspecialidad.Enabled = false;
+                        this.btnAceptar.Text = "Eliminar";
+                        break;
+                    case ModoForm.Consulta:
+                        this.txtNombre.Enabled = false;
+                        this.txtApellido.Enabled = false;
+                        this.txtEmail.Enabled = false;
+                        this.txtDireccion.Enabled = false;
+                        this.txtTelefono.Enabled = false;
+                        this.dtpFechaNacimiento.Enabled = false;
+                        this.cbPlan.Enabled = false;
+                        this.cbEspecialidad.Enabled = false;
+                        this.btnAceptar.Text = "Aceptar";
+                        break;
+                    case ModoForm.Modificacion:
+                        this.btnAceptar.Text = "Guardar";
+                        break;
+                    case ModoForm.Alta:
+                        this.btnAceptar.Text = "Guardar";
+                        break;
+                }
             }
+            else
+            {
+                Notificar("No se pudo encontrar el alumno", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
 
         }
 
@@ -178,11 +196,19 @@ namespace UI.Desktop
                 MapearADatos();
                 alumnoLogic.Save(alumno);
             }
+            catch ( NotFoundException ex )
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch ( CustomException ex )
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-          
+
 
         }
 
@@ -217,7 +243,24 @@ namespace UI.Desktop
             if(this.cbEspecialidad.SelectedValue != null)
             {
                 int idEspecialidad = Int32.Parse(this.cbEspecialidad.SelectedValue.ToString());
-                this.cbPlan.DataSource = new PlanLogic().GetByEspecialidad(idEspecialidad);
+
+                try
+                {
+                    this.cbPlan.DataSource = new PlanLogic().GetByEspecialidad(idEspecialidad);
+                }
+                catch (NotFoundException ex)
+                {
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (CustomException ex)
+                {
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
                 this.cbPlan.Visible = true;
                 this.lblPlan.Visible = true;
             }
@@ -233,7 +276,23 @@ namespace UI.Desktop
         {
             this.cbEspecialidad.ValueMember = "Id";
             this.cbEspecialidad.DisplayMember = "Descripcion";
-            this.cbEspecialidad.DataSource = this.especialidadLogic.getAll();
+
+            try
+            {
+                this.cbEspecialidad.DataSource = this.especialidadLogic.GetAll();
+            }
+            catch (NotFoundException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (CustomException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void txtId_TextChanged(object sender, EventArgs e)

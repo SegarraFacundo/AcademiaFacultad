@@ -10,13 +10,17 @@ using System.Windows.Forms;
 
 using Business.Entities;
 using Business.Logic;
+using Util.CustomException;
 
 namespace UI.Desktop
 {
     public partial class Alumnos : ApplicationForm
     {
+        private AlumnoLogic alumnoLogic;
+
         public Alumnos()
         {
+            this.alumnoLogic = new AlumnoLogic();
             InitializeComponent();
         }
 
@@ -33,8 +37,23 @@ namespace UI.Desktop
         public void Listar()
         {
             this.dgvAlumnos.AutoGenerateColumns = false;
-            AlumnoLogic al = new AlumnoLogic();
-            this.dgvAlumnos.DataSource = al.GetAll();
+
+            try
+            {
+                this.dgvAlumnos.DataSource = this.alumnoLogic.GetAll();
+            }
+            catch (NotFoundException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (CustomException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
@@ -58,10 +77,24 @@ namespace UI.Desktop
         {
             if (base.ValidarDGV(dgvAlumnos))
             {
-                int ID = ((Business.Entities.Alumno)this.dgvAlumnos.SelectedRows[0].DataBoundItem).Id;
-                AlumnoDesktop ad = new AlumnoDesktop(ID, ApplicationForm.ModoForm.Modificacion);
-                ad.MapearDeDatos();
-                ad.ShowDialog();
+                try
+                {
+                    int ID = ((Business.Entities.Alumno)this.dgvAlumnos.SelectedRows[0].DataBoundItem).Id;
+                    AlumnoDesktop ad = new AlumnoDesktop(ID, ApplicationForm.ModoForm.Modificacion);
+                    ad.ShowDialog();
+                }
+                catch (NotFoundException ex)
+                {
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (CustomException ex)
+                {
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -69,10 +102,24 @@ namespace UI.Desktop
         {
             if (base.ValidarDGV(dgvAlumnos))
             {
-                int ID = ((Business.Entities.Alumno)this.dgvAlumnos.SelectedRows[0].DataBoundItem).Id;
-                AlumnoDesktop ad = new AlumnoDesktop(ID, ApplicationForm.ModoForm.Baja);
-                ad.MapearDeDatos();
-                ad.ShowDialog();
+                try
+                {
+                    int ID = ((Business.Entities.Alumno)this.dgvAlumnos.SelectedRows[0].DataBoundItem).Id;
+                    AlumnoDesktop ad = new AlumnoDesktop(ID, ApplicationForm.ModoForm.Baja);
+                    ad.ShowDialog();
+                }
+                catch (NotFoundException ex)
+                {
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (CustomException ex)
+                {
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

@@ -9,14 +9,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Business.Logic;
 using Business.Entities;
+using Util;
+using Util.CustomException;
 
 namespace UI.Desktop
 {
     public partial class LogIn : ApplicationForm
     {
-        private Usuario currentUser;
+        private Usuario usuario;
+
+        private UsuarioLogic usuarioLogic;
+
         public LogIn()
         {
+            this.usuarioLogic = new UsuarioLogic();
             InitializeComponent();
         }
 
@@ -34,18 +40,24 @@ namespace UI.Desktop
         {
             try
             {
-                UsuarioLogic UserLogic = new UsuarioLogic();
-                currentUser = UserLogic.LogIn(txtUser.Text, txtPass.Text);
+                this.usuario = this.usuarioLogic.LogIn(txtUser.Text, txtPass.Text);
+            }
+            catch (NotFoundException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (CustomException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            }          
-           
 
-            if (currentUser == null) {
-                Notificar("Error", "Error de incio de seción, credenciales incorrectas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            if (this.usuario == null) {
+                Notificar("Error", "Error de inicio de sesión, credenciales incorrectas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 txtUser.Focus();
                 return;
             }
@@ -68,7 +80,7 @@ namespace UI.Desktop
                     Properties.Settings.Default.Save();
                 }
                 this.Hide();
-                MainMenu mainMenu = new MainMenu(currentUser);                
+                MainMenu mainMenu = new MainMenu(this.usuario);                
                 mainMenu.ShowDialog();
                 this.Close();
             }
