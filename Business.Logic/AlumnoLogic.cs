@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Business.Entities;
 using Data.Database;
+using Util.CustomException;
 
 namespace Business.Logic
 {
@@ -20,20 +21,55 @@ namespace Business.Logic
 
         public Alumno GetOne(int ID)
         {
-            Alumno a = AlumnoData.GetOne(ID);
-            return a;
+            try
+            {
+                Alumno a = AlumnoData.GetOne(ID);
+                return a;
+            }
+            catch (NotFoundException ex)
+            {
+                throw ex;
+            }
+            catch ( Exception ex)
+            {
+                throw new CustomException(ex);
+            }
+
         }
 
         public List<Alumno> GetAll()
-        {   
-            List<Alumno> ListaAlumno = AlumnoData.GetAll();
-            return ListaAlumno;
+        {
+            try
+            {
+                List<Alumno> ListaAlumno = AlumnoData.GetAll();
+                return ListaAlumno;
+            }
+            catch (NotFoundException ex)
+            {
+                throw ex;
+            }
+            catch ( Exception ex)
+            {
+                throw new CustomException(ex);
+            }
         }
 
         public void Delete(int ID)
         {
-           AlumnoData.Delete(ID);
+            try
+            { 
+                AlumnoData.Delete(ID);
+            }
+            catch ( DeleteException ex )
+            {
+                throw ex;
+            }
+            catch ( Exception ex )
+            {
+                throw new CustomException(ex);
+            }
         }
+
         public void Save(Alumno a)
         {
             AlumnoData.Save(a);
@@ -41,10 +77,22 @@ namespace Business.Logic
 
         public int obtenerProximoLegajo()
         {
-            AlumnoData = new AlumnoAdapter();
-            int legajo = AlumnoData.obtenerUltimoLegajo("alumno");
-            legajo = +1;
-            return legajo;
+            try
+            { 
+                int legajo = AlumnoData.obtenerUltimoLegajo("alumno");
+                if (legajo.Equals(0))
+                    throw new NotFoundException("legajo");
+                legajo += 1;
+                return legajo;
+            }
+            catch (NotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex);
+            }
         }
     }
 }
