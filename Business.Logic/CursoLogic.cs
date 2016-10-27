@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Business.Entities;
 using Data.Database;
-
+using Util.CustomException;
 
 namespace Business.Logic
 {
@@ -21,8 +21,20 @@ namespace Business.Logic
 
         public Curso GetOne(int ID)
         {
-            Curso curso = CursoData.GetOne(ID);
-            return curso;
+            try
+            {
+                Curso curso = CursoData.GetOne(ID);
+                return curso;
+            }
+            catch ( NotFoundException ex )
+            {
+                throw ex;
+            }
+            catch ( Exception ex )
+            {
+                throw new CustomException(ex);
+            }
+
         }
 
         public void Save(Curso c)
@@ -31,7 +43,18 @@ namespace Business.Logic
         }
         public void Delete(int ID) 
         {
-            CursoData.Delete(ID);
+            try
+            {
+                CursoData.Delete(ID);
+            }
+            catch (DeleteException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex);
+            }
         }
     }
 }
