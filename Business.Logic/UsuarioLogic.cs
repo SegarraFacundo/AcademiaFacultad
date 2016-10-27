@@ -5,44 +5,90 @@ using System.Text;
 using System.Threading.Tasks;
 using Data.Database;
 using Business.Entities;
+using Util.CustomException;
 
 namespace Business.Logic
 {
-    public class UsuarioLogic:BusinessLogic
+    public class UsuarioLogic : BusinessLogic
     {
 
-        private UsuarioAdapter UsuarioData;
+        private UsuarioAdapter usuarioData;
 
         public UsuarioLogic()
         {
-            UsuarioData = new UsuarioAdapter();
+            this.usuarioData = new UsuarioAdapter();
         }
 
         public Usuario GetOne(int id)
         {
-            Usuario usuario = UsuarioData.GetOne(id);
-            return usuario;
+            try
+            {
+                Usuario usuario = this.usuarioData.GetOne(id);
+                return usuario;
+            }
+            catch (NotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex);
+            }
         }
 
         public List<Usuario> GetAll()
         {
-            List<Usuario> usuarios = UsuarioData.GetAll();
-            return usuarios;
+            try
+            {
+                List<Usuario> usuarios = this.usuarioData.GetAll();
+                return usuarios;
+            }
+            catch (NotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex);
+            }
         }
 
         public void Save(Usuario u)
         {
-            UsuarioData.Save(u);
+            this.usuarioData.Save(u);
         }
 
         public void Delete(int id)
         {
-            UsuarioData.Delete(id);
+            try
+            {
+                this.usuarioData.Delete(id);
+            }
+            catch (DeleteException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex);
+            }
         }
+
         public Usuario LogIn(string user, string pass)
         {
-            Usuario u = UsuarioData.LogIn(user, pass);
-            return u;
+            try
+            {
+                Usuario u = this.usuarioData.LogIn(user, pass);
+                return u;
+            }
+            catch (NotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex);
+            }
         }
     }
 }
