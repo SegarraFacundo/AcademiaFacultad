@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Data.Database;
 using Business.Entities;
+using Util.CustomException;
 
 namespace Business.Logic
 {
@@ -12,15 +13,27 @@ namespace Business.Logic
     {
         private ModuloUsuarioAdapter moduloUsuarioData;
 
+        public ModuloUsuarioLogic()
+        {
+            this.moduloUsuarioData = new ModuloUsuarioAdapter();
+        }
+
         public void getPermisosUsuario(int idUsuario)
         {
-            moduloUsuarioData = new ModuloUsuarioAdapter();
-            List<ModuloUsuario> listaPermisos = moduloUsuarioData.getPermisosUsuario(idUsuario);
-            foreach (ModuloUsuario mu in listaPermisos) 
+            try
             {
-                
+                moduloUsuarioData = new ModuloUsuarioAdapter();
+                List<ModuloUsuario> listaPermisos = moduloUsuarioData.getPermisosUsuario(idUsuario);
             }
-            
+            catch (NotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex);
+            }
+
         }
     }
 }
