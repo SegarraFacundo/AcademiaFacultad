@@ -8,6 +8,8 @@ namespace Business.Entities
 {
     public class Especialidad:BusinessEntity
     {
+        public Especialidad() : base() { }
+
         private string _Descripcion;
         public string Descripcion
         {

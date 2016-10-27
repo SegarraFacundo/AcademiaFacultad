@@ -8,6 +8,8 @@ namespace Business.Entities
 {
     public class ModuloUsuario:BusinessEntity
     {
+        public ModuloUsuario() : base() { }
+
         private int _IdUsuario;
         public int IdUsuario
         {

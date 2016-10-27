@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 namespace Business.Entities
 {
     public class Comision:BusinessEntity
-
     {
+        public Comision() : base() { }
+
         private int _AnioEspecialidad;
         public int AnioEspecialidad
         {

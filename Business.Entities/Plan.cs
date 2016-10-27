@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Business.Entities
 {
-    public class Plan:BusinessEntity
+    public class Plan : BusinessEntity
     {
+        public Plan() : base() { }
+
         private string _Descripcion;
         public string Descripcion
         {

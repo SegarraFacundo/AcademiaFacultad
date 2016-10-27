@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Business.Entities
 {
-    public class AlumnoInscripto:BusinessEntity
+    public class AlumnoInscripto : BusinessEntity
     {
+        public AlumnoInscripto() : base() { }
+
         private string _Condicion;
         public string Condicion
         {

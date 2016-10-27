@@ -9,6 +9,8 @@ namespace Business.Entities
 {
     abstract public class Persona : BusinessEntity
     {
+        public Persona() : base() { }
+
         private string _Nombre;
         public string Nombre
         {

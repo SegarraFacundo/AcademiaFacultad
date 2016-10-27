@@ -13,6 +13,7 @@ namespace Business.Entities
         public BusinessEntity()
         {
             this.State = TiposDatos.States.New;
+            this.Id = 0;
         }
 
         private int _Id;

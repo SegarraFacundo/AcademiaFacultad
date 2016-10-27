@@ -9,7 +9,7 @@ namespace Business.Entities
 {
     public class Alumno : Persona
     {
-        public Alumno()
+        public Alumno() : base()
         {
             this.TipoDePersona = TiposDatos.TiposDePersona.Alumno;
         }

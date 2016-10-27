@@ -8,9 +8,7 @@ namespace Business.Entities
 {
     public class Usuario:BusinessEntity
     {
-        public Usuario()
-        {
-        }
+        public Usuario() : base() {}
 
         private string _NombreUsuario; 
         public string NombreUsuario{

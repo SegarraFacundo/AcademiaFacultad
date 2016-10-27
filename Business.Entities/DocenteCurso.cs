@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Util;
 
 namespace Business.Entities
 {
     public class DocenteCurso:BusinessEntity
     {
+        public DocenteCurso() : base() { }
+
         private int _IdCurso;
 
         public int IdCurso
@@ -24,19 +27,12 @@ namespace Business.Entities
             set { _IdDocente = value; }
         }
 
-        private TiposCargos _Cargo;
+        private TiposDatos.TiposCargos _Cargo;
 
-        public TiposCargos Cargo
+        public TiposDatos.TiposCargos Cargo
         {
             get { return _Cargo; }
             set { _Cargo = value; }
-        }
-
-        public enum TiposCargos
-        {
-            ProfesorTeoria,
-            ProfesorPractica,
-            AyudanteCatedra
         }
     }
 }
