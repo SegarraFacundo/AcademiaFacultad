@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Business.Entities;
 using MySql.Data.MySqlClient;
 using Util;
+using Util.CustomException;
 
 namespace Data.Database
 {
@@ -28,10 +29,9 @@ namespace Data.Database
                 }
                 reader.Close();
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al buscar inscripciones: ", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("inscripción", ex);
             }
             finally
             {
@@ -60,10 +60,9 @@ namespace Data.Database
                 reader.Close();
             }
 
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al buscar la Persona: ", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("inscripción", ex);
             }
             finally
             {
@@ -86,10 +85,9 @@ namespace Data.Database
                 cmd.Parameters.AddWithValue("@nota", inscripcion.Nota);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al guardar inscripción: ", Ex);
-                throw ExcepcionManejada;
+                throw new InsertException("inscripción", ex);
             }
             finally
             {
@@ -110,10 +108,9 @@ namespace Data.Database
                 cmd.Parameters.AddWithValue("@nota", inscripcion.Nota);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al modificar inscripción:", Ex);
-                throw ExcepcionManejada;
+                throw new UpdateException("inscripción", ex);
             }
             finally
             {
@@ -130,10 +127,9 @@ namespace Data.Database
                 cmd.Parameters.AddWithValue("@id", ID);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al eliminar inscripción: ", Ex);
-                throw ExcepcionManejada;
+                throw new DeleteException("inscripción", ex);
             }
             finally
             {
@@ -181,10 +177,9 @@ namespace Data.Database
                 reader.Close();
             }
 
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al buscar inscripciones por alumno: ", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("inscripción", ex);
             }
             finally
             {
@@ -215,10 +210,9 @@ namespace Data.Database
                 reader.Close();
             }
 
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al buscar inscripciones por curso: ", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("inscripción", ex);
             }
             finally
             {

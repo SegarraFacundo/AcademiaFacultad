@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Business.Entities;
 using MySql.Data.MySqlClient;
+using Util.CustomException;
 
 namespace Data.Database
 {
@@ -13,6 +14,7 @@ namespace Data.Database
         public  List<ModuloUsuario> getPermisosUsuario(int idUsuario)
         {
             List<ModuloUsuario> listaModulosUsuario = new List<ModuloUsuario>();
+
             try
             {
                 this.OpenConnection();                
@@ -35,8 +37,7 @@ namespace Data.Database
             }
             catch (Exception ex)
             {
-                Exception excepcionManejada = new Exception("Error al buscar los permisos: ", ex);
-                throw excepcionManejada;
+                throw new Exception("Error al buscar los permisos: ", ex);
             }
             finally
             {

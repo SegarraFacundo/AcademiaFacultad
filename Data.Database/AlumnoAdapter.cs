@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Business.Entities;
 using MySql.Data.MySqlClient;
 using Util;
+using Util.CustomException;
 
 namespace Data.Database
 {
@@ -40,10 +41,9 @@ namespace Data.Database
                 }
                 reader.Close();
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al buscar alumnos: ", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("alumno", ex);
             }
             finally
             {
@@ -55,6 +55,7 @@ namespace Data.Database
         public Alumno GetOne(int ID)
         {
             Alumno a = new Alumno();
+
             try
             {
                 this.OpenConnection();
@@ -72,15 +73,13 @@ namespace Data.Database
                     a.FechaNacimiento = (DateTime)reader["fecha_nac"];
                     a.Legajo = (int)reader["legajo"];
                     a.IdPlan = (int)reader["id_plan"];
-                    
+
                 }
                 reader.Close();
             }
-
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al buscar el alumno: ", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("alumno", ex);
             }
             finally
             {
@@ -107,10 +106,9 @@ namespace Data.Database
                 cmd.Parameters.AddWithValue("@tipo_persona", "alumno");
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al guardar al alumno: ", Ex);
-                throw ExcepcionManejada;
+                throw new InsertException("alumno", ex);
             }
             finally
             {
@@ -137,10 +135,9 @@ namespace Data.Database
 
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al modificar al alumno:", Ex);
-                throw ExcepcionManejada;
+                throw new UpdateException("alumno", ex);
             }
             finally
             {
@@ -157,10 +154,9 @@ namespace Data.Database
                 cmd.Parameters.AddWithValue("@id_persona", ID);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al eliminar alumno: ", Ex);
-                throw ExcepcionManejada;
+                throw new DeleteException("alumno", ex);
             }
             finally
             {

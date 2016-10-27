@@ -5,6 +5,7 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using System;
 using Util;
+using Util.CustomException;
 
 namespace Data.Database
 {
@@ -32,8 +33,7 @@ namespace Data.Database
             }
             catch (Exception Ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al recuperar lista de planes", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("plan", Ex);
             }
             finally
             {
@@ -64,10 +64,9 @@ namespace Data.Database
                 }
 
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al recuperar el plan", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("plan", ex);
             }
             finally
             {
@@ -88,8 +87,7 @@ namespace Data.Database
             }
             catch (Exception Ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al eliminar el plan", Ex);
-                throw ExcepcionManejada;
+                throw new DeleteException("plan", Ex);
             }
             finally
             {
@@ -110,8 +108,7 @@ namespace Data.Database
             }
             catch (Exception Ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al modificar el plan", Ex);
-                throw ExcepcionManejada;
+                throw new UpdateException("plan", Ex);
             }
             finally
             {
@@ -134,8 +131,7 @@ namespace Data.Database
             }
             catch (Exception Ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al guardar el plan", Ex);
-                throw ExcepcionManejada;
+                throw new InsertException("plan", Ex);
             }
             finally
             {
@@ -184,10 +180,9 @@ namespace Data.Database
                 reader.Close();
 
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al recuperar lista de planes por la especialidad", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("planes por la especialidad", ex);
             }
             finally
             {

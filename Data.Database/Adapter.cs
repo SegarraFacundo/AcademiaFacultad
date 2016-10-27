@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using Util.CustomException;
 
 namespace Data.Database
 {
@@ -15,20 +16,41 @@ namespace Data.Database
 
         protected void OpenConnection()
         {
-            var conString = ConfigurationManager.ConnectionStrings[consKeyDefaultCnnString].ConnectionString;
-            MySqlConn = new MySqlConnection(conString);
-            MySqlConn.Open();
+            try
+            {
+                var conString = ConfigurationManager.ConnectionStrings[consKeyDefaultCnnString].ConnectionString;
+                this.MySqlConn = new MySqlConnection(conString);
+                this.MySqlConn.Open();
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomException(ex);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex);
+            }
         }
 
         protected void CloseConnection()
         {
-            MySqlConn.Close();
-            MySqlConn = null;
+            try
+            {
+                MySqlConn.Close();
+            }
+            catch ( Exception ex )
+            {
+                throw new CustomException(ex);
+            }
+            finally
+            {
+                MySqlConn = null;
+            }           
         }
 
         protected MySqlDataReader ExecuteReader(String commandText)
         {
-            throw new Exception("Metodo no implementado");
+            throw new CustomException();
         }
     }
 }

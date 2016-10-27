@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Business.Entities;
 using MySql.Data.MySqlClient;
 using Util;
+using Util.CustomException;
 
 namespace Data.Database
 {
@@ -32,10 +33,9 @@ namespace Data.Database
                 reader.Close();
                 
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al recuperar la Lista de usuarios: ", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("curso", ex);
             }
             finally
             {
@@ -65,10 +65,9 @@ namespace Data.Database
                 }
                 reader.Close();
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al recuperar el curso: ", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("curso", ex);
             }
             finally
             {
@@ -88,10 +87,9 @@ namespace Data.Database
                 cmd.ExecuteNonQuery();
 
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al eliminar el curso: ", Ex);
-                throw ExcepcionManejada;
+                throw new DeleteException("curso", ex);
             }
             finally
             {
@@ -115,16 +113,16 @@ namespace Data.Database
                 cmd.ExecuteNonQuery();
             }
 
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al modificar el curso: ", Ex);
-                throw ExcepcionManejada;
+                throw new UpdateException("curso", ex);
             }
             finally
             {
                 this.CloseConnection();
             }
         }
+
         protected void Insert(Curso curso)
         {
 
@@ -140,10 +138,9 @@ namespace Data.Database
                 cmd.ExecuteNonQuery();
             }
 
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al guardar curso: ", Ex);
-                throw ExcepcionManejada;
+                throw new InsertException("curso", ex);
             }
             finally
             {

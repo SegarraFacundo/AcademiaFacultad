@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Business.Entities;
 using MySql.Data.MySqlClient;
 using Util;
+using Util.CustomException;
 
 namespace Data.Database
 {
@@ -28,10 +29,9 @@ namespace Data.Database
                 }
                 reader.Close();
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al buscar dictados: ", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("dictado", ex);
             }
             finally
             {
@@ -60,10 +60,9 @@ namespace Data.Database
                 reader.Close();
             }
 
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al buscar dictado: ", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("dictado", ex);
             }
             finally
             {
@@ -85,10 +84,9 @@ namespace Data.Database
                 cmd.Parameters.AddWithValue("@cargo", this.GetIdCargo(dictado.Cargo));
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al guardar dictado: ", Ex);
-                throw ExcepcionManejada;
+                throw new InsertException("dictado", ex);
             }
             finally
             {
@@ -108,10 +106,9 @@ namespace Data.Database
                 cmd.Parameters.AddWithValue("@cargo", this.GetIdCargo(dictado.Cargo));
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al modificar dictado:", Ex);
-                throw ExcepcionManejada;
+                throw new UpdateException("dictado", ex);
             }
             finally
             {
@@ -128,10 +125,9 @@ namespace Data.Database
                 cmd.Parameters.AddWithValue("@id", ID);
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al eliminar dictado: ", Ex);
-                throw ExcepcionManejada;
+                throw new DeleteException("dictado", ex);
             }
             finally
             {
@@ -180,10 +176,9 @@ namespace Data.Database
                 reader.Close();
             }
 
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al buscar dictados por docente: ", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("dictado", ex);
             }
             finally
             {
@@ -213,10 +208,9 @@ namespace Data.Database
                 reader.Close();
             }
 
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al buscar dictados por curso: ", Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("dictado", ex);
             }
             finally
             {
@@ -225,47 +219,45 @@ namespace Data.Database
             return dictados;
         }
 
-        private int GetIdCargo(DocenteCurso.TiposCargos tipoCargo) {
+        private int GetIdCargo(TiposDatos.TiposCargos tipoCargo) {
 
             int idCargo;
 
             switch (tipoCargo)
             {
-                case DocenteCurso.TiposCargos.ProfesorTeoria:
+                case TiposDatos.TiposCargos.ProfesorTeoria:
                     idCargo = 1;
                     break;
-                case DocenteCurso.TiposCargos.ProfesorPractica:
+                case TiposDatos.TiposCargos.ProfesorPractica:
                     idCargo = 2;
                     break;
-                case DocenteCurso.TiposCargos.AyudanteCatedra:
+                case TiposDatos.TiposCargos.AyudanteCatedra:
                     idCargo = 3;
                     break;
                 default:
-                    Exception ExcepcionManejada = new Exception("Error al obtener id de cargo.");
-                    throw ExcepcionManejada;
+                    throw new NotFoundException("cargo");
             }
 
             return idCargo;
         }
 
-        private DocenteCurso.TiposCargos GetTipoCargo(int idCargo) {
+        private TiposDatos.TiposCargos GetTipoCargo(int idCargo) {
 
-            DocenteCurso.TiposCargos tipoCargo;
+            TiposDatos.TiposCargos tipoCargo;
 
             switch (idCargo)
             {
                 case 1:
-                    tipoCargo = DocenteCurso.TiposCargos.ProfesorTeoria;
+                    tipoCargo = TiposDatos.TiposCargos.ProfesorTeoria;
                     break;
                 case 2:
-                    tipoCargo = DocenteCurso.TiposCargos.ProfesorPractica;
+                    tipoCargo = TiposDatos.TiposCargos.ProfesorPractica;
                     break;
                 case 3:
-                    tipoCargo = DocenteCurso.TiposCargos.AyudanteCatedra;
+                    tipoCargo = TiposDatos.TiposCargos.AyudanteCatedra;
                     break;
                 default:
-                    Exception ExcepcionManejada = new Exception("Error al obtener tipo de cargo");
-                    throw ExcepcionManejada;
+                    throw new NotFoundException("cargo");
             }
 
             return tipoCargo;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using Util.CustomException;
 
 namespace Data.Database
 {
@@ -25,17 +26,12 @@ namespace Data.Database
                     {
                         legajo = (int)reader["legajo"];
                     }
-                    else
-                    {
-                        legajo = 0;
-                    }
                 }
                 reader.Close();
             }
-            catch (Exception Ex)
+            catch (Exception ex)
             {
-                Exception ExcepcionManejada = new Exception("Error al recuperar el legajo de " + tipoPersona, Ex);
-                throw ExcepcionManejada;
+                throw new NotFoundException("legajo, tipo: " + tipoPersona, ex);
             }
             finally
             {
