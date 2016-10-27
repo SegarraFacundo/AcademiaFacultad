@@ -41,8 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomException\CustomException.cs" />
+    <Compile Include="CustomException\DeleteException.cs" />
+    <Compile Include="CustomException\InsertException.cs" />
+    <Compile Include="CustomException\NotFoundException.cs" />
     <Compile Include="TiposDatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CustomException\UpdateException.cs" />
+    <Compile Include="ValidationManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
