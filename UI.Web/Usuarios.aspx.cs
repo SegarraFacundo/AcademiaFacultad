@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Business.Entities;
 using Business.Logic;
+using Util;
 
 public partial class Usuarios : System.Web.UI.Page
 {
@@ -138,7 +139,7 @@ public partial class Usuarios : System.Web.UI.Page
             case FormModes.Modificacion:
                 this.Entity = new Usuario();
                 this.Entity.Id = this.SelectedID;
-                this.Entity.State = BusinessEntity.States.Modified;
+                this.Entity.State = TiposDatos.States.Modified;
                 this.LoadEntity(this.Entity);
                 this.SaveEntity(this.Entity);
                 this.LoadGrid();
