@@ -10,14 +10,14 @@ using Util.CustomException;
 
 namespace Data.Database
 {
-    public class AdminAdapter : PersonaAdapter
+    public class AdministradorAdapter : PersonaAdapter
     {
 
         private List<Administrador> listaAdministradores;
 
         public List<Administrador> GetAll()
         {
-            listaAdministradores = new List<Administrador>();
+            this.listaAdministradores = new List<Administrador>();
 
             try
             {
@@ -36,7 +36,7 @@ namespace Data.Database
                     a.FechaNacimiento = (DateTime)reader["fecha_nac"];
                     a.Legajo = (int)reader["legajo"];
 
-                    listaAdministradores.Add(a);
+                    this.listaAdministradores.Add(a);
                 }
                 reader.Close();
             }
@@ -48,7 +48,7 @@ namespace Data.Database
             {
                 this.CloseConnection();
             }
-            return listaAdministradores;
+            return this.listaAdministradores;
         }
 
         public Administrador GetOne(int ID)
