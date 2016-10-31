@@ -103,7 +103,6 @@ namespace Data.Database
                 cmd.Parameters.AddWithValue("@fecha_nac", a.FechaNacimiento.ToString("yyyy-MM-dd"));
                 cmd.Parameters.AddWithValue("@legajo", a.Legajo);
                 cmd.Parameters.AddWithValue("@id_plan", a.IdPlan);
-                cmd.Parameters.AddWithValue("@tipo_persona", "alumno");
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
