@@ -18,7 +18,8 @@ namespace Util
         public enum TiposDePersona
         {
             Docente,
-            Alumno
+            Alumno,
+            Administrador
         }
 
         private States _State;
