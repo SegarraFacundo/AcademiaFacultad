@@ -9,6 +9,7 @@ namespace Business.Entities
 {
     public class Administrador : Persona
     {
+        //comentario
         public Administrador() : base()
         {
             this.TipoDePersona = TiposDatos.TiposDePersona.Administrador;
