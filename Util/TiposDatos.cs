@@ -51,5 +51,20 @@ namespace Util
             ProfesorPractica,
             AyudanteCatedra
         }
+
+        private FormModes _FormMode;
+
+        public FormModes FormMode
+        {
+            get { return _FormMode; }
+            set { _FormMode = value; }
+        }
+
+        public enum FormModes
+        {
+            Alta,
+            Baja,
+            Modificacion
+        }
     }
 }
