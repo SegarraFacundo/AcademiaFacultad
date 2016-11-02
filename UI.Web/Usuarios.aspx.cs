@@ -6,33 +6,27 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Business.Entities;
 using Business.Logic;
+using Util;
 
 public partial class Usuarios : System.Web.UI.Page
 {
-    UsuarioLogic _logic;
+    UsuarioLogic _usuarioLogic;
 
-    private UsuarioLogic Logic
+    private UsuarioLogic UsuarioLogic
     {
         get
         {
-            if (_logic == null)
+            if (_usuarioLogic == null)
             {
-                _logic = new UsuarioLogic();
+                _usuarioLogic = new UsuarioLogic();
             }
-            return _logic;
+            return _usuarioLogic;
         }
     }
 
-    public enum FormModes
+    public TiposDatos.FormModes FormMode
     {
-        Alta,
-        Baja,
-        Modificacion
-    }
-
-    public FormModes FormMode
-    {
-        get { return (FormModes)this.ViewState["FormMode"]; }
+        get { return (TiposDatos.FormModes)this.ViewState["FormMode"]; }
         set { this.ViewState["FormMode"] = value; }
     }
 
@@ -79,7 +73,7 @@ public partial class Usuarios : System.Web.UI.Page
 
     private void LoadGrid()
     {
-        this.gridView.DataSource = this.Logic.GetAll();
+        this.gridView.DataSource = this.UsuarioLogic.GetAll();
         this.gridView.DataBind();
     }
 
@@ -91,7 +85,7 @@ public partial class Usuarios : System.Web.UI.Page
 
     private void LoadForm(int id)
     {
-        this.Entity = this.Logic.GetOne(id);
+        this.Entity = this.UsuarioLogic.GetOne(id);
         this.nombreTextBox.Text = this.Entity.Nombre;
         this.apellidoTextBox.Text = this.Entity.Apellido;
         this.emailTextBox.Text = this.Entity.Email;
@@ -104,7 +98,7 @@ public partial class Usuarios : System.Web.UI.Page
         if (this.IsEntitySelected)
         {
             this.formPanel.Visible = true;
-            this.FormMode = FormModes.Modificacion;
+            this.FormMode = TiposDatos.FormModes.Modificacion;
             this.EnableForm(true);
             this.LoadForm(this.SelectedID);
         }
@@ -122,29 +116,29 @@ public partial class Usuarios : System.Web.UI.Page
 
     private void SaveEntity(Usuario usuario)
     {
-        this.Logic.Save(usuario);
+        this.UsuarioLogic.Save(usuario);
     }
 
     protected void aceptarLinkButton_Click(object sender, EventArgs e)
     {
         switch(this.FormMode)
         {
-            case FormModes.Alta:
+            case TiposDatos.FormModes.Alta:
                 this.Entity = new Usuario();
                 this.LoadEntity(this.Entity);
                 this.SaveEntity(this.Entity);
                 this.LoadGrid();
                 break;
-            case FormModes.Modificacion:
+            case TiposDatos.FormModes.Modificacion:
                 this.Entity = new Usuario();
                 this.Entity.Id = this.SelectedID;
-                this.Entity.State = BusinessEntity.States.Modified;
+                this.Entity.State = TiposDatos.States.Modified;
                 this.LoadEntity(this.Entity);
                 this.SaveEntity(this.Entity);
                 this.LoadGrid();
                 
                 break;
-            case FormModes.Baja:
+            case TiposDatos.FormModes.Baja:
                 this.DeleteEntity(this.SelectedID);
                 this.LoadGrid();
                 break;
@@ -172,7 +166,7 @@ public partial class Usuarios : System.Web.UI.Page
         if (this.IsEntitySelected)
         {
             this.formPanel.Visible = true;
-            this.FormMode = FormModes.Baja;
+            this.FormMode = TiposDatos.FormModes.Baja;
             this.EnableForm(false);
             this.LoadForm(this.SelectedID);
         }
@@ -180,13 +174,13 @@ public partial class Usuarios : System.Web.UI.Page
 
     private void DeleteEntity(int id)
     {
-        this.Logic.Delete(id);
+        this.UsuarioLogic.Delete(id);
     }
 
     protected void nuevoLinkButton_Click(object sender, EventArgs e)
     {
         this.formPanel.Visible = true;
-        this.FormMode = FormModes.Alta;
+        this.FormMode = TiposDatos.FormModes.Alta;
         this.ClearForm();
         this.EnableForm(true);
     }
