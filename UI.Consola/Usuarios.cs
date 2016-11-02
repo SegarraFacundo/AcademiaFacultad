@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Business.Entities;
 using Business.Logic;
+using Util;
 
 namespace UI.Consola
 {
@@ -116,7 +117,7 @@ namespace UI.Consola
             u.Email = Console.ReadLine();
             Console.Write("Ingrese habilitación de usuario (1-Si/otro-No): ");
             u.Habilitado = (Console.ReadLine() == "1");
-            u.State = BusinessEntity.States.New;
+            u.State = TiposDatos.States.New;
             UsuarioNegocio.Save(u);
             Console.WriteLine();
             Console.WriteLine("ID: {0}", u.Id);
@@ -144,7 +145,7 @@ namespace UI.Consola
                 u.Email = Console.ReadLine();
                 Console.Write("Ingrese habilitación de usuario (1-Si/otro-No): ");
                 u.Habilitado = (Console.ReadLine() == "1");
-                u.State = BusinessEntity.States.Modified;
+                u.State = TiposDatos.States.Modified;
                 UsuarioNegocio.Save(u);    
             }
             catch (FormatException)
