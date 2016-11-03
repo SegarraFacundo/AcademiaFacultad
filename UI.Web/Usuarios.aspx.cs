@@ -86,11 +86,11 @@ public partial class Usuarios : System.Web.UI.Page
     private void LoadForm(int id)
     {
         this.Entity = this.UsuarioLogic.GetOne(id);
-        this.nombreTextBox.Text = this.Entity.Nombre;
-        this.apellidoTextBox.Text = this.Entity.Apellido;
-        this.emailTextBox.Text = this.Entity.Email;
-        this.habilidadoCheckBox.Checked = this.Entity.Habilitado;
-        this.nombreUsuarioTextBox.Text = this.Entity.NombreUsuario;
+        this.txtNombre.Text = this.Entity.Nombre;
+        this.txtApellido.Text = this.Entity.Apellido;
+        this.txtEmail.Text = this.Entity.Email;
+        this.chkHabilitado.Checked = this.Entity.Habilitado;
+        this.txtNombreUsuario.Text = this.Entity.NombreUsuario;
     }
 
     protected void editarLinkButton_Click(object sender, EventArgs e)
@@ -106,12 +106,12 @@ public partial class Usuarios : System.Web.UI.Page
 
     private void LoadEntity(Usuario usuario)
     {
-        usuario.Nombre = this.nombreTextBox.Text;
-        usuario.Apellido = this.apellidoTextBox.Text;
-        usuario.Email = this.emailTextBox.Text;
-        usuario.NombreUsuario = this.nombreUsuarioTextBox.Text;
-        usuario.Clave = this.claveTextBox.Text;
-        usuario.Habilitado = this.habilidadoCheckBox.Checked;
+        usuario.Nombre = this.txtNombre.Text;
+        usuario.Apellido = this.txtApellido.Text;
+        usuario.Email = this.txtEmail.Text;
+        usuario.NombreUsuario = this.txtNombreUsuario.Text;
+        usuario.Clave = this.txtClave.Text;
+        usuario.Habilitado = this.chkHabilitado.Checked;
     }
 
     private void SaveEntity(Usuario usuario)
@@ -150,13 +150,13 @@ public partial class Usuarios : System.Web.UI.Page
 
     private void EnableForm(bool enable)
     {
-        this.nombreTextBox.Enabled = enable;
-        this.apellidoTextBox.Enabled = enable;
-        this.nombreUsuarioTextBox.Enabled = enable;
-        this.emailTextBox.Enabled = enable;
-        this.habilidadoCheckBox.Enabled = enable;
-        this.claveTextBox.Visible = enable;
-        this.repetirClaveTextBox.Visible = enable;
+        this.txtNombre.Enabled = enable;
+        this.txtApellido.Enabled = enable;
+        this.txtNombreUsuario.Enabled = enable;
+        this.txtEmail.Enabled = enable;
+        this.chkHabilitado.Enabled = enable;
+        this.txtClave.Visible = enable;
+        this.txtRepetirClave.Visible = enable;
         this.claveLabel.Visible = enable;
         this.repetirClaveLabel.Visible = enable;
     }
@@ -187,11 +187,11 @@ public partial class Usuarios : System.Web.UI.Page
 
     private void ClearForm()
     {
-        this.nombreTextBox.Text = string.Empty;
-        this.apellidoTextBox.Text = string.Empty;
-        this.emailTextBox.Text = string.Empty;
-        this.habilidadoCheckBox.Checked = false;
-        this.nombreUsuarioTextBox.Text = string.Empty;
+        this.txtNombre.Text = string.Empty;
+        this.txtApellido.Text = string.Empty;
+        this.txtEmail.Text = string.Empty;
+        this.chkHabilitado.Checked = false;
+        this.txtNombreUsuario.Text = string.Empty;
     }
 
     protected void cancelarLinkButton_Click(object sender, EventArgs e)
