@@ -18,8 +18,9 @@ namespace UI.Desktop
         {
             InitializeComponent();
         }
-
-        public AlumnoDesktop(ModoForm modo) : this()
+        #region "Constructores"
+        public AlumnoDesktop(ModoForm modo)
+            : this()
         {
             this.Modo = modo;
 
@@ -43,10 +44,11 @@ namespace UI.Desktop
                     Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            
+
         }
 
-        public AlumnoDesktop(int ID, ModoForm modo) : this()
+        public AlumnoDesktop(int ID, ModoForm modo)
+            : this()
         {
             this.Modo = modo;
             try
@@ -69,7 +71,98 @@ namespace UI.Desktop
             }
         }
 
-        public override bool Validar()        {
+        #endregion
+        #region "Metodos Controles"
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            if (this.Validar())
+            {
+                this.GuardarCambios();
+                this.Close();
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void cbEspecialidad_SelectedValueChanged(object sender, EventArgs e)
+        {
+            this.cbPlan.ValueMember = "Id";
+            this.cbPlan.DisplayMember = "Descripcion";
+            if (this.cbEspecialidad.SelectedValue != null)
+            {
+                int idEspecialidad = Int32.Parse(this.cbEspecialidad.SelectedValue.ToString());
+
+                try
+                {
+                    this.cbPlan.DataSource = new PlanLogic().GetByEspecialidad(idEspecialidad);
+                }
+                catch (NotFoundException ex)
+                {
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (CustomException ex)
+                {
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                this.cbPlan.Visible = true;
+                this.lblPlan.Visible = true;
+            }
+        }
+        #endregion     
+        #region "Metodos"
+        private void loadEspecialidades()
+        {
+            this.cbEspecialidad.ValueMember = "Id";
+            this.cbEspecialidad.DisplayMember = "Descripcion";
+
+            try
+            {
+                this.cbEspecialidad.DataSource = this.especialidadLogic.GetAll();
+            }
+            catch (NotFoundException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (CustomException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public override void GuardarCambios()
+        {
+            try
+            {
+                MapearADatos();
+                alumnoLogic.Save(alumno);
+            }
+            catch (NotFoundException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (CustomException ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public override bool Validar()
+        {
 
 
             if (txtApellido.Text == "" || txtNombre.Text == "" || dtpFechaNacimiento.Text == "" || cbPlan.SelectedItem == null)
@@ -90,7 +183,7 @@ namespace UI.Desktop
 
         public override void MapearDeDatos()
         {
-            if ( this.alumno != null )
+            if (this.alumno != null)
             {
                 this.txtId.Text = this.alumno.Id.ToString();
                 this.txtApellido.Text = this.alumno.Apellido;
@@ -141,7 +234,7 @@ namespace UI.Desktop
             {
                 Notificar("No se pudo encontrar el alumno", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
 
         }
 
@@ -160,7 +253,7 @@ namespace UI.Desktop
                     a.Telefono = this.txtTelefono.Text;
                     a.FechaNacimiento = this.dtpFechaNacimiento.Value;
                     a.State = TiposDatos.States.New;
-                    
+
                     this.alumno = a;
                     break;
                 case ModoForm.Consulta:
@@ -189,115 +282,9 @@ namespace UI.Desktop
             }
         }
 
-        public override void GuardarCambios()
-        {
-            try
-            {
-                MapearADatos();
-                alumnoLogic.Save(alumno);
-            }
-            catch ( NotFoundException ex )
-            {
-                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch ( CustomException ex )
-            {
-                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+        #endregion
 
 
-        }
 
-        private void txtDireccion_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnAceptar_Click(object sender, EventArgs e)
-        {
-            if (this.Validar())
-            {
-                this.GuardarCambios();
-                this.Close();
-            }
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void cbTipoAlumno_SelectedValueChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void cbEspecialidad_SelectedValueChanged(object sender, EventArgs e)
-        {
-            this.cbPlan.ValueMember = "Id";
-            this.cbPlan.DisplayMember = "Descripcion";
-            if(this.cbEspecialidad.SelectedValue != null)
-            {
-                int idEspecialidad = Int32.Parse(this.cbEspecialidad.SelectedValue.ToString());
-
-                try
-                {
-                    this.cbPlan.DataSource = new PlanLogic().GetByEspecialidad(idEspecialidad);
-                }
-                catch (NotFoundException ex)
-                {
-                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (CustomException ex)
-                {
-                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (Exception ex)
-                {
-                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                this.cbPlan.Visible = true;
-                this.lblPlan.Visible = true;
-            }
-            
-        }
-
-        private void cbEspecialidad_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void loadEspecialidades()
-        {
-            this.cbEspecialidad.ValueMember = "Id";
-            this.cbEspecialidad.DisplayMember = "Descripcion";
-
-            try
-            {
-                this.cbEspecialidad.DataSource = this.especialidadLogic.GetAll();
-            }
-            catch (NotFoundException ex)
-            {
-                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (CustomException ex)
-            {
-                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void txtId_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

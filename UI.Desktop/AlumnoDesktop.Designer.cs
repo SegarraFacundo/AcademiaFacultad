@@ -144,7 +144,6 @@
             this.txtId.Name = "txtId";
             this.txtId.Size = new System.Drawing.Size(164, 20);
             this.txtId.TabIndex = 1;
-            this.txtId.TextChanged += new System.EventHandler(this.txtId_TextChanged);
             // 
             // txtNombre
             // 
@@ -249,7 +248,6 @@
             this.cbEspecialidad.Name = "cbEspecialidad";
             this.cbEspecialidad.Size = new System.Drawing.Size(166, 21);
             this.cbEspecialidad.TabIndex = 9;
-            this.cbEspecialidad.SelectedIndexChanged += new System.EventHandler(this.cbEspecialidad_SelectedIndexChanged);
             this.cbEspecialidad.SelectedValueChanged += new System.EventHandler(this.cbEspecialidad_SelectedValueChanged);
             // 
             // lblEspecialidad
@@ -285,7 +283,6 @@
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(164, 20);
             this.txtDireccion.TabIndex = 5;
-            this.txtDireccion.TextChanged += new System.EventHandler(this.txtDireccion_TextChanged);
             // 
             // lblApellido
             // 

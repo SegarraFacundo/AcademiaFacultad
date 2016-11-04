@@ -64,7 +64,8 @@ namespace Util
         {
             Alta,
             Baja,
-            Modificacion
+            Modificacion,
+            Consulta
         }
     }
 }
