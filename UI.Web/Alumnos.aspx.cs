@@ -144,4 +144,9 @@ public partial class Alumnos : System.Web.UI.Page
     }
 
     #endregion
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.SelectedID = (int)this.GridView1.SelectedValue;
+        this.formPanel.Visible = false;
+    }
 }

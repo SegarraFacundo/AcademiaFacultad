@@ -185,7 +185,7 @@ namespace Data.Database
 
         public Usuario LogIn(string user, string pass)
         {
-            Usuario u = new Usuario();
+            Usuario u;
             try
             {
                 this.OpenConnection();
@@ -195,6 +195,7 @@ namespace Data.Database
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
+                    u = new Usuario();
                     u.Id = (int)reader["id_usuario"];
                     u.NombreUsuario = (string)reader["nombre_usuario"];
                     u.Clave = (string)reader["clave"];
@@ -213,11 +214,9 @@ namespace Data.Database
                         u.IdPersona = 0;
                     }
 
+                    reader.Close();
                     return u;
-                }
-                reader.Close();
-                
-                
+                }                               
             }
             catch (Exception ex)
             {

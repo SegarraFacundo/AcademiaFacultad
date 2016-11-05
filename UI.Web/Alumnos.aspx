@@ -2,9 +2,9 @@
 
 <asp:Content ID="AlumnosContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
 
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="odsAlumnos">
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="odsAlumnos" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
         <Columns>
-            <asp:BoundField DataField="IdPlan" HeaderText="IdPlan" SortExpression="IdPlan" />
+            <asp:BoundField DataField="IdPlan" HeaderText="IdPlan" SortExpression="IdPlan" Visible="False" />
             <asp:BoundField DataField="Nombre" HeaderText="Nombre" SortExpression="Nombre" />
             <asp:BoundField DataField="Apellido" HeaderText="Apellido" SortExpression="Apellido" />
             <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" />
@@ -12,8 +12,9 @@
             <asp:BoundField DataField="Telefono" HeaderText="Telefono" SortExpression="Telefono" />
             <asp:BoundField DataField="Legajo" HeaderText="Legajo" SortExpression="Legajo" />
             <asp:BoundField DataField="FechaNacimiento" HeaderText="FechaNacimiento" SortExpression="FechaNacimiento" />
-            <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />
-            <asp:BoundField DataField="State" HeaderText="State" SortExpression="State" />
+            <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" Visible="False" />
+            <asp:BoundField DataField="State" HeaderText="Estado" SortExpression="State" />
+            <asp:ButtonField CommandName="Cancel" Text="Seleccionar" />
         </Columns>
     </asp:GridView>
     <asp:ObjectDataSource ID="odsAlumnos" runat="server" SelectMethod="GetAll" TypeName="Data.Database.AlumnoAdapter"></asp:ObjectDataSource>
