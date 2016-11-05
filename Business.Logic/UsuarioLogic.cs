@@ -56,23 +56,7 @@ namespace Business.Logic
         public void Save(Usuario u)
         {
             this.usuarioData.Save(u);
-        }
-
-        public void Delete(int id)
-        {
-            try
-            {
-                this.usuarioData.Delete(id);
-            }
-            catch (DeleteException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomException(ex);
-            }
-        }
+        }       
 
         public Usuario LogIn(string user, string pass)
         {

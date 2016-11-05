@@ -45,7 +45,7 @@ namespace Data.Database
 
         public Plan GetOne(int Id)
         {
-            Plan currentPlan = new Plan();
+            Plan currentPlan;
 
             try
             {
@@ -55,6 +55,7 @@ namespace Data.Database
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
+                    currentPlan = new Plan();
                     currentPlan.Id = (int)reader["id_plan"];
                     currentPlan.IdEspecialidad = (int)reader["id_especialidad"];
                     currentPlan.Descripcion = (string)reader["desc_plan"];
@@ -190,6 +191,37 @@ namespace Data.Database
             }
             return planes;
 
+        }
+
+        public Plan getLastByEspecialidad(int idEspecialidad)
+        {
+            Plan currentPlan;
+
+            try
+            {
+                this.OpenConnection();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM planes WHERE id_especialidad = @idEspecialidad;", MySqlConn);
+                cmd.Parameters.AddWithValue("@idEspecialidad", idEspecialidad);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    currentPlan = new Plan();
+                    currentPlan.Id = (int)reader["id_plan"];
+                    currentPlan.IdEspecialidad = (int)reader["id_especialidad"];
+                    currentPlan.Descripcion = (string)reader["desc_plan"];
+                    reader.Close();
+                    return currentPlan;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new NotFoundException("plan", ex);
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+            return null;
         }
 
     }

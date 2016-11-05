@@ -44,7 +44,7 @@ namespace Data.Database
 
         public Especialidad GetOne(int id)
         {
-            Especialidad e = new Especialidad();
+            Especialidad e;
             try
             {
                 this.OpenConnection();
@@ -53,10 +53,12 @@ namespace Data.Database
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
+                    e = new Especialidad();
                     e.Id = id;
                     e.Descripcion = (string)reader["desc_especialidad"];
+                    reader.Close();
+                    return e;
                 }
-                reader.Close();
             }
             catch (Exception ex)
             {
@@ -66,7 +68,7 @@ namespace Data.Database
             {
                 this.CloseConnection();
             }
-            return e;
+            return null;
         }
 
         public void Save(Especialidad e)

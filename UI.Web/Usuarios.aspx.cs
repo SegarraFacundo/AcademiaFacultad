@@ -139,7 +139,10 @@ public partial class Usuarios : System.Web.UI.Page
                 
                 break;
             case TiposDatos.FormModes.Baja:
-                this.DeleteEntity(this.SelectedID);
+                this.Entity = new Usuario();
+                this.Entity.Id = this.SelectedID;
+                this.Entity.State = TiposDatos.States.Deleted;
+                this.SaveEntity(this.Entity);
                 this.LoadGrid();
                 break;
             default:
@@ -172,10 +175,6 @@ public partial class Usuarios : System.Web.UI.Page
         }
     }
 
-    private void DeleteEntity(int id)
-    {
-        this.UsuarioLogic.Delete(id);
-    }
 
     protected void nuevoLinkButton_Click(object sender, EventArgs e)
     {

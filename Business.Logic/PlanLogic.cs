@@ -90,5 +90,22 @@ namespace Business.Logic
             }
         }
 
+        public Plan getLastByEspecialidad(int idEspecialidad)
+        {
+            try
+            {
+                Plan plan = this.planData.getLastByEspecialidad(idEspecialidad);
+                return plan;
+            }
+            catch (NotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex);
+            }
+        }
+
     }
 }
