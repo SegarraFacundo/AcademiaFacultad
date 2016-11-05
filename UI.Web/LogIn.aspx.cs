@@ -22,33 +22,11 @@ public partial class LogIn : System.Web.UI.Page
     {
         user = new UsuarioLogic();
         Usuario currentUser = new Usuario();
-        try
+        
+        currentUser = user.LogIn(txtUsuario.Text, txtContraseña.Text);
+        if (currentUser != null)
         {
-            currentUser = user.LogIn(txtUsuario.Text, txtContraseña.Text);
-            if (currentUser != null)
-            {
-                Response.Redirect("MainMenu.aspx");
-            }
-            else
-            {
-                lblError.Visible = true;
-                lblError.Text += "Usuario no encontrado. Compruebe que las credenciales sean correctas";
-            }
-        }
-        catch (Util.CustomException.NotFoundException ex)
-        {
-            lblError.Visible = true;
-            lblError.Text += ex.Message;
-        }
-        catch (Util.CustomException.CustomException ex)
-        {
-            lblError.Visible = true;
-            lblError.Text += ex.Message;
-        }
-        catch (Exception ex)
-        {
-            lblError.Visible = true;
-            lblError.Text += ex.Message;
+            Response.Redirect("MainMenu.aspx");
         }
     }
 }
