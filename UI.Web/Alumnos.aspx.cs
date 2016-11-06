@@ -33,6 +33,13 @@ public partial class Alumnos : System.Web.UI.Page
     #endregion
 
     #region "Metodos"
+    private bool IsEntitySelected
+    {
+        get
+        {
+            return (this.SelectedID != 0);
+        }
+    }
     private void ClearForm()
     {
         txtApellido.Text = "";
@@ -42,7 +49,7 @@ public partial class Alumnos : System.Web.UI.Page
         txtLegajo.Text = "";
         txtDireccion.Text = "";
     }
-    private void EnableForm(bool valor, TiposDatos.FormModes modo)
+    private void EnableForm(bool valor)
     {
         txtApellido.Enabled = valor;
         txtNombre.Enabled = valor;
@@ -51,7 +58,6 @@ public partial class Alumnos : System.Web.UI.Page
         txtLegajo.Enabled = valor;
         txtDireccion.Enabled = valor; 
     }
-
     private void LoadEntity(Alumno alumno)
     {
         alumno.Nombre = txtNombre.Text;
@@ -62,7 +68,6 @@ public partial class Alumnos : System.Web.UI.Page
         alumno.Legajo = Int32.Parse(txtLegajo.Text);
         alumno.Direccion = txtDireccion.Text;
     }
-
     private void SaveEntity(Alumno alumno)
     {
         alumnoLogic.Save(alumno);
@@ -84,6 +89,18 @@ public partial class Alumnos : System.Web.UI.Page
         {
             this.ViewState["SelectedID"] = value;
         }
+    }
+
+    private void LoadForm(int id)
+    {
+        currentAlumno = alumnoLogic.GetOne(id);
+        txtApellido.Text = currentAlumno.Apellido;
+        txtDireccion.Text = currentAlumno.Direccion;
+        txtEmail.Text = currentAlumno.Email;
+        txtNombre.Text = currentAlumno.Nombre;
+        txtFecNac.Text = currentAlumno.FechaNacimiento.ToString();
+        txtLegajo.Text = currentAlumno.Legajo.ToString();
+        txtTelefono.Text = currentAlumno.Telefono;
     }
     #endregion
 
@@ -128,6 +145,8 @@ public partial class Alumnos : System.Web.UI.Page
                 this.currentAlumno.State = TiposDatos.States.Unmodified;
                 break;
         }
+        this.formPanel.Visible = false;
+        dgvAlumnos.DataBind();
     }
     protected void nuevoLinkButton_Click(object sender, EventArgs e)
     {
@@ -136,7 +155,7 @@ public partial class Alumnos : System.Web.UI.Page
         this.ClearForm();
         txtLegajo.Text = alumnoLogic.obtenerProximoLegajo().ToString();
         this.FormMode = TiposDatos.FormModes.Alta;
-        this.EnableForm(true, this.FormMode);
+        this.EnableForm(true);
     }
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -144,9 +163,33 @@ public partial class Alumnos : System.Web.UI.Page
     }
 
     #endregion
-    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    protected void dgvEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
     {
-        this.SelectedID = (int)this.GridView1.SelectedValue;
+        this.SelectedID = (int)this.dgvAlumnos.SelectedValue;
         this.formPanel.Visible = false;
+    }
+    protected void editarLinkButton_Click(object sender, EventArgs e)
+    {
+        if (this.IsEntitySelected)
+        {
+            this.formPanel.Visible = true;
+            this.cbPlan.Visible = false; this.lblPlan.Visible = false;
+            this.FormMode = TiposDatos.FormModes.Modificacion;
+            this.EnableForm(true);
+            this.LoadForm(this.SelectedID);
+            
+        }
+    }
+    protected void eliminarLinkButton_Click(object sender, EventArgs e)
+    {
+        if (this.IsEntitySelected)
+        {
+            this.FormMode = TiposDatos.FormModes.Baja;
+            currentAlumno = alumnoLogic.GetOne(this.SelectedID);
+            currentAlumno.State = TiposDatos.States.Deleted;
+            SaveEntity(currentAlumno);
+            dgvAlumnos.DataBind();
+
+        }
     }
 }

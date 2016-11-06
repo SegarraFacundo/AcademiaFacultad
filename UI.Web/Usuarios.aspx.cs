@@ -11,7 +11,20 @@ using Util;
 public partial class Usuarios : System.Web.UI.Page
 {
     UsuarioLogic _usuarioLogic;
+    #region"contructores"
+    #endregion
+    #region"propiedades"
+    public TiposDatos.FormModes FormMode
+    {
+        get { return (TiposDatos.FormModes)this.ViewState["FormMode"]; }
+        set { this.ViewState["FormMode"] = value; }
+    }
 
+    private Usuario Entity
+    {
+        get;
+        set;
+    }
     private UsuarioLogic UsuarioLogic
     {
         get
@@ -24,18 +37,8 @@ public partial class Usuarios : System.Web.UI.Page
         }
     }
 
-    public TiposDatos.FormModes FormMode
-    {
-        get { return (TiposDatos.FormModes)this.ViewState["FormMode"]; }
-        set { this.ViewState["FormMode"] = value; }
-    }
-
-    private Usuario Entity
-    {
-        get;
-        set;
-    }
-
+    #endregion
+    #region"metodos"
     private int SelectedID
     {
         get
@@ -62,27 +65,11 @@ public partial class Usuarios : System.Web.UI.Page
             return (this.SelectedID != 0);
         }
     }
-
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        if ( ! this.IsPostBack )
-        {
-            this.LoadGrid();
-        }
-    }
-
     private void LoadGrid()
     {
         this.gridView.DataSource = this.UsuarioLogic.GetAll();
         this.gridView.DataBind();
     }
-
-    protected void gridView_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        this.SelectedID = (int)this.gridView.SelectedValue;
-        this.formPanel.Visible = false;
-    }
-
     private void LoadForm(int id)
     {
         this.Entity = this.UsuarioLogic.GetOne(id);
@@ -92,18 +79,6 @@ public partial class Usuarios : System.Web.UI.Page
         this.chkHabilitado.Checked = this.Entity.Habilitado;
         this.txtNombreUsuario.Text = this.Entity.NombreUsuario;
     }
-
-    protected void editarLinkButton_Click(object sender, EventArgs e)
-    {
-        if (this.IsEntitySelected)
-        {
-            this.formPanel.Visible = true;
-            this.FormMode = TiposDatos.FormModes.Modificacion;
-            this.EnableForm(true);
-            this.LoadForm(this.SelectedID);
-        }
-    }
-
     private void LoadEntity(Usuario usuario)
     {
         usuario.Nombre = this.txtNombre.Text;
@@ -118,10 +93,53 @@ public partial class Usuarios : System.Web.UI.Page
     {
         this.UsuarioLogic.Save(usuario);
     }
-
+    private void EnableForm(bool enable)
+    {
+        this.txtNombre.Enabled = enable;
+        this.txtApellido.Enabled = enable;
+        this.txtNombreUsuario.Enabled = enable;
+        this.txtEmail.Enabled = enable;
+        this.chkHabilitado.Enabled = enable;
+        this.txtClave.Visible = enable;
+        this.txtRepetirClave.Visible = enable;
+        this.claveLabel.Visible = enable;
+        this.repetirClaveLabel.Visible = enable;
+    }
+    private void ClearForm()
+    {
+        this.txtNombre.Text = string.Empty;
+        this.txtApellido.Text = string.Empty;
+        this.txtEmail.Text = string.Empty;
+        this.chkHabilitado.Checked = false;
+        this.txtNombreUsuario.Text = string.Empty;
+    }
+    #endregion
+    #region"metodos controles"
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!this.IsPostBack)
+        {
+            this.LoadGrid();
+        }
+    }
+    protected void gridView_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.SelectedID = (int)this.gridView.SelectedValue;
+        this.formPanel.Visible = false;
+    }
+    protected void editarLinkButton_Click(object sender, EventArgs e)
+    {
+        if (this.IsEntitySelected)
+        {
+            this.formPanel.Visible = true;
+            this.FormMode = TiposDatos.FormModes.Modificacion;
+            this.EnableForm(true);
+            this.LoadForm(this.SelectedID);
+        }
+    }
     protected void aceptarLinkButton_Click(object sender, EventArgs e)
     {
-        switch(this.FormMode)
+        switch (this.FormMode)
         {
             case TiposDatos.FormModes.Alta:
                 this.Entity = new Usuario();
@@ -136,7 +154,7 @@ public partial class Usuarios : System.Web.UI.Page
                 this.LoadEntity(this.Entity);
                 this.SaveEntity(this.Entity);
                 this.LoadGrid();
-                
+
                 break;
             case TiposDatos.FormModes.Baja:
                 this.Entity = new Usuario();
@@ -150,20 +168,6 @@ public partial class Usuarios : System.Web.UI.Page
         }
         this.formPanel.Visible = false;
     }
-
-    private void EnableForm(bool enable)
-    {
-        this.txtNombre.Enabled = enable;
-        this.txtApellido.Enabled = enable;
-        this.txtNombreUsuario.Enabled = enable;
-        this.txtEmail.Enabled = enable;
-        this.chkHabilitado.Enabled = enable;
-        this.txtClave.Visible = enable;
-        this.txtRepetirClave.Visible = enable;
-        this.claveLabel.Visible = enable;
-        this.repetirClaveLabel.Visible = enable;
-    }
-
     protected void eliminarLinkButton_Click(object sender, EventArgs e)
     {
         if (this.IsEntitySelected)
@@ -174,8 +178,6 @@ public partial class Usuarios : System.Web.UI.Page
             this.LoadForm(this.SelectedID);
         }
     }
-
-
     protected void nuevoLinkButton_Click(object sender, EventArgs e)
     {
         this.formPanel.Visible = true;
@@ -184,18 +186,10 @@ public partial class Usuarios : System.Web.UI.Page
         this.EnableForm(true);
     }
 
-    private void ClearForm()
-    {
-        this.txtNombre.Text = string.Empty;
-        this.txtApellido.Text = string.Empty;
-        this.txtEmail.Text = string.Empty;
-        this.chkHabilitado.Checked = false;
-        this.txtNombreUsuario.Text = string.Empty;
-    }
-
     protected void cancelarLinkButton_Click(object sender, EventArgs e)
     {
         this.ClearForm();
         this.formPanel.Visible = false;
     }
 }
+    #endregion

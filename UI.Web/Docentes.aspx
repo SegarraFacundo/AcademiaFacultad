@@ -1,13 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Alumnos.aspx.cs" Inherits="Alumnos" MasterPageFile="Site.master"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Docentes.aspx.cs" Inherits="Docentes" MasterPageFile="Site.master" %>
+
+
 
 <asp:Content ID="AlumnosContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
 
-    <asp:GridView ID="dgvAlumnos" runat="server" AutoGenerateColumns="False" DataSourceID="odsAlumnos" 
-        SelectedRowStyle-BackColor="Black"
-        SelectedRowStyle-ForeColor="White"
-        DataKeyNames="ID" OnSelectedIndexChanged="dgvEspecialidades_SelectedIndexChanged">
+    <asp:GridView ID="dgvDocentes" runat="server" AutoGenerateColumns="False" DataSourceID="odsDocentes" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
         <Columns>
-            <asp:BoundField DataField="IdPlan" HeaderText="IdPlan" SortExpression="IdPlan" Visible="False" />
             <asp:BoundField DataField="Nombre" HeaderText="Nombre" SortExpression="Nombre" />
             <asp:BoundField DataField="Apellido" HeaderText="Apellido" SortExpression="Apellido" />
             <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" />
@@ -17,14 +15,14 @@
             <asp:BoundField DataField="FechaNacimiento" HeaderText="FechaNacimiento" SortExpression="FechaNacimiento" />
             <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" Visible="False" />
             <asp:BoundField DataField="State" HeaderText="Estado" SortExpression="State" />
-            <asp:CommandField SelectText="Seleccionar" ShowSelectButton="true" />
+            <asp:ButtonField CommandName="Cancel" Text="Seleccionar" />
         </Columns>
     </asp:GridView>
-    <asp:ObjectDataSource ID="odsAlumnos" runat="server" SelectMethod="GetAll" TypeName="Data.Database.AlumnoAdapter"></asp:ObjectDataSource>
     <asp:Panel ID="gridActionsPanel" runat="server">
         <asp:LinkButton ID="nuevoLinkButton" runat="server" OnClick="nuevoLinkButton_Click" >Nuevo</asp:LinkButton>
         <asp:LinkButton ID="editarLinkButton" runat="server" OnClick="editarLinkButton_Click" >Editar</asp:LinkButton>
         <asp:LinkButton ID="eliminarLinkButton" runat="server" OnClick="eliminarLinkButton_Click" >Eliminar</asp:LinkButton>
+        <asp:ObjectDataSource ID="odsDocentes" runat="server" SelectMethod="GetAll" TypeName="Data.Database.DocenteAdapter"></asp:ObjectDataSource>
     </asp:Panel>
     <asp:Panel ID="formPanel" Visible="false" runat="server">
             <asp:Label ID="lblNombre" runat="server" Text="Nombre: "></asp:Label>
@@ -51,7 +49,6 @@
             <asp:Label ID="lblEspecialidad" runat="server" Text="Especialidad:"></asp:Label>
             <asp:DropDownList ID="cbEspecialidad" runat="server" DataSourceID="odsEspecialidades" DataTextField="Descripcion" DataValueField="Id">
             </asp:DropDownList>
-            <asp:ObjectDataSource ID="odsEspecialidades" runat="server" SelectMethod="GetAll" TypeName="Data.Database.EspecialidadAdapter"></asp:ObjectDataSource>
         <br />            
             <asp:Label ID="lblPlan" runat="server" Text="Plan:"></asp:Label>
             <asp:DropDownList ID="cbPlan" runat="server" Visible="False">
@@ -66,25 +63,7 @@
         <br />
         <asp:Panel ID="formActionsPanel" runat="server">
             <asp:LinkButton ID="aceptarLinkButton" runat="server" OnClick="aceptarLinkButton_Click">Aceptar</asp:LinkButton>
-            <asp:LinkButton ID="cancelarLinkButton" runat="server" >Cancelar</asp:LinkButton>
+            <asp:LinkButton ID="cancelarLinkButton" runat="server" OnClick="cancelarLinkButton_Click" >Cancelar</asp:LinkButton>
         </asp:Panel>
     </asp:Panel>
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript">
-         $(document).ready(function()
-        {
-        
-            $("#cbEspecialidad").change(function()
-            {
-                
-                
-                
-                
-            })
-        
-          });
-    </script>
-
-
-
 </asp:Content>
