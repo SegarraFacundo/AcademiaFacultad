@@ -36,11 +36,11 @@
         <asp:Label ID="Label3" runat="server" Text="Materias del Plan:"></asp:Label>
         <asp:GridView ID="dgvMaterias" runat="server" AutoGenerateColumns="False" DataSourceID="odsMaterias" DataKeyNames="Id" OnSelectedIndexChanged="dgvMaterias_SelectedIndexChanged">
             <Columns>
+                <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />
                 <asp:BoundField DataField="Descripcion" HeaderText="Descripcion" SortExpression="Descripcion" />
                 <asp:BoundField DataField="HsSemanales" HeaderText="Hs Semanales" SortExpression="HsSemanales" />
                 <asp:BoundField DataField="HsTotales" HeaderText="Hs Totales" SortExpression="HsTotales" />
                 <asp:BoundField DataField="IdPlan" HeaderText="IdPlan" SortExpression="IdPlan" Visible="False" />
-                <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" Visible="False" />
                 <asp:BoundField DataField="State" HeaderText="State" SortExpression="State" Visible="False" />
                 <asp:templatefield HeaderText="Seleccionar">
                     <itemtemplate>

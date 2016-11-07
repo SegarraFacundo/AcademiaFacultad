@@ -23,5 +23,13 @@ namespace Business.Entities
             get { return _IdEspecialidad; }
             set { _IdEspecialidad = value; }
         }
+
+        private List<Materia> _ListMaterias;
+
+        public List<Materia> ListaMaterias
+        {
+            get { return _ListMaterias; }
+            set { _ListMaterias = value; }
+        }
     }
 }

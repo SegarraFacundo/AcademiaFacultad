@@ -55,7 +55,19 @@ namespace Business.Logic
 
         public void Save(Plan p)
         {
-            this.planData.Save(p);
+            try
+            {
+                this.planData.Save(p);
+            }
+            catch (InsertException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
         public void Delete(int id)

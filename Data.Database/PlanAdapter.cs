@@ -119,25 +119,52 @@ namespace Data.Database
 
         protected void Insert(Plan plan)
         {
+            MySqlTransaction transaction = null;
+            //Guardamos el plan
             try
-            {
+            {   
                 this.OpenConnection();
+                transaction = MySqlConn.BeginTransaction();
 
-                MySqlCommand cmd = new MySqlCommand("INSERT INTO planes (desc_plan, id_especialidad) " +
-                    "VALUES (@desc_plan, @id_especialidad); SELECT @@IDENTITY", MySqlConn);
-
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO planes (desc_plan, id_especialidad)" +
+                    "VALUES (@desc_plan, @id_especialidad);  SELECT @@IDENTITY AS ID", transaction.Connection);
                 cmd.Parameters.AddWithValue("@desc_plan", plan.Descripcion);
                 cmd.Parameters.AddWithValue("@id_especialidad", plan.IdEspecialidad);
                 cmd.ExecuteNonQuery();
+                
+                //Recuperamos el ID para ponerlo en la materia
+                plan.Id = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+                //Guardamos las materias
+                foreach (Materia m in plan.ListaMaterias)
+                {
+                    m.IdPlan = plan.Id;
+                    MateriaAdapter materiaData = new MateriaAdapter();
+                    materiaData.Save(m, transaction);
+                }
             }
             catch (Exception Ex)
             {
+                transaction.Rollback();
                 throw new InsertException("plan", Ex);
+            }
+
+            try
+            {
+                transaction.Commit();
+            }
+            catch (Exception ex)
+            {
+                Exception handledException = new Exception("Error al guardar los cambios:", ex);
+                transaction.Rollback();
+                throw ex;
             }
             finally
             {
-                this.CloseConnection();
+                transaction.Dispose();
+                CloseConnection();
             }
+           
+
         }
 
         public void Save(Plan plan)
@@ -195,6 +222,7 @@ namespace Data.Database
 
         public Plan getLastByEspecialidad(int idEspecialidad)
         {
+            //Esto no hace nada........................................
             Plan currentPlan;
 
             try

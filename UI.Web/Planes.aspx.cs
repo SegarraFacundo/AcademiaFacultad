@@ -115,10 +115,10 @@ public partial class Planes : System.Web.UI.Page
                 this.Entity.Descripcion = txtDescripcion.Text;
                 this.Entity.IdEspecialidad = cbEspecialidades.SelectedIndex + 1; //Como arranca de 0
                 this.Entity.State = TiposDatos.States.New;
+                this.Entity.ListaMaterias = getListaMateriasSeleccionadas();
                 this.SaveEntity(Entity);
                 break;
             case TiposDatos.FormModes.Modificacion:
-
                 this.Entity = new Plan();
                 this.Entity.Id = this.SelectedID;
                 this.Entity.State = TiposDatos.States.Modified;
@@ -135,19 +135,7 @@ public partial class Planes : System.Web.UI.Page
             default:
                 break;
         }
-
-
-        //Ahora guardamos las materias (si es que se agrego alguna)
-        List<Materia> listaMateriasSelec = getListaMateriasSeleccionadas();
-        if (listaMateriasSelec.Count > 0)
-        {
-            foreach (Materia m in listaMateriasSelec)
-            {
-                m.IdPlan = Entity.Id;
-                m.State = TiposDatos.States.New;
-                materiaLogic.Save(m);
-            }
-        }
+        
         this.ABMPanel.Visible = false;
         this.dgvPlanes.DataBind();
     }
@@ -157,4 +145,8 @@ public partial class Planes : System.Web.UI.Page
     }
     #endregion
 
+    protected void dgvMaterias_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
 }

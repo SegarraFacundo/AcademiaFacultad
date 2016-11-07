@@ -25,7 +25,7 @@ namespace Data.Database
                 while (reader.Read())
                 {
                     Materia currentMateria = new Materia();
-                    currentMateria.Id = (int)reader["id_plan"];
+                    currentMateria.Id = (int)reader["id_materia"];
                     currentMateria.HsSemanales = (int)reader["horas_semanales"];
                     currentMateria.Descripcion = (string)reader["desc_materia"];
                     currentMateria.HsTotales = (int)reader["hs_totales"];
@@ -119,14 +119,25 @@ namespace Data.Database
             }
         }
 
-        protected void Insert(Materia materia)
+        protected void Insert(Materia materia, MySqlTransaction transaction = null)
         {
+
+            MySqlCommand cmd;
+            string query = "INSERT INTO materias (desc_materia, horas_semanales, hs_totales, id_plan)" +
+                    "VALUES (@desc_materia, @horas_semanales, @hs_totales, @id_plan);";
             try
             {
-                this.OpenConnection();
-
-                MySqlCommand cmd = new MySqlCommand("INSERT INTO planes (desc_materia, horas_semanales, hs_totales, id_plan)" +
-                    "VALUES (@desc_plan, @horas_semanales, @hs_totales, @id_plan) SELECT @@IDENTITY", MySqlConn);
+                if (transaction == null)
+                {
+                    //Esto es en caso de que querramos hacer un INSERT solo por una materia, sin planes
+                    this.OpenConnection();
+                    cmd = new MySqlCommand(query, MySqlConn);                    
+                }
+                else
+                {
+                    //Aca es por si grabamos un Plan primero, como hay que hacerlo en una transaccion lo trabajamos asi
+                    cmd = new MySqlCommand(query, transaction.Connection);
+                }                
                 cmd.Parameters.AddWithValue("@desc_materia", materia.Descripcion);
                 cmd.Parameters.AddWithValue("@horas_semanales", materia.HsSemanales);
                 cmd.Parameters.AddWithValue("@hs_totales", materia.HsTotales);
@@ -139,15 +150,15 @@ namespace Data.Database
             }
             finally
             {
-                this.CloseConnection();
+                if (transaction == null) { this.CloseConnection(); }
             }
         }
 
-        public void Save(Materia materia)
+        public void Save(Materia materia, MySqlTransaction transaction = null)
         {
             if (materia.State == TiposDatos.States.New)
             {
-                this.Insert(materia);
+                this.Insert(materia, transaction);
             }
             else if (materia.State == TiposDatos.States.Deleted)
             {
