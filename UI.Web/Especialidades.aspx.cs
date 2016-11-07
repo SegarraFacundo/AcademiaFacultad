@@ -52,37 +52,7 @@ public partial class Especialidades : System.Web.UI.Page
             return (this.SelectedID != 0);
         }
     }
-    protected void aceptarLinkButton_Click(object sender, EventArgs e)
-    {
-        switch (this.FormMode)
-        {
-            case TiposDatos.FormModes.Alta:
-                this.Entity = new Especialidad();
-                this.Entity.Descripcion = txtDescripcion.Text;
-                this.Entity.State = TiposDatos.States.New;
-                this.SaveEntity(Entity);                
-                break;
-            case TiposDatos.FormModes.Modificacion:
-
-                this.Entity = new Especialidad();
-                this.Entity.Id = this.SelectedID;
-                this.Entity.State = TiposDatos.States.Modified;
-                this.Entity.Descripcion = txtDescripcion.Text;
-                this.SaveEntity(Entity);
-                break;
-            case TiposDatos.FormModes.Baja:
-                this.Entity = new Especialidad();
-                this.Entity.Id = this.SelectedID;
-                this.Entity.State = TiposDatos.States.Deleted;
-                this.SaveEntity(Entity);
-                break;
-            default:
-                break;
-        }
-        this.ABMPanel.Visible = false;
-        dgvEspecialidades.DataBind();
-
-    }
+    
     private void SaveEntity(Especialidad especialidad)
     {
         this.especialidadLogic.Save(especialidad);
@@ -131,6 +101,38 @@ public partial class Especialidades : System.Web.UI.Page
     {
         this.txtDescripcion.Text = "";
         this.ABMPanel.Visible = false;
+    }
+
+    protected void aceptarLinkButton_Click(object sender, EventArgs e)
+    {
+        switch (this.FormMode)
+        {
+            case TiposDatos.FormModes.Alta:
+                this.Entity = new Especialidad();
+                this.Entity.Descripcion = txtDescripcion.Text;
+                this.Entity.State = TiposDatos.States.New;
+                this.SaveEntity(Entity);
+                break;
+            case TiposDatos.FormModes.Modificacion:
+
+                this.Entity = new Especialidad();
+                this.Entity.Id = this.SelectedID;
+                this.Entity.State = TiposDatos.States.Modified;
+                this.Entity.Descripcion = txtDescripcion.Text;
+                this.SaveEntity(Entity);
+                break;
+            case TiposDatos.FormModes.Baja:
+                this.Entity = new Especialidad();
+                this.Entity.Id = this.SelectedID;
+                this.Entity.State = TiposDatos.States.Deleted;
+                this.SaveEntity(Entity);
+                break;
+            default:
+                break;
+        }
+        this.ABMPanel.Visible = false;
+        dgvEspecialidades.DataBind();
+
     }
     #endregion
 

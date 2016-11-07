@@ -123,8 +123,8 @@ namespace Data.Database
             {
                 this.OpenConnection();
 
-                MySqlCommand cmd = new MySqlCommand("INSERT INTO planes (desc_plan, id_especialidad)" +
-                    "VALUES ( @desc_plan, @id_especialidad) SELECT @@IDENTITY", MySqlConn);
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO planes (desc_plan, id_especialidad) " +
+                    "VALUES (@desc_plan, @id_especialidad); SELECT @@IDENTITY", MySqlConn);
 
                 cmd.Parameters.AddWithValue("@desc_plan", plan.Descripcion);
                 cmd.Parameters.AddWithValue("@id_especialidad", plan.IdEspecialidad);

@@ -9,11 +9,13 @@
         DataKeyNames="ID" OnSelectedIndexChanged="dgvEspecialidades_SelectedIndexChanged"> 
             <Columns>
                 <asp:BoundField DataField="Descripcion" HeaderText="Descripcion" SortExpression="Descripcion" />
-                <asp:BoundField DataField="IdEspecialidad" HeaderText="IdEspecialidad" SortExpression="IdEspecialidad" />
-                <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />
-                <asp:BoundField DataField="State" HeaderText="State" SortExpression="State" />
+                <asp:BoundField DataField="IdEspecialidad" HeaderText="IdEspecialidad" SortExpression="IdEspecialidad" Visible="False" />
+                <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" Visible="False" />
+                <asp:BoundField DataField="State" HeaderText="State" SortExpression="State" Visible="False" />
                 <asp:CommandField SelectText="Seleccionar" ShowSelectButton="true" />
             </Columns>
+
+<SelectedRowStyle BackColor="Black" ForeColor="White"></SelectedRowStyle>
     </asp:GridView>
     <asp:ObjectDataSource ID="odsPlanes" runat="server" SelectMethod="GetAll" TypeName="Data.Database.PlanAdapter"></asp:ObjectDataSource>
     <asp:Panel ID="gridActionsPanel" runat="server">
@@ -31,7 +33,23 @@
         </asp:DropDownList>
         <asp:ObjectDataSource ID="odsEspecialiades" runat="server" SelectMethod="GetAll" TypeName="Data.Database.EspecialidadAdapter"></asp:ObjectDataSource>
         <br /><br />
-        <asp:Label ID="Label3" runat="server" Text="Materias del plan:"></asp:Label>
+        <asp:Label ID="Label3" runat="server" Text="Materias del Plan:"></asp:Label>
+        <asp:GridView ID="dgvMaterias" runat="server" AutoGenerateColumns="False" DataSourceID="odsMaterias" DataKeyNames="Id" OnSelectedIndexChanged="dgvMaterias_SelectedIndexChanged">
+            <Columns>
+                <asp:BoundField DataField="Descripcion" HeaderText="Descripcion" SortExpression="Descripcion" />
+                <asp:BoundField DataField="HsSemanales" HeaderText="Hs Semanales" SortExpression="HsSemanales" />
+                <asp:BoundField DataField="HsTotales" HeaderText="Hs Totales" SortExpression="HsTotales" />
+                <asp:BoundField DataField="IdPlan" HeaderText="IdPlan" SortExpression="IdPlan" Visible="False" />
+                <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" Visible="False" />
+                <asp:BoundField DataField="State" HeaderText="State" SortExpression="State" Visible="False" />
+                <asp:templatefield HeaderText="Seleccionar">
+                    <itemtemplate>
+                         <asp:checkbox ID="chkSelect" CssClass="gridCB" runat="server"></asp:checkbox>
+                    </itemtemplate>
+                </asp:templatefield>
+            </Columns>
+        </asp:GridView>
+        <asp:ObjectDataSource ID="odsMaterias" runat="server" SelectMethod="GetAll" TypeName="Data.Database.MateriaAdapter"></asp:ObjectDataSource>
     </asp:Panel>
 
 
