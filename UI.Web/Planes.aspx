@@ -29,12 +29,12 @@
         <asp:TextBox ID="txtDescripcion" runat="server"></asp:TextBox>
         <br/>
         <asp:Label ID="Label2" runat="server" Text="Especialidad:"></asp:Label>
-        <asp:DropDownList ID="cbEspecialidades" runat="server" DataSourceID="odsEspecialiades" DataTextField="Descripcion" DataValueField="Descripcion">
+        <asp:DropDownList ID="cbEspecialidades" runat="server" DataSourceID="odsEspecialiades" DataTextField="Descripcion" DataValueField="Id">
         </asp:DropDownList>
         <asp:ObjectDataSource ID="odsEspecialiades" runat="server" SelectMethod="GetAll" TypeName="Data.Database.EspecialidadAdapter"></asp:ObjectDataSource>
         <br /><br />
         <asp:Label ID="Label3" runat="server" Text="Materias del Plan:"></asp:Label>
-        <asp:GridView ID="dgvMaterias" runat="server" AutoGenerateColumns="False" DataSourceID="odsMaterias" DataKeyNames="Id" OnSelectedIndexChanged="dgvMaterias_SelectedIndexChanged">
+        <asp:GridView ID="dgvMaterias" runat="server" AutoGenerateColumns="False" DataSourceID="odsMaterias" DataKeyNames="Id, Descripcion" OnSelectedIndexChanged="dgvMaterias_SelectedIndexChanged">
             <Columns>
                 <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />
                 <asp:BoundField DataField="Descripcion" HeaderText="Descripcion" SortExpression="Descripcion" />
@@ -49,13 +49,14 @@
                 </asp:templatefield>
             </Columns>
         </asp:GridView>
-        <asp:ObjectDataSource ID="odsMaterias" runat="server" SelectMethod="GetAll" TypeName="Data.Database.MateriaAdapter"></asp:ObjectDataSource>
-    </asp:Panel>
-
-    <asp:Panel ID="formActionsPanel" runat="server">
+        <asp:ObjectDataSource ID="odsMaterias" runat="server" SelectMethod="GetAllSinPlan" TypeName="Data.Database.MateriaAdapter"></asp:ObjectDataSource>
+        <asp:Panel ID="formActionsPanel" runat="server">
             <asp:LinkButton ID="aceptarLinkButton" runat="server" OnClick="aceptarLinkButton_Click">Aceptar</asp:LinkButton>
             <asp:LinkButton ID="cancelarLinkButton" runat="server" OnClick="cancelarLinkButton_Click">Cancelar</asp:LinkButton>
+        </asp:Panel>
     </asp:Panel>
+
+    
 
 </asp:Content>
 

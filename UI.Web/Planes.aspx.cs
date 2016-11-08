@@ -15,22 +15,6 @@ public partial class Planes : System.Web.UI.Page
     PlanLogic planLogic = new PlanLogic();
     MateriaLogic materiaLogic = new MateriaLogic();
     #region "propiedades"
-
-    public TiposDatos.FormModes FormMode
-    {
-        get { return (TiposDatos.FormModes)this.ViewState["FormMode"]; }
-        set { this.ViewState["FormMode"] = value; }
-    }
-
-    private Plan Entity
-    {
-        get;
-        set;
-    }
-
-    #endregion
-
-    #region "metodos"
     private int SelectedID
     {
         get
@@ -49,6 +33,22 @@ public partial class Planes : System.Web.UI.Page
             this.ViewState["SelectedID"] = value;
         }
     }
+    public TiposDatos.FormModes FormMode
+    {
+        get { return (TiposDatos.FormModes)this.ViewState["FormMode"]; }
+        set { this.ViewState["FormMode"] = value; }
+    }
+
+    private Plan Entity
+    {
+        get;
+        set;
+    }
+
+    #endregion
+
+    #region "metodos"
+
     private bool IsEntitySelected
     {
         get
@@ -71,7 +71,7 @@ public partial class Planes : System.Web.UI.Page
             CheckBox cb = (CheckBox)row.FindControl("chkSelect");
             if (cb != null && cb.Checked)
             {
-                int materiaID = Convert.ToInt32(dgvMaterias.DataKeys[row.RowIndex].Value);
+                int materiaID = Convert.ToInt32(dgvMaterias.DataKeys[row.RowIndex].Values["Id"]);
                 Materia currentMateria = new Materia();
                 currentMateria = materiaLogic.GetOne(materiaID);
                 listaMaterias.Add(currentMateria);
@@ -85,11 +85,11 @@ public partial class Planes : System.Web.UI.Page
     #region "metodos controles"
     protected void Page_Load(object sender, EventArgs e)
     {
-
     }
     protected void dgvEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+        this.SelectedID = (int)this.dgvPlanes.SelectedValue;
+        this.formActionsPanel.Visible = false;
     }
     protected void nuevoLinkButton_Click(object sender, EventArgs e)
     {
@@ -99,11 +99,33 @@ public partial class Planes : System.Web.UI.Page
     }
     protected void editarLinkButton_Click(object sender, EventArgs e)
     {
+        if (IsEntitySelected)
+        {
+
+            this.formActionsPanel.Visible = true;
+            this.ABMPanel.Visible = true;
+            this.gridActionsPanel.Visible = false;
+            this.FormMode = TiposDatos.FormModes.Modificacion;
+            this.EnabledForm(true);
+            this.LoadForm(SelectedID);
+        }
+        
 
     }
     protected void eliminarLinkButton_Click(object sender, EventArgs e)
     {
+        if (IsEntitySelected)
+        {
 
+            this.ABMPanel.Visible = true;
+            this.gridActionsPanel.Visible = false;
+            this.formActionsPanel.Visible = true;
+            this.FormMode = TiposDatos.FormModes.Baja;
+            this.EnabledForm(false);
+            this.LoadForm(SelectedID);
+            
+
+        }
     }
     protected void aceptarLinkButton_Click(object sender, EventArgs e)
     {
@@ -113,7 +135,7 @@ public partial class Planes : System.Web.UI.Page
             case TiposDatos.FormModes.Alta:
                 this.Entity = new Plan();
                 this.Entity.Descripcion = txtDescripcion.Text;
-                this.Entity.IdEspecialidad = cbEspecialidades.SelectedIndex + 1; //Como arranca de 0
+                this.Entity.IdEspecialidad = Convert.ToInt32(cbEspecialidades.SelectedValue); 
                 this.Entity.State = TiposDatos.States.New;
                 this.Entity.ListaMaterias = getListaMateriasSeleccionadas();
                 this.SaveEntity(Entity);
@@ -123,13 +145,14 @@ public partial class Planes : System.Web.UI.Page
                 this.Entity.Id = this.SelectedID;
                 this.Entity.State = TiposDatos.States.Modified;
                 this.Entity.Descripcion = txtDescripcion.Text;
-                this.Entity.IdEspecialidad = cbEspecialidades.SelectedIndex + 1; //Como arranca de 0
+                this.Entity.IdEspecialidad = Convert.ToInt32(cbEspecialidades.SelectedValue); 
                 this.SaveEntity(Entity);
                 break;
             case TiposDatos.FormModes.Baja:
                 this.Entity = new Plan();
                 this.Entity.Id = this.SelectedID;
                 this.Entity.State = TiposDatos.States.Deleted;
+                this.Entity.ListaMaterias = materiaLogic.GetMateriasPorPlan(Entity.Id);
                 this.SaveEntity(Entity);
                 break;
             default:
@@ -138,13 +161,47 @@ public partial class Planes : System.Web.UI.Page
         
         this.ABMPanel.Visible = false;
         this.dgvPlanes.DataBind();
+        this.ClearForm();
     }
     protected void cancelarLinkButton_Click(object sender, EventArgs e)
     {
-
+        this.ClearForm();
+        this.ABMPanel.Visible = false;
+        this.gridActionsPanel.Visible = true;
     }
     #endregion
+    private void ClearForm()
+    {
+        txtDescripcion.Text = "";
+        dgvMaterias.DataBind();
+    }
+    private void EnabledForm(bool v)
+    {
+        txtDescripcion.Enabled = v;
+        cbEspecialidades.Enabled = v;
+        dgvMaterias.Enabled = v;
+    }
 
+    private void LoadForm(int id)
+    {
+        Plan p = planLogic.GetOne(id);
+        txtDescripcion.Text = p.Descripcion;
+        cbEspecialidades.SelectedValue = p.IdEspecialidad.ToString();
+        p.ListaMaterias = materiaLogic.GetMateriasPorPlan(p.Id);
+        //tildamos las materias que tenga el plan
+        foreach (GridViewRow row in dgvMaterias.Rows)
+        {
+            CheckBox cb = (CheckBox)row.FindControl("chkSelect");
+            foreach (Materia m in p.ListaMaterias)
+            {
+                if (m.Descripcion == (dgvMaterias.DataKeys[row.RowIndex].Values["Descripcion"]).ToString())
+                {
+                    cb.Checked = true;
+                }
+            }
+            
+        }
+    }
     protected void dgvMaterias_SelectedIndexChanged(object sender, EventArgs e)
     {
 

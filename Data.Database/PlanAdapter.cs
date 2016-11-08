@@ -78,22 +78,47 @@ namespace Data.Database
 
         public void Delete(int Id)
         {
+
+            MySqlTransaction transaction = null;
+
+
             try
             {
                 this.OpenConnection();
+                transaction = MySqlConn.BeginTransaction();
+
+                
+                MateriaAdapter ma = new MateriaAdapter();
+                ma.DeleteMateriasPlan(Id, transaction);
+
+
                 MySqlCommand cmd = new MySqlCommand("DELETE FROM planes WHERE id_plan = @ID", MySqlConn);
                 cmd.Parameters.AddWithValue("@ID", Id);
                 cmd.ExecuteNonQuery();
 
+
             }
             catch (Exception Ex)
             {
+                transaction.Rollback();
                 throw new DeleteException("plan", Ex);
+            }
+
+            try
+            {
+                transaction.Commit();
+             }
+            catch (Exception Ex)
+            {
+                transaction.Rollback();
+                throw new DeleteException("Error al guardar los cambios", Ex);
             }
             finally
             {
-                this.CloseConnection();
-            }
+                transaction.Dispose();
+                CloseConnection();
+            };
+
         }
 
         protected void Update(Plan plan)
@@ -101,6 +126,7 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
+
                 MySqlCommand cmd = new MySqlCommand("UPDATE planes SET desc_plan = @desc_plan, id_especialidad = @id_especialidad WHERE id_plan = @ID", MySqlConn);
                 cmd.Parameters.AddWithValue("@desc_plan", plan.Descripcion);
                 cmd.Parameters.AddWithValue("@id_especialidad", plan.IdEspecialidad);
@@ -129,9 +155,7 @@ namespace Data.Database
                 MySqlCommand cmd = new MySqlCommand("INSERT INTO planes (desc_plan, id_especialidad)" +
                     "VALUES (@desc_plan, @id_especialidad);  SELECT @@IDENTITY AS ID", transaction.Connection);
                 cmd.Parameters.AddWithValue("@desc_plan", plan.Descripcion);
-                cmd.Parameters.AddWithValue("@id_especialidad", plan.IdEspecialidad);
-                cmd.ExecuteNonQuery();
-                
+                cmd.Parameters.AddWithValue("@id_especialidad", plan.IdEspecialidad);             
                 //Recuperamos el ID para ponerlo en la materia
                 plan.Id = Convert.ToInt32(cmd.ExecuteScalar().ToString());
                 //Guardamos las materias

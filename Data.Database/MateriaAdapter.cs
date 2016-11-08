@@ -29,6 +29,79 @@ namespace Data.Database
                     currentMateria.HsSemanales = (int)reader["horas_semanales"];
                     currentMateria.Descripcion = (string)reader["desc_materia"];
                     currentMateria.HsTotales = (int)reader["hs_totales"];
+                    if (reader["id_plan"].Equals(DBNull.Value))
+                    {
+                        currentMateria.IdPlan = 0;
+                    }
+                    else
+                    {
+                        currentMateria.IdPlan = (int)reader["id_plan"];
+                    }
+                    materias.Add(currentMateria);
+                }
+                reader.Close();
+
+            }
+            catch (Exception Ex)
+            {
+                throw new NotFoundException("materia", Ex);
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+            return materias;
+        }
+        public List<Materia> GetAllSinPlan()
+        {
+            List<Materia> materias = new List<Materia>();
+            try
+            {
+                this.OpenConnection();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM materias WHERE id_plan IS NULL;", MySqlConn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Materia currentMateria = new Materia();
+                    currentMateria.Id = (int)reader["id_materia"];
+                    currentMateria.HsSemanales = (int)reader["horas_semanales"];
+                    currentMateria.Descripcion = (string)reader["desc_materia"];
+                    currentMateria.HsTotales = (int)reader["hs_totales"];
+                    currentMateria.IdPlan = 0; // Para que gastarse no? Si vienen sin id_plan
+                    materias.Add(currentMateria);
+                }
+                reader.Close();
+
+            }
+            catch (Exception Ex)
+            {
+                throw new NotFoundException("materia", Ex);
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+            return materias;
+        }
+
+        public List<Materia> GetMateriaPorPlan(int idPlan)
+        {
+            List<Materia> materias = new List<Materia>();
+            try
+            {
+                this.OpenConnection();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM materias WHERE id_plan = @id_plan;", MySqlConn);
+                cmd.Parameters.AddWithValue("@id_plan", idPlan);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Materia currentMateria = new Materia();
+                    currentMateria.Id = (int)reader["id_materia"];
+                    currentMateria.HsSemanales = (int)reader["horas_semanales"];
+                    currentMateria.Descripcion = (string)reader["desc_materia"];
+                    currentMateria.HsTotales = (int)reader["hs_totales"];
                     currentMateria.IdPlan = (int)reader["id_plan"];
                     materias.Add(currentMateria);
                 }
@@ -57,11 +130,18 @@ namespace Data.Database
                 if (reader.Read())
                 {
                     currentMateria = new Materia();
-                    currentMateria.Id = (int)reader["id_plan"];
+                    currentMateria.Id = (int)reader["id_materia"];
                     currentMateria.HsSemanales = (int)reader["horas_semanales"];
                     currentMateria.Descripcion = (string)reader["desc_materia"];
                     currentMateria.HsTotales = (int)reader["hs_totales"];
-                    currentMateria.IdPlan = (int)reader["id_plan"];
+                    if(reader["id_plan"].Equals(DBNull.Value))
+                    {
+                        currentMateria.IdPlan = 0;
+                    }
+                    else
+                    {
+                        currentMateria.IdPlan = (int)reader["id_plan"];
+                    }
                     reader.Close();
                     return currentMateria;
                 }
@@ -173,6 +253,22 @@ namespace Data.Database
                 materia.State = TiposDatos.States.Unmodified;
             }
         }
+
+        public void DeleteMateriasPlan(int idPlan, MySqlTransaction transaction)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM materias WHERE id_plan = @ID", transaction.Connection);
+                cmd.Parameters.AddWithValue("@ID", idPlan);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception Ex)
+            {
+                throw new DeleteException("materia", Ex);
+            }
+        }
+
+
     }
 }
 

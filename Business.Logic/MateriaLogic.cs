@@ -52,7 +52,22 @@ namespace Business.Logic
                 throw new CustomException(ex);
             }
         }
-
+        public List<Materia> GetMateriasPorPlan(int idPlan)
+        {
+            try
+            {
+                List<Materia> materias = this.materiaData.GetMateriaPorPlan(idPlan);
+                return materias;
+            }
+            catch (NotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex);
+            }
+        }       
         public void Save(Materia m)
         {
             this.materiaData.Save(m);
