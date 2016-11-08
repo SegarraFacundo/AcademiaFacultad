@@ -81,7 +81,7 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                MySqlCommand cmd = new MySqlCommand("DELETE FROM materias WHERE id_plan = @ID", MySqlConn);
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM materias WHERE id_materia = @ID", MySqlConn);
                 cmd.Parameters.AddWithValue("@ID", Id);
                 cmd.ExecuteNonQuery();
             }
@@ -102,11 +102,11 @@ namespace Data.Database
                 this.OpenConnection();
                 MySqlCommand cmd = new MySqlCommand("UPDATE materias SET desc_materia = @desc_materia, horas_semanales = @horas_semanales, hs_totales = @hs_totales, " +
                 "id_plan = @id_plan WHERE id_materia = @ID", MySqlConn);
+                cmd.Parameters.AddWithValue("@ID", materia.Id);
                 cmd.Parameters.AddWithValue("@desc_materia", materia.Descripcion);
                 cmd.Parameters.AddWithValue("@horas_semanales", materia.HsSemanales);
                 cmd.Parameters.AddWithValue("@hs_totales", materia.HsTotales);
                 cmd.Parameters.AddWithValue("@id_plan", materia.IdPlan);
-                cmd.Parameters.AddWithValue("@id_materia", materia.Id);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception Ex)
