@@ -73,6 +73,21 @@ namespace Business.Logic
             this.materiaData.Save(m);
         }
 
-
+        public Materia SearchByName(int idPlan, string nombre)
+        {
+            //Este metodo esta por el hecho de que manejamos las materias sin id_plan para poder asignarlas a un plan al darlo de alta, a travez de esa lista.
+            //Tal vez el nombre no sea el mas representativo del mundo, lo admito
+            //De esta forma, cuando queremos una materia que YA esta asignada a un plan, con el idPlan y el nombre (porque puede haber mas de una materia con ese id)
+            //Encontramos la materia que queriamos.
+            List<Materia> materias = this.GetMateriasPorPlan(idPlan);
+            foreach (Materia m in materias)
+            {
+                if (m.Descripcion == nombre)
+                {
+                    return m;
+                }
+            }
+            return null;
+        }
     }
 }

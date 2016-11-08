@@ -44,7 +44,7 @@
                 <asp:BoundField DataField="State" HeaderText="State" SortExpression="State" Visible="False" />
                 <asp:templatefield HeaderText="Seleccionar">
                     <itemtemplate>
-                         <asp:checkbox ID="chkSelect" CssClass="gridCB" runat="server"></asp:checkbox>
+                         <asp:checkbox ID="chkSelect" runat="server"></asp:checkbox>
                     </itemtemplate>
                 </asp:templatefield>
             </Columns>

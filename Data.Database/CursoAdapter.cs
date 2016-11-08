@@ -23,6 +23,7 @@ namespace Data.Database
                 while (reader.Read())
                 {
                     Curso curso = new Curso();
+                    curso.Descripcion = (string)reader["desc_curso"];
                     curso.AnioCalendario = (int)reader["anio_calendario"];
                     curso.Cupo = (int)reader["cupo"];
                     curso.IdComision = (int)reader["id_comision"];
@@ -57,6 +58,7 @@ namespace Data.Database
 
                 if (reader.Read())
                 {
+                    curso.Descripcion = (string)reader["desc_curso"];
                     curso.AnioCalendario = (int)reader["anio_calendario"];
                     curso.Cupo = (int)reader["cupo"];
                     curso.IdComision = (int)reader["id_comision"];
@@ -103,13 +105,15 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                MySqlCommand cmd = new MySqlCommand("UPDATE cursos SET anio_calendario=@anio_calendario, cupo=@cupo, id_comision=@id_comision, id_materia=@id_materia " +
+                MySqlCommand cmd = new MySqlCommand("UPDATE cursos SET desc_curso = @desc_curso, anio_calendario=@anio_calendario, cupo=@cupo, id_comision=@id_comision, id_materia=@id_materia " +
                 "WHERE id_curso= @id_curso", MySqlConn);
                 cmd.Parameters.AddWithValue("@id_curso", curso.Id);
                 cmd.Parameters.AddWithValue("@anio_calendario", curso.AnioCalendario);
                 cmd.Parameters.AddWithValue("@cupo", curso.Cupo);
                 cmd.Parameters.AddWithValue("@id_comision", curso.IdComision);
                 cmd.Parameters.AddWithValue("@id_materia", curso.IdMateria);
+                cmd.Parameters.AddWithValue("@desc_curso", curso.Descripcion);
+
                 cmd.ExecuteNonQuery();
             }
 
@@ -129,12 +133,14 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                MySqlCommand cmd = new MySqlCommand("INSERT INTO cursos (anio_calendario, cupo, id_comision, id_materia) VALUES (@anio_calendario, @cupo,@id_comision, @id_materia) " +
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO cursos (desc_curso, anio_calendario, cupo, id_comision, id_materia) VALUES " + 
+                    "(@desc_curso, @anio_calendario, @cupo,@id_comision, @id_materia); " +
                     " SELECT @@IDENTITY", MySqlConn);
                 cmd.Parameters.AddWithValue("@anio_calendario", curso.AnioCalendario);
                 cmd.Parameters.AddWithValue("@cupo", curso.Cupo);
                 cmd.Parameters.AddWithValue("@id_comision", curso.IdComision);
                 cmd.Parameters.AddWithValue("@id_materia", curso.IdMateria);
+                cmd.Parameters.AddWithValue("@desc_curso", curso.Descripcion);
                 cmd.ExecuteNonQuery();
             }
 

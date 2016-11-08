@@ -10,7 +10,7 @@ using Util;
 
 namespace Data.Database
 {
-    class ComisionAdapter: Adapter
+    public class ComisionAdapter: Adapter
     {
         
         public List<Comision> GetAll()
@@ -78,8 +78,10 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                MySqlCommand cmd = new MySqlCommand("INSERT INTO comisiones (desc_comision) VALUES (@comision); SELECT @@IDENTITY;", MySqlConn);
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO comisiones (desc_comision, anio_especialidad, id_plan) VALUES (@comision, @anio, @id_plan); SELECT @@IDENTITY;", MySqlConn);
                 cmd.Parameters.AddWithValue("@comision", c.Descripcion);
+                cmd.Parameters.AddWithValue("@anio", c.AnioEspecialidad);
+                cmd.Parameters.AddWithValue("@id_plan", c.IdPlan);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -97,8 +99,11 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                MySqlCommand cmd = new MySqlCommand("UPDATE comisiones SET desc_comision = @comision WHERE id_comision = @idcomision", MySqlConn);
+                MySqlCommand cmd = new MySqlCommand("UPDATE comisiones SET desc_comision = @descripcion, anio_especialidad = @anio_especialidad, " +
+                    "id_plan = @id_plan WHERE id_comision = @idcomision", MySqlConn);
                 cmd.Parameters.AddWithValue("@descripcion", c.Descripcion);
+                cmd.Parameters.AddWithValue("@id_plan", c.IdPlan);
+                cmd.Parameters.AddWithValue("@anio_especialidad", c.AnioEspecialidad);
                 cmd.Parameters.AddWithValue("@idcomision", c.Id);
                 cmd.ExecuteNonQuery();
             }

@@ -123,11 +123,27 @@ namespace Data.Database
 
         protected void Update(Plan plan)
         {
+            MySqlTransaction transaction = null;
+
             try
             {
-                this.OpenConnection();
 
-                MySqlCommand cmd = new MySqlCommand("UPDATE planes SET desc_plan = @desc_plan, id_especialidad = @id_especialidad WHERE id_plan = @ID", MySqlConn);
+                //Para hacerlo mas simple, borramos las materias que tenia antes el plan e insertamos las que va a tener ahora
+                
+                this.OpenConnection();
+                transaction = MySqlConn.BeginTransaction();
+
+                MateriaAdapter ma = new MateriaAdapter();
+                ma.DeleteMateriasPlan(plan.Id, transaction);
+                foreach (Materia m in plan.ListaMaterias)
+                {
+                    m.IdPlan = plan.Id;
+                    MateriaAdapter materiaData = new MateriaAdapter();
+                    materiaData.Save(m, transaction);
+                }
+
+
+                MySqlCommand cmd = new MySqlCommand("UPDATE planes SET desc_plan = @desc_plan, id_especialidad = @id_especialidad WHERE id_plan = @ID", transaction.Connection);
                 cmd.Parameters.AddWithValue("@desc_plan", plan.Descripcion);
                 cmd.Parameters.AddWithValue("@id_especialidad", plan.IdEspecialidad);
                 cmd.Parameters.AddWithValue("@ID", plan.Id);
@@ -135,10 +151,22 @@ namespace Data.Database
             }
             catch (Exception Ex)
             {
-                throw new UpdateException("plan", Ex);
+                transaction.Rollback();
+                throw new UpdateException("plan", Ex);                
+            }
+
+            try
+            {
+                transaction.Commit();
+            }
+            catch (Exception Ex)
+            {
+                transaction.Rollback();
+                throw new UpdateException("plan", Ex);    
             }
             finally
             {
+                transaction.Dispose();
                 this.CloseConnection();
             }
         }

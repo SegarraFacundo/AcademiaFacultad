@@ -85,6 +85,11 @@ public partial class Planes : System.Web.UI.Page
     #region "metodos controles"
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (this.IsPostBack)
+        {
+            dgvPlanes.DataBind();
+        }
+
     }
     protected void dgvEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -95,6 +100,9 @@ public partial class Planes : System.Web.UI.Page
     {
         this.ABMPanel.Visible = true;
         this.FormMode = TiposDatos.FormModes.Alta;
+        this.EnabledForm(true);
+        this.ClearForm();
+        this.formActionsPanel.Visible = true;
 
     }
     protected void editarLinkButton_Click(object sender, EventArgs e)
@@ -129,7 +137,6 @@ public partial class Planes : System.Web.UI.Page
     }
     protected void aceptarLinkButton_Click(object sender, EventArgs e)
     {
-        //Primero guardamos el plan y desp las materias
         switch (this.FormMode)
         {
             case TiposDatos.FormModes.Alta:
@@ -145,7 +152,8 @@ public partial class Planes : System.Web.UI.Page
                 this.Entity.Id = this.SelectedID;
                 this.Entity.State = TiposDatos.States.Modified;
                 this.Entity.Descripcion = txtDescripcion.Text;
-                this.Entity.IdEspecialidad = Convert.ToInt32(cbEspecialidades.SelectedValue); 
+                this.Entity.IdEspecialidad = Convert.ToInt32(cbEspecialidades.SelectedValue);
+                this.Entity.ListaMaterias = getListaMateriasSeleccionadas();
                 this.SaveEntity(Entity);
                 break;
             case TiposDatos.FormModes.Baja:
@@ -160,6 +168,7 @@ public partial class Planes : System.Web.UI.Page
         }
         
         this.ABMPanel.Visible = false;
+        this.gridActionsPanel.Visible = true;
         this.dgvPlanes.DataBind();
         this.ClearForm();
     }

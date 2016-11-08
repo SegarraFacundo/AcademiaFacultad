@@ -6,14 +6,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Business.Entities;
 using Business.Logic;
-using Util.CustomException;
 using Util;
+using Util.CustomException;
 
-public partial class Comisiones : System.Web.UI.Page
+public partial class Cursos : System.Web.UI.Page
 {
 
-
-    ComisionLogic comisionLogic = new ComisionLogic();
+    CursoLogic cursoLogic = new CursoLogic();
 
     private int SelectedID
     {
@@ -39,7 +38,7 @@ public partial class Comisiones : System.Web.UI.Page
         set { this.ViewState["FormMode"] = value; }
     }
 
-    private Comision Entity
+    private Curso Entity
     {
         get;
         set;
@@ -53,72 +52,71 @@ public partial class Comisiones : System.Web.UI.Page
         }
     }
 
-    private void SaveEntity(Comision comision)
+    private void SaveEntity(Curso curso)
     {
-        this.comisionLogic.Save(comision);
+        this.cursoLogic.Save(curso);
     }
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (this.IsPostBack)
+        if (IsPostBack)
         {
-
+            dgvCursos.DataBind();
         }
     }
     protected void nuevoLinkButton_Click(object sender, EventArgs e)
     {
+        this.formActionsPanel.Visible = true;
         this.ABMPanel.Visible = true;
         this.gridActionsPanel.Visible = false;
         this.FormMode = TiposDatos.FormModes.Alta;
         this.EnabledForm(true);
-        this.ClearForm();
-        this.formActionsPanel.Visible = true;
+
     }
     protected void editarLinkButton_Click(object sender, EventArgs e)
     {
         if (IsEntitySelected)
         {
+            this.EnabledForm(true);
+            this.LoadForm(SelectedID);
+            this.formActionsPanel.Visible = true;
             this.ABMPanel.Visible = true;
             this.gridActionsPanel.Visible = false;
-            this.formActionsPanel.Visible = true;
-            this.EnabledForm(true);
-            this.FormMode = TiposDatos.FormModes.Modificacion;
-            this.LoadForm(SelectedID);
-
+            this.FormMode = TiposDatos.FormModes.Modificacion;            
         }
     }
     protected void eliminarLinkButton_Click(object sender, EventArgs e)
     {
         if (IsEntitySelected)
         {
-            this.gridActionsPanel.Visible = false;
-            this.ABMPanel.Visible = true;
-            this.formActionsPanel.Visible = true;
-            this.FormMode = TiposDatos.FormModes.Baja;
             this.EnabledForm(false);
             this.LoadForm(SelectedID);
+            this.formActionsPanel.Visible = true;
+            this.ABMPanel.Visible = true;
+            this.gridActionsPanel.Visible = false;
+            this.FormMode = TiposDatos.FormModes.Baja;
         }
-        
     }
     protected void aceptarLinkButton_Click(object sender, EventArgs e)
     {
         switch (this.FormMode)
         {
             case TiposDatos.FormModes.Alta:
-                this.Entity = new Comision();
+                this.Entity = new Curso();
                 this.Entity.State = TiposDatos.States.New;
                 this.LoadEntity(Entity);
                 this.SaveEntity(Entity);
                 break;
             case TiposDatos.FormModes.Modificacion:
-                this.Entity = new Comision();
+                this.Entity = new Curso();
                 this.Entity.Id = this.SelectedID;
                 this.Entity.State = TiposDatos.States.Modified;
                 this.LoadEntity(Entity);
                 this.SaveEntity(Entity);
                 break;
             case TiposDatos.FormModes.Baja:
-                this.Entity = new Comision();
+                this.Entity = new Curso();
                 this.Entity.Id = this.SelectedID;
                 this.Entity.State = TiposDatos.States.Deleted;
                 this.SaveEntity(Entity);
@@ -126,11 +124,12 @@ public partial class Comisiones : System.Web.UI.Page
             default:
                 break;
         }
-        this.formActionsPanel.Visible = false;
+
         this.ABMPanel.Visible = false;
-        this.ClearForm();
         this.gridActionsPanel.Visible = true;
-        this.dgvComisiones.DataBind();
+        this.formActionsPanel.Visible = false;
+        this.dgvCursos.DataBind();
+        this.ClearForm();
     }
     protected void cancelarLinkButton_Click(object sender, EventArgs e)
     {
@@ -138,36 +137,55 @@ public partial class Comisiones : System.Web.UI.Page
         this.ABMPanel.Visible = false;
         this.gridActionsPanel.Visible = true;
     }
+    private void ClearForm()
+    {
+        txtAñoCalendario.Text = "";
+        txtCupo.Text = "";
+        txtDescripcion.Text = "";
+    }
 
     private void EnabledForm(bool v)
     {
-        txtAñoEspecialidad.Enabled = v;
         txtDescripcion.Enabled = v;
-        cbPlanes.Enabled = v;
-    }
-    private void ClearForm()
-    {
-        txtAñoEspecialidad.Text = "";
-        txtDescripcion.Text = ""; 
+        txtCupo.Enabled = v;
+        txtAñoCalendario.Enabled = v;
+        cbComisiones.Enabled = v;
+        cbMaterias.Enabled = v;
     }
 
     private void LoadForm(int id)
     {
-        Comision c = comisionLogic.GetOne(id);
-        txtAñoEspecialidad.Text = c.AnioEspecialidad.ToString();
-        txtDescripcion.Text = c.Descripcion;
-        cbPlanes.SelectedValue = c.IdPlan.ToString();
+        Curso c = cursoLogic.GetOne(id);
+        txtAñoCalendario.Text = c.AnioCalendario.ToString();
+        txtCupo.Text = c.Cupo.ToString();
+        txtDescripcion.Text = c.Descripcion;        
+        cbComisiones.SelectedValue = c.IdComision.ToString();
     }
-
     protected void dgvEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
     {
-        this.SelectedID = (int)this.dgvComisiones.SelectedValue;
+        this.SelectedID = (int)this.dgvCursos.SelectedValue;
         this.formActionsPanel.Visible = false;
     }
-    private void LoadEntity(Comision c)
+    protected void LoadEntity(Curso c)
     {
-        this.Entity.Descripcion = txtDescripcion.Text;
-        this.Entity.AnioEspecialidad = Convert.ToInt32(txtAñoEspecialidad.Text);
-        this.Entity.IdPlan = Convert.ToInt32(cbPlanes.SelectedValue);
+
+        c.Descripcion = txtDescripcion.Text;
+        c.Cupo = Convert.ToInt32(txtCupo.Text);
+        c.AnioCalendario = Convert.ToInt32(txtAñoCalendario.Text);
+        c.IdComision = Convert.ToInt32(cbComisiones.SelectedValue);
+        
+        //Deberiamos asignarle la materia que tenga el mismo plan que la comision
+        //La que muestra el DropDownList no es mas que la materia sin id_plan asignado que sirve de muestra
+        //Podriamos encararlo a travez de la comision, sacando su id_plan y el nombre del DropDownList
+
+        ComisionLogic cl = new ComisionLogic();
+        Comision comision = cl.GetOne(c.IdComision);
+
+        MateriaLogic ml = new MateriaLogic();
+        Materia materia = ml.SearchByName(comision.IdPlan, cbMaterias.SelectedItem.Text);
+        if (materia != null)
+        {
+            c.IdMateria = materia.Id;
+        }
     }
 }
