@@ -44,5 +44,7 @@ namespace Business.Entities
             get { return _IdMateria; }
             set { _IdMateria = value; }
         }
+
+        public int CupoDisponible { get; set; }
     }
 }

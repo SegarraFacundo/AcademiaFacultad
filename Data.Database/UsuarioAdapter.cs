@@ -68,7 +68,14 @@ namespace Data.Database
                     currentUser.Nombre = (string)reader["nombre"];
                     currentUser.Apellido = (string)reader["apellido"];
                     currentUser.Email = (string)reader["email"];
-                    //currentUser.IdPersona = (int)reader["id_persona"];
+                    if (reader["id_persona"].Equals(DBNull.Value))
+                    {
+                        currentUser.IdPersona = 0;
+                    }
+                    else
+                    {
+                        currentUser.IdPersona = (int)reader["id_persona"];
+                    }
                     reader.Close();
                     return currentUser;
 

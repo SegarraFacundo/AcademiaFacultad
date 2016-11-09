@@ -76,11 +76,10 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                MySqlCommand cmd = new MySqlCommand("INSERT INTO alumnos_inscripciones (id_inscripciones, id_alumno, id_curso, condicion, nota) " +
-                "VALUES (@id, @aidAlumno, @idCurso, @condicion, @nota) SELECT @@IDENTITY;", MySqlConn);
-                cmd.Parameters.AddWithValue("@id", inscripcion.Id);
-                cmd.Parameters.AddWithValue("@idAlumno", inscripcion.IdAlumno);
-                cmd.Parameters.AddWithValue("@idCurso", inscripcion.IdCurso);
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO alumnos_inscripciones (id_alumno, id_curso, condicion, nota) " +
+                "VALUES (@id_alumno, @id_curso, @condicion, @nota);", MySqlConn);
+                cmd.Parameters.AddWithValue("@id_alumno", inscripcion.IdAlumno);
+                cmd.Parameters.AddWithValue("@id_curso", inscripcion.IdCurso);
                 cmd.Parameters.AddWithValue("@condicion", inscripcion.Condicion);
                 cmd.Parameters.AddWithValue("@nota", inscripcion.Nota);
                 cmd.ExecuteNonQuery();

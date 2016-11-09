@@ -51,8 +51,13 @@ namespace Data.Database
             Curso curso = new Curso();
             try
             {
+                string query = "SELECT cursos.*, COUNT(alumnos_inscripciones.id_inscripcion) AS CantidadInscripciones " +
+                                "FROM cursos " +
+                                "INNER JOIN alumnos_inscripciones " +
+                                    "ON cursos.id_curso = alumnos_inscripciones.id_curso " +
+                                "WHERE cursos.id_curso = @id_curso";
                 this.OpenConnection();
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM cursos WHERE id_curso = @id_curso", MySqlConn);
+                MySqlCommand cmd = new MySqlCommand(query, MySqlConn);
                 cmd.Parameters.AddWithValue("@id_curso", Id);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -64,6 +69,8 @@ namespace Data.Database
                     curso.IdComision = (int)reader["id_comision"];
                     curso.IdMateria = (int)reader["id_materia"];
                     curso.Id = (int)reader["id_curso"];
+                    curso.CupoDisponible = Convert.ToInt32(reader["CantidadInscripciones"]);
+                    
                 }
                 reader.Close();
             }
