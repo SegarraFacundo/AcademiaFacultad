@@ -54,6 +54,7 @@ public partial class Docentes : System.Web.UI.Page
         txtEmail.Enabled = valor;
         txtFecNac.Enabled = valor;
         txtDireccion.Enabled = valor;
+
     }
     private void LoadEntity(Docente docente)
     {
@@ -100,7 +101,7 @@ public partial class Docentes : System.Web.UI.Page
         txtFecNac.Text = currentDocente.FechaNacimiento.ToString();
         txtLegajo.Text = currentDocente.Legajo.ToString();
         txtTelefono.Text = currentDocente.Telefono;
-       
+
     }
     #endregion
 
@@ -139,8 +140,6 @@ public partial class Docentes : System.Web.UI.Page
                 break;
         }
         this.ABMPanel.Visible = false;
-        this.formActionsPanel.Visible = false;
-        this.gridActionsPanel.Visible = true;
         dgvDocentes.DataBind();
     }
     protected void nuevoLinkButton_Click(object sender, EventArgs e)
@@ -150,15 +149,11 @@ public partial class Docentes : System.Web.UI.Page
         txtLegajo.Text = docenteLogic.obtenerProximoLegajo().ToString();
         this.FormMode = TiposDatos.FormModes.Alta;
         this.EnableForm(true);
-        this.gridActionsPanel.Visible = false;
     }
     protected void Page_Load(object sender, EventArgs e)
     {
 
     }
-
-    #endregion
-
     protected void editarLinkButton_Click(object sender, EventArgs e)
     {
         if (this.IsEntitySelected)
@@ -167,7 +162,6 @@ public partial class Docentes : System.Web.UI.Page
             this.FormMode = TiposDatos.FormModes.Modificacion;
             this.EnableForm(true);
             this.LoadForm(this.SelectedID);
-
         }
     }
     protected void eliminarLinkButton_Click(object sender, EventArgs e)
@@ -178,22 +172,18 @@ public partial class Docentes : System.Web.UI.Page
             this.ABMPanel.Visible = true;
             this.EnableForm(false);
             this.LoadForm(SelectedID);
-            this.gridActionsPanel.Visible = false;
-            this.formActionsPanel.Visible = true;
-
         }
     }
     protected void cancelarLinkButton_Click(object sender, EventArgs e)
     {
         this.ClearForm();
-        this.ABMPanel.Visible = false;
-        this.gridActionsPanel.Visible = true;       
+        this.ABMPanel.Visible = false;       
     }
-
-
     protected void dgvDocentes_SelectedIndexChanged(object sender, EventArgs e)
     {
         this.SelectedID = (int)this.dgvDocentes.SelectedValue;
         this.ABMPanel.Visible = false;
     }
+
+    #endregion
 }
