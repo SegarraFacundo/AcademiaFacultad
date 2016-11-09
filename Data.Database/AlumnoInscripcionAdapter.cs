@@ -163,7 +163,7 @@ namespace Data.Database
                 MySqlCommand cmd = new MySqlCommand("SELECT * FROM alumnos_inscripciones WHERE id_alumno = @ID", MySqlConn);
                 cmd.Parameters.AddWithValue("@ID", IdAlumno);
                 MySqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
+                while (reader.Read())
                 {
                     AlumnoInscripto inscripto = new AlumnoInscripto();
                     inscripto.Id = (int)reader["id_inscripcion"];
@@ -196,7 +196,7 @@ namespace Data.Database
                 MySqlCommand cmd = new MySqlCommand("SELECT * FROM alumnos_inscripciones WHERE id_curso = @ID", MySqlConn);
                 cmd.Parameters.AddWithValue("@ID", IdCurso);
                 MySqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
+                while (reader.Read())
                 {
                     AlumnoInscripto inscripto = new AlumnoInscripto();
                     inscripto.Id = (int)reader["id_inscripcion"];

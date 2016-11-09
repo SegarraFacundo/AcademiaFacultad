@@ -33,10 +33,11 @@ namespace Business.Logic
             List<AlumnoInscripto> listaInscripciones = inscripcionAdapter.GetAllByIdAlumno(a.Id);
             foreach (AlumnoInscripto inscripcion in listaInscripciones)
             {
-                if (inscripcion.IdAlumno == a.Id)
+                if (inscripcion.IdCurso == c.Id)
                 {
                     return "Ya inscripto";
                 }
+
             }
 
             return valor;

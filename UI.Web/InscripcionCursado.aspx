@@ -26,5 +26,5 @@
         </Columns>
     </asp:GridView>
     <asp:ObjectDataSource ID="odsCursos" runat="server" SelectMethod="GetAll" TypeName="Data.Database.CursoAdapter"></asp:ObjectDataSource>   
-    <asp:Label ID="lblError" runat="server"></asp:Label>
+    <asp:Label ID="lblError" runat="server" ForeColor="#FF3300"></asp:Label>
 </asp:Content>

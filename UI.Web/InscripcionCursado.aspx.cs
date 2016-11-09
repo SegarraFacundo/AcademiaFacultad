@@ -83,7 +83,7 @@ public partial class InscripcionCursado : System.Web.UI.Page
                     }
                     else
                     {
-                        lblError.Text = "Error: " + rta;
+                        lblError.Text = "Atención!: " + rta;
                     }
                 }
             }
@@ -91,7 +91,7 @@ public partial class InscripcionCursado : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            lblError.Text = "Error: " + ex.Message;
+            lblError.Text = "Atención: " + ex.Message;
         }
 
     }
