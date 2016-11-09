@@ -1,16 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="InscripcionCursado.aspx.cs" Inherits="InscripcionCursado" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="InscripcionCursado.aspx.cs" Inherits="InscripcionCursado" MasterPageFile="Site.master" %>
 
-<!DOCTYPE html>
+<asp:Content ID="inscripcionCursadoContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-    
-    </div>
-    </form>
-</body>
-</html>
+
+
+
+
+
+
+</asp:Content>

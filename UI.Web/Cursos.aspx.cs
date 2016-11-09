@@ -161,11 +161,7 @@ public partial class Cursos : System.Web.UI.Page
         txtDescripcion.Text = c.Descripcion;        
         cbComisiones.SelectedValue = c.IdComision.ToString();
     }
-    protected void dgvEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        this.SelectedID = (int)this.dgvCursos.SelectedValue;
-        this.formActionsPanel.Visible = false;
-    }
+   
     protected void LoadEntity(Curso c)
     {
 
@@ -187,5 +183,10 @@ public partial class Cursos : System.Web.UI.Page
         {
             c.IdMateria = materia.Id;
         }
+    }
+    protected void dgvCursos_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        this.SelectedID = (int)this.dgvCursos.SelectedValue;
+        this.formActionsPanel.Visible = false;
     }
 }

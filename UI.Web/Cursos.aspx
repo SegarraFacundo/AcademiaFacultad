@@ -4,7 +4,7 @@
     <asp:GridView ID="dgvCursos" runat="server" AutoGenerateColumns="False" DataSourceID="obsCursos"
         SelectedRowStyle-BackColor="Black"
         SelectedRowStyle-ForeColor="White"
-        DataKeyNames="ID" OnSelectedIndexChanged="dgvEspecialidades_SelectedIndexChanged">
+        DataKeyNames="ID" OnSelectedIndexChanged="dgvCursos_SelectedIndexChanged">
         <Columns>
             <asp:BoundField DataField="Descripcion" HeaderText="Descripcion" SortExpression="Descripcion" />
             <asp:BoundField DataField="AnioCalendario" HeaderText="Año Calendario" SortExpression="AnioCalendario" />

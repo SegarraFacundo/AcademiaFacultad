@@ -5,7 +5,7 @@
     <asp:GridView ID="dgvAlumnos" runat="server" AutoGenerateColumns="False" DataSourceID="odsAlumnos" 
         SelectedRowStyle-BackColor="Black"
         SelectedRowStyle-ForeColor="White"
-        DataKeyNames="ID" OnSelectedIndexChanged="dgvEspecialidades_SelectedIndexChanged">
+        DataKeyNames="ID" OnSelectedIndexChanged="dgvAlumnos_SelectedIndexChanged">
         <Columns>
             <asp:BoundField DataField="IdPlan" HeaderText="IdPlan" SortExpression="IdPlan" Visible="False" />
             <asp:BoundField DataField="Nombre" HeaderText="Nombre" SortExpression="Nombre" />
@@ -26,7 +26,7 @@
         <asp:LinkButton ID="editarLinkButton" runat="server" OnClick="editarLinkButton_Click" >Editar</asp:LinkButton>
         <asp:LinkButton ID="eliminarLinkButton" runat="server" OnClick="eliminarLinkButton_Click" >Eliminar</asp:LinkButton>
     </asp:Panel>
-    <asp:Panel ID="formPanel" Visible="false" runat="server">
+    <asp:Panel ID="ABMPanel" Visible="false" runat="server">
             <asp:Label ID="lblNombre" runat="server" Text="Nombre: "></asp:Label>
             <asp:TextBox ID="txtNombre" runat="server"></asp:TextBox>
         <br />
@@ -46,27 +46,17 @@
             <asp:TextBox ID="txtFecNac" runat="server" type="date"></asp:TextBox>        
         <br />
         <asp:Label ID="lblLegajo" runat="server" Text="Legajo: "></asp:Label>
-        <asp:TextBox ID="txtLegajo" runat="server"></asp:TextBox>      
-        <br />      
-            <asp:Label ID="lblEspecialidad" runat="server" Text="Especialidad:"></asp:Label>
-            <asp:DropDownList ID="cbEspecialidad" runat="server" DataSourceID="odsEspecialidades" DataTextField="Descripcion" DataValueField="Id">
-            </asp:DropDownList>
-            <asp:ObjectDataSource ID="odsEspecialidades" runat="server" SelectMethod="GetAll" TypeName="Data.Database.EspecialidadAdapter"></asp:ObjectDataSource>
+        <asp:TextBox ID="txtLegajo" runat="server" Enabled="False"></asp:TextBox>      
         <br />            
             <asp:Label ID="lblPlan" runat="server" Text="Plan:"></asp:Label>
-            <asp:DropDownList ID="cbPlan" runat="server" Visible="False">
+            <asp:DropDownList ID="cbPlan" runat="server" DataSourceID="odsPlanes" DataTextField="Descripcion" DataValueField="Id">
             </asp:DropDownList>
         <br />
-        <asp:Label ID="lblTipoUsuario" runat="server" Text="Tipo Usuario:"></asp:Label>
-            <asp:DropDownList ID="cbTipoPersona" runat="server">
-                <asp:ListItem Value="alumno">Alumno</asp:ListItem>
-                <asp:ListItem Value="docente">Docente</asp:ListItem>
-                <asp:ListItem Value="admin">Administrador</asp:ListItem>
-            </asp:DropDownList>
+            <asp:ObjectDataSource ID="odsPlanes" runat="server" SelectMethod="GetAll" TypeName="Data.Database.PlanAdapter"></asp:ObjectDataSource>
         <br />
         <asp:Panel ID="formActionsPanel" runat="server">
             <asp:LinkButton ID="aceptarLinkButton" runat="server" OnClick="aceptarLinkButton_Click">Aceptar</asp:LinkButton>
-            <asp:LinkButton ID="cancelarLinkButton" runat="server" >Cancelar</asp:LinkButton>
+            <asp:LinkButton ID="cancelarLinkButton" runat="server" OnClick="cancelarLinkButton_Click" >Cancelar</asp:LinkButton>
         </asp:Panel>
     </asp:Panel>
 
