@@ -79,7 +79,8 @@ public partial class InscripcionCursado : System.Web.UI.Page
                         currentInscripcion.IdCurso = currentCurso.Id;
                         currentInscripcion.State = TiposDatos.States.New;
                         currentInscripcion.Condicion = "inscripto";                        
-                        inscripcionLogic.Save(currentInscripcion);                         
+                        inscripcionLogic.Save(currentInscripcion);
+                        Response.Redirect("VerInscripciones.aspx"); 
                     }
                     else
                     {
