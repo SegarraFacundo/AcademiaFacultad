@@ -4,6 +4,7 @@ using Business.Entities;
 using MySql.Data.MySqlClient;
 using Util;
 using Util.CustomException;
+using System.Data;
 
 namespace Data.Database
 {
@@ -218,6 +219,34 @@ namespace Data.Database
                 this.CloseConnection();
             }
             return inscripciones;
+        }
+        public DataTable GetInscripto(int id)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                string query = "SELECT  cursos.desc_curso, alumnos_inscripciones.id_inscripcion, alumnos_inscripciones.condicion, alumnos_inscripciones.nota " +
+                                "FROM alumnos_inscripciones " +
+                                "INNER JOIN cursos " +
+                                    "ON alumnos_inscripciones.id_curso = cursos.id_curso " +
+                                "WHERE condicion = 'inscripto' AND id_alumno = @id_alumno";
+
+                this.OpenConnection();
+                MySqlCommand cmd = new MySqlCommand(query, MySqlConn);
+                cmd.Parameters.AddWithValue("@id_alumno", id);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                da.Fill(dt);               
+            }
+
+            catch (Exception ex)
+            {
+                throw new NotFoundException("inscripción", ex);
+            }
+            finally 
+            {
+                this.CloseConnection();
+            }
+            return dt;
         }
     }
 }

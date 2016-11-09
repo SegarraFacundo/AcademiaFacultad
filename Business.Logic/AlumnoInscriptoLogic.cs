@@ -43,6 +43,17 @@ namespace Business.Logic
             return valor;
         }
 
+        public List<AlumnoInscripto> GetAllByIdAlumno(int id)
+        {
+            List<AlumnoInscripto> lista = inscripcionAdapter.GetAllByIdAlumno(id);
+            return lista;
 
+        }
+
+        public System.Data.DataTable GetInscripto(int id)
+        {
+            System.Data.DataTable dt = inscripcionAdapter.GetInscripto(id);
+            return dt;
+        }
     }
 }

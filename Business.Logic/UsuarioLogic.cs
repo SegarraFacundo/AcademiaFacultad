@@ -77,7 +77,7 @@ namespace Business.Logic
 
         public bool VerificarClaves(Usuario user, string passNueva)
         {
-            bool estado = false;
+            bool estado = true;
 
             //Verificamos que no sea la misma
             if (user.Clave == passNueva)
