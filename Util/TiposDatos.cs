@@ -67,5 +67,17 @@ namespace Util
             Modificacion,
             Consulta
         }
+
+        private EstadosAlumnos _EstadoAlumno;
+        public EstadosAlumnos EstadoAlumno { get; set; }
+        public enum EstadosAlumnos
+        {
+            regular,
+            inscripto,
+            no_inscripto,
+            libre,
+            aprobada
+
+        }
     }
 }

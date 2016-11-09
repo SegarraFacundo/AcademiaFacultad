@@ -24,6 +24,7 @@ namespace Business.Logic
             try
             {
                 Curso curso = CursoData.GetOne(ID);
+                curso.CupoDisponible = curso.Cupo - curso.CupoDisponible; //La cantidad de inscripciones la recupere previamente en CupoDisponible.
                 return curso;
             }
             catch ( NotFoundException ex )

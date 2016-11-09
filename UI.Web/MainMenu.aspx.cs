@@ -51,10 +51,11 @@ public partial class MainMenu : System.Web.UI.Page
                     linkMenuDocentes.Visible = false;
                     linkMenuCursos.Visible = false;
                     linkMenuEspecialidades.Visible = false;
-                    linkMenuInscripcion.Visible = false;
+                    linkMenuInscripcion.Visible = true;
                     linkMenuMaterias.Visible = true;
                     linkMenuPlanes.Visible = false;
                     linkMenuNotas.Visible = true;
+                    
                 }
                 else if (currentDocente != null)
                 {
@@ -143,7 +144,6 @@ public partial class MainMenu : System.Web.UI.Page
     protected void linkMenuInscripcion_Click(object sender, EventArgs e)
     {
         Response.Redirect("InscripcionCursado.aspx");
-
     }
     protected void linkMenuMaterias_Click(object sender, EventArgs e)
     {
