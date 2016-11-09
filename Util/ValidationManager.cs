@@ -35,5 +35,6 @@ namespace Util
         {
             return (value1.Equals(value2));
         }
+
     }
 }

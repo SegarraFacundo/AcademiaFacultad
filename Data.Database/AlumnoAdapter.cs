@@ -54,7 +54,7 @@ namespace Data.Database
 
         public Alumno GetOne(int ID)
         {
-            Alumno a = new Alumno();
+            Alumno a;
 
             try
             {
@@ -64,6 +64,7 @@ namespace Data.Database
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
+                    a = new Alumno();
                     a.Id = (int)reader["id_persona"];
                     a.Nombre = (string)reader["nombre"];
                     a.Apellido = (string)reader["apellido"];
@@ -73,9 +74,10 @@ namespace Data.Database
                     a.FechaNacimiento = (DateTime)reader["fecha_nac"];
                     a.Legajo = (int)reader["legajo"];
                     a.IdPlan = (int)reader["id_plan"];
+                    reader.Close();
+                    return a;
 
                 }
-                reader.Close();
             }
             catch (Exception ex)
             {
@@ -85,7 +87,7 @@ namespace Data.Database
             {
                 this.CloseConnection();
             }
-            return a;
+            return null;
         }
 
         protected void Insert(Alumno a)

@@ -68,6 +68,24 @@ public partial class Materias : System.Web.UI.Page
         {
             dgvMaterias.DataBind();
         }
+        //Verificamos los permisos que tenga el usuario
+        int idUsuario = Convert.ToInt32(Session["idUsuario"]);
+        //Obtenemos los permisos del usuario
+        ModuloUsuarioLogic mul = new ModuloUsuarioLogic();
+        ModuloUsuario moduloUser = mul.getPermisosUsuario(idUsuario);
+
+        if (!moduloUser.PermiteAlta)
+        {
+            nuevoLinkButton.Visible = false;
+        }
+        if (!moduloUser.PermiteBaja)
+        {
+            eliminarLinkButton.Visible = false;
+        }
+        if (!moduloUser.PermiteModificacion)
+        {
+            editarLinkButton.Visible = false;
+        }
     }
     protected void nuevoLinkButton_Click(object sender, EventArgs e)
     {

@@ -18,12 +18,13 @@ namespace Business.Logic
             this.moduloUsuarioData = new ModuloUsuarioAdapter();
         }
 
-        public void getPermisosUsuario(int idUsuario)
+        public ModuloUsuario getPermisosUsuario(int idUsuario)
         {
             try
             {
                 moduloUsuarioData = new ModuloUsuarioAdapter();
-                List<ModuloUsuario> listaPermisos = moduloUsuarioData.getPermisosUsuario(idUsuario);
+                ModuloUsuario mu = moduloUsuarioData.getPermisosUsuario(idUsuario);
+                return mu;
             }
             catch (NotFoundException ex)
             {

@@ -74,5 +74,22 @@ namespace Business.Logic
                 throw new CustomException(ex);
             }
         }
+
+        public bool VerificarClaves(Usuario user, string passNueva)
+        {
+            bool estado = false;
+
+            //Verificamos que no sea la misma
+            if (user.Clave == passNueva)
+            {
+                return false;
+            }
+            //Verificamos que mayor a 8 caracteres
+            if (passNueva.Length < 8)
+            {
+                return false;
+            }
+            return estado;
+        }
     }
 }

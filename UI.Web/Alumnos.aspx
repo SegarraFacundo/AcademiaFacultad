@@ -43,7 +43,7 @@
             <asp:TextBox ID="txtTelefono" runat="server"></asp:TextBox>
          <br />
             <asp:Label ID="lblFecNac" runat="server" Text="Fecha de Nacimiento: "></asp:Label>        
-            <asp:TextBox ID="txtFecNac" runat="server" type="date"></asp:TextBox>        
+            <asp:TextBox ID="txtFecNac" runat="server" TextMode="Date"></asp:TextBox>        
         <br />
         <asp:Label ID="lblLegajo" runat="server" Text="Legajo: "></asp:Label>
         <asp:TextBox ID="txtLegajo" runat="server" Enabled="False"></asp:TextBox>      

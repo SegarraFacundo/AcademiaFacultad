@@ -53,7 +53,7 @@ namespace Data.Database
 
         public Administrador GetOne(int ID)
         {
-            Administrador a = new Administrador();
+            Administrador a;
 
             try
             {
@@ -62,7 +62,7 @@ namespace Data.Database
                 cmd.Parameters.AddWithValue("@ID", ID);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
-                {
+                {   a = new Administrador();
                     a.Id = (int)reader["id_persona"];
                     a.Nombre = (string)reader["nombre"];
                     a.Apellido = (string)reader["apellido"];
@@ -71,8 +71,10 @@ namespace Data.Database
                     a.Telefono = (string)reader["telefono"];
                     a.FechaNacimiento = (DateTime)reader["fecha_nac"];
                     a.Legajo = (int)reader["legajo"];
+
+                    reader.Close();
+                    return a;
                 }
-                reader.Close();
             }
             catch (Exception ex)
             {
@@ -82,7 +84,7 @@ namespace Data.Database
             {
                 this.CloseConnection();
             }
-            return a;
+            return null;
         }
 
         protected void Insert(Administrador a)

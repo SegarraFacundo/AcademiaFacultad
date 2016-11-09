@@ -26,6 +26,8 @@ public partial class LogIn : System.Web.UI.Page
         currentUser = user.LogIn(txtUsuario.Text, txtContraseña.Text);
         if (currentUser != null)
         {
+            Session["idUsuario"] = currentUser.Id;
+            Session["id_persona"] = currentUser.IdPersona;
             Response.Redirect("MainMenu.aspx");
         }
     }
