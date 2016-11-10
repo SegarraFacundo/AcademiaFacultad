@@ -7,28 +7,67 @@ using System.Web.UI.WebControls;
 using Business.Logic;
 using Business.Entities;
 using Util;
+using Util.CustomException;
 
 
 public partial class LogIn : System.Web.UI.Page
 {
 
-    UsuarioLogic user;
+    private UsuarioLogic usuarioLogic;
+
+    private Usuario currentUsuario;
     
     protected void Page_Load(object sender, EventArgs e)
     {
+        this.usuarioLogic = new UsuarioLogic();
+        this.currentUsuario = new Usuario();
 
+        if (Session["idUsuario"] != null)
+        {
+            try
+            {
+                int idUsuario = Convert.ToInt32(Session["idUsuario"]);
+                this.currentUsuario = this.usuarioLogic.GetOne(idUsuario);
+                Response.Redirect("MainMenu.aspx");
+            }
+            catch (NotFoundException)
+            {
+                Session["idUsuario"] = null;
+                Response.Redirect("Error404.aspx");
+            }
+            catch (Exception)
+            {
+                Session["idUsuario"] = null;
+                Response.Redirect("Error500.aspx");
+            }
+        }
     }
     protected void btnIngresar_Click(object sender, EventArgs e)
     {
-        user = new UsuarioLogic();
-        Usuario currentUser = new Usuario();
-        
-        currentUser = user.LogIn(txtUsuario.Text, txtContraseña.Text);
-        if (currentUser != null)
+        try
         {
-            Session["idUsuario"] = currentUser.Id;
-            Session["id_persona"] = currentUser.IdPersona;
-            Response.Redirect("MainMenu.aspx");
+            this.currentUsuario = this.usuarioLogic.LogIn(txtUsuario.Text, txtContraseña.Text);
+            if (this.currentUsuario != null)
+            {
+                Session["idUsuario"] = this.currentUsuario.Id.ToString();
+            }
+            else
+            {
+                Session["idUsuario"] = null;
+                Response.Redirect("Error404.aspx");
+            }
         }
+        catch(NotFoundException)
+        {
+            Session["idUsuario"] = null;
+            Response.Redirect("Error404.aspx");
+        }
+        catch (Exception)
+        {
+            Session["idUsuario"] = null;
+            Response.Redirect("Error500.aspx");
+        }
+
+        Response.Redirect("MainMenu.aspx", false);
     }
 }

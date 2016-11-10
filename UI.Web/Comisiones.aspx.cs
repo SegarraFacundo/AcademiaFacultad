@@ -68,9 +68,8 @@ public partial class Comisiones : System.Web.UI.Page
         //Verificamos los permisos que tenga el usuario
         int idUsuario = Convert.ToInt32(Session["idUsuario"]);
         //Obtenemos los permisos del usuario
-        ModuloUsuarioLogic mul = new ModuloUsuarioLogic();
-        ModuloUsuario moduloUser = mul.getPermisosUsuario(idUsuario);
-
+        //ModuloUsuario moduloUser = mul.getPermisosUsuario(idUsuario);
+        /*
         if (!moduloUser.PermiteAlta)
         {
             nuevoLinkButton.Visible = false;
@@ -83,7 +82,7 @@ public partial class Comisiones : System.Web.UI.Page
         {
             editarLinkButton.Visible = false;
         }
-        
+        */
             
 
     }

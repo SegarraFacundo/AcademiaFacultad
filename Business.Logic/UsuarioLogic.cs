@@ -13,9 +13,11 @@ namespace Business.Logic
     {
 
         private UsuarioAdapter usuarioData;
+        private PermisoAdapter pa;
 
         public UsuarioLogic()
         {
+            this.pa = new PermisoAdapter();
             this.usuarioData = new UsuarioAdapter();
         }
 
@@ -24,6 +26,8 @@ namespace Business.Logic
             try
             {
                 Usuario usuario = this.usuarioData.GetOne(id);
+                usuario.Permisos = this.pa.GetPorIdUsuario(usuario.Id);
+
                 return usuario;
             }
             catch (NotFoundException ex)
@@ -63,6 +67,7 @@ namespace Business.Logic
             try
             {
                 Usuario u = this.usuarioData.LogIn(user, pass);
+                u.Permisos = this.pa.GetPorIdUsuario(u.Id);
                 return u;
             }
             catch (NotFoundException ex)

@@ -11,100 +11,100 @@ using Util.CustomException;
 
 public partial class MainMenu : System.Web.UI.Page
 {
-    UsuarioLogic userLogic = new UsuarioLogic();
-    AlumnoLogic alumnoLogic = new AlumnoLogic();
-    DocenteLogic docenteLogic = new DocenteLogic();
-    AdministradorLogic adminLogic = new AdministradorLogic();
-    Usuario currentUser;
-    Alumno currentAlumno;
-    Docente currentDocente;
-    Administrador currentAdministrador;
+    Usuario currentUsuario;
+    UsuarioLogic usuarioLogic;
     
     protected void Page_Load(object sender, EventArgs e)
     {
+        this.usuarioLogic = new UsuarioLogic();
 
-        ModuloUsuarioLogic mul = new ModuloUsuarioLogic();
+        if ( Session["idUsuario"] == null )
+        {
+            Response.Redirect("LogIn.aspx");
+        }
 
-        lblError.Text = "";
-        if (Session["idUsuario"] != null && Session["id_persona"] != null)
+        this.CleanMenu();
+
+        try
         {
             int idUsuario = Convert.ToInt32(Session["idUsuario"]);
-            currentUser = userLogic.GetOne(idUsuario);
-            //Tenemos que ver que tipo de usuario es para darle los permisos
-            int idPersona = Convert.ToInt32(Session["id_persona"]);
+            this.currentUsuario = this.usuarioLogic.GetOne(idUsuario);
 
-            try
+            bool noTienePermisos = true;
+
+            foreach(Permiso p in this.currentUsuario.Permisos)
             {
-                currentAlumno = alumnoLogic.GetOne(idPersona);
-                currentDocente = docenteLogic.GetOne(idPersona);
-                currentAdministrador = adminLogic.GetOne(idPersona);           
-
-
-                if (currentAlumno != null)
+                switch( p.Ejecuta )
                 {
-                    //Es alumno
-                    //Mostramos solo las opciones para los alumnos
-                    Session["tipo_persona"] = "alumno";
-                    linkMenuUsuarios.Visible = false;
-                    linkMenuAlumnos.Visible = false;
-                    linkMenuComisiones.Visible = true;
-                    linkMenuDocentes.Visible = false;
-                    linkMenuCursos.Visible = false;
-                    linkMenuEspecialidades.Visible = false;
-                    linkMenuInscripcion.Visible = true;
-                    linkMenuMaterias.Visible = true;
-                    linkMenuPlanes.Visible = false;
-                    linkMenuNotas.Visible = true;
-                    
-                }
-                else if (currentDocente != null)
-                {
-                    //Es docente
-                    //Mostramos solo las opciones para los docentes
-                    Session["tipo_persona"] = "docente";
-                    linkMenuUsuarios.Visible = false;
-                    linkMenuAlumnos.Visible = false;
-                    linkMenuComisiones.Visible = false;
-                    linkMenuDocentes.Visible = false;
-                    linkMenuCursos.Visible = false;
-                    linkMenuEspecialidades.Visible = false;
-                    linkMenuInscripcion.Visible = false;
-                    linkMenuMaterias.Visible = true;
-                    linkMenuPlanes.Visible = false;
-                    linkMenuNotas.Visible = true;
-
-                }
-                else if(currentAdministrador !=null)
-                {
-                    //Es admin
-                    //Mostramos solo las opciones para los admin
-                    Session["tipo_persona"] = "admin";
-                    linkMenuUsuarios.Visible = true;
-                    linkMenuAlumnos.Visible = true;
-                    linkMenuComisiones.Visible = true;
-                    linkMenuDocentes.Visible = true;
-                    linkMenuCursos.Visible = true;
-                    linkMenuEspecialidades.Visible = true;
-                    linkMenuInscripcion.Visible = true;
-                    linkMenuMaterias.Visible = true;
-                    linkMenuPlanes.Visible = true;
-                    linkMenuNotas.Visible = false;
-                }
-                else
-                {
-                    Response.Redirect("ErrorPage.aspx");
+                    case "usuarios":
+                        noTienePermisos = false;
+                        linkMenuUsuarios.Visible = true;
+                        break;
+                    case "personas":
+                        noTienePermisos = false;
+                        linkMenuAlumnos.Visible = true;
+                        linkMenuDocentes.Visible = true;
+                        break;
+                    case "comisiones":
+                        noTienePermisos = false;
+                        linkMenuComisiones.Visible = true;
+                        break;
+                    case "cursos":
+                        noTienePermisos = false;
+                        linkMenuCursos.Visible = true;
+                        break;
+                    case "especialidades":
+                        noTienePermisos = false;
+                        linkMenuEspecialidades.Visible = true;
+                        break;
+                    case "alumnos_inscripciones":
+                        noTienePermisos = false;
+                        break;
+                    case "materias":
+                        noTienePermisos = false;
+                        linkMenuMaterias.Visible = true;
+                        break;
+                    case "planes":
+                        noTienePermisos = false;
+                        linkMenuPlanes.Visible = true;
+                        break;
+                    case "docentes_cursos":
+                        break;
+                    case "permisos":
+                        break;
                 }
             }
-            catch (Exception Ex)
+
+            if(noTienePermisos)
             {
-                lblError.Text = "Error: " + Ex.Message;
+                Session["idUsuario"] = null;
+                Response.Redirect("Error404.aspx");
             }
         }
-        else
+        catch (NotFoundException)
         {
-            Response.Redirect("ErrorPage.aspx");
+            Session["idUsuario"] = null;
+            Response.Redirect("Error404.aspx");
+        }
+        catch (Exception)
+        {
+            Session["idUsuario"] = null;
+            Response.Redirect("Error500.aspx");
         }
     }
+    #region "Metodos"
+    protected void CleanMenu()
+    {
+        linkMenuUsuarios.Visible = false;
+        linkMenuAlumnos.Visible = false;
+        linkMenuDocentes.Visible = false;
+        linkMenuComisiones.Visible = false;
+        linkMenuCursos.Visible = false;
+        linkMenuEspecialidades.Visible = false;
+        linkMenuMaterias.Visible = false;
+        linkMenuPlanes.Visible = false;
+    }
+    #endregion
     #region "LinkButtons"
     protected void linkMenuPlanes_Click(object sender, EventArgs e)
     {
@@ -115,7 +115,6 @@ public partial class MainMenu : System.Web.UI.Page
     {
         Response.Redirect("Usuarios.aspx");
     }
-
     protected void linkMenuAlumnos_Click(object sender, EventArgs e)
     {
         Response.Redirect("Alumnos.aspx");
@@ -141,25 +140,10 @@ public partial class MainMenu : System.Web.UI.Page
         Response.Redirect("Especialidades.aspx");
 
     }
-    protected void linkMenuInscripcion_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("InscripcionCursado.aspx");
-    }
     protected void linkMenuMaterias_Click(object sender, EventArgs e)
     {
         Response.Redirect("Materias.aspx");
 
     }
-    protected void linkMenuNotas_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("RegistroNotas.aspx");
-
-    }
-    protected void linkCambiarContraseña_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("CambiarPassword.aspx");
-    }
     #endregion
-
-
 }

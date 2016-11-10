@@ -189,4 +189,9 @@ public partial class Cursos : System.Web.UI.Page
         this.SelectedID = (int)this.dgvCursos.SelectedValue;
         this.formActionsPanel.Visible = false;
     }
+
+    protected void inscribirLinkButton_Click(object sender, EventArgs e)
+    {
+
+    }
 }

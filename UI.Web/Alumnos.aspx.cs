@@ -10,6 +10,7 @@ using Business.Logic;
 public partial class Alumnos : System.Web.UI.Page
 {
     private Alumno currentAlumno = new Alumno();
+
     private AlumnoLogic alumnoLogic = new AlumnoLogic();
 
     #region "Propiedades"
@@ -18,7 +19,6 @@ public partial class Alumnos : System.Web.UI.Page
         get { return (TiposDatos.FormModes)this.ViewState["FormMode"]; }
         set { this.ViewState["FormMode"] = value; }
     }
-
 
     private Alumno Entity
     {
@@ -155,10 +155,11 @@ public partial class Alumnos : System.Web.UI.Page
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (Session["idUsuario"] == null)
+        {
+            Response.Redirect("LogIn.aspx");
+        }
     }
-
-    #endregion
     protected void dgvAlumnos_SelectedIndexChanged(object sender, EventArgs e)
     {
         this.SelectedID = (int)this.dgvAlumnos.SelectedValue;
@@ -194,4 +195,5 @@ public partial class Alumnos : System.Web.UI.Page
         this.ABMPanel.Visible = false;
         this.gridActionsPanel.Visible = true;
     }
+    #endregion
 }

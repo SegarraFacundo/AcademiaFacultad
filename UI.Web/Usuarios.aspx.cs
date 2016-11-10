@@ -7,10 +7,11 @@ using System.Web.UI.WebControls;
 using Business.Entities;
 using Business.Logic;
 using Util;
+using Util.CustomException;
 
 public partial class Usuarios : System.Web.UI.Page
 {
-    UsuarioLogic _usuarioLogic;
+    private UsuarioLogic _usuarioLogic;
     #region"contructores"
     #endregion
     #region"propiedades"
@@ -117,9 +118,25 @@ public partial class Usuarios : System.Web.UI.Page
     #region"metodos controles"
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["idUsuario"] == null)
+        {
+            Response.Redirect("LogIn.aspx");
+        }
+
         if (!this.IsPostBack)
         {
-            this.LoadGrid();
+            try
+            {
+                this.LoadGrid();
+            }
+            catch(NotFoundException)
+            {
+                Response.Redirect("Error404.aspx");
+            }
+            catch(Exception)
+            {
+                Response.Redirect("Error500.aspx");
+            }
         }
     }
     protected void gridView_SelectedIndexChanged(object sender, EventArgs e)
@@ -185,7 +202,6 @@ public partial class Usuarios : System.Web.UI.Page
         this.ClearForm();
         this.EnableForm(true);
     }
-
     protected void cancelarLinkButton_Click(object sender, EventArgs e)
     {
         this.ClearForm();

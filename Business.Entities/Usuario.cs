@@ -10,6 +10,13 @@ namespace Business.Entities
     {
         public Usuario() : base() {}
 
+        private List<Permiso> _permisos;
+        public List<Permiso> Permisos
+        {
+            get { return _permisos; }
+            set { _permisos = value; }
+        }
+
         private string _NombreUsuario; 
         public string NombreUsuario{
             get { return _NombreUsuario; }
