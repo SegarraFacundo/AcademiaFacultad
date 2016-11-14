@@ -55,5 +55,11 @@ namespace Business.Logic
             System.Data.DataTable dt = inscripcionAdapter.GetInscripto(id);
             return dt;
         }
+
+        public AlumnoInscripto GetOne(int id)
+        {
+            AlumnoInscripto inscripcion = inscripcionAdapter.GetOne(id);
+            return inscripcion;
+        }
     }
 }

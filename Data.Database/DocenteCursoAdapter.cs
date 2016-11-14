@@ -4,6 +4,7 @@ using Business.Entities;
 using MySql.Data.MySqlClient;
 using Util;
 using Util.CustomException;
+using System.Data;
 
 namespace Data.Database
 {
@@ -261,6 +262,36 @@ namespace Data.Database
             }
 
             return tipoCargo;
+        }
+
+        public DataTable GetCursosPorDocente(int idDocente)
+        {
+            DataTable dtCursos = new DataTable();
+            string q = "SELECT docentes_cursos.id_dictado, cursos.id_curso, cursos.id_materia, materias.desc_materia " +
+                       "FROM docentes_cursos " +
+                       "INNER JOIN cursos " +
+                        "ON cursos.id_curso = docentes_cursos.id_curso " +
+                       "INNER JOIN materias " +
+                        "ON cursos.id_materia = materias.id_materia " +
+                       "WHERE docentes_cursos.id_docente = @id_docente";
+            try
+            {
+                OpenConnection();
+                MySqlCommand cmd = new MySqlCommand(q, MySqlConn);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                cmd.Parameters.AddWithValue("@id_docente", idDocente);
+                da.Fill(dtCursos);                
+            }
+            catch (Exception ex)
+            {
+                throw new NotFoundException("dictados", ex);
+            }
+            finally
+            {
+                CloseConnection();
+            }     
+
+            return dtCursos;
         }
     }
 }

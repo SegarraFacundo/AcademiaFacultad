@@ -50,6 +50,7 @@ public partial class LogIn : System.Web.UI.Page
             if (this.currentUsuario != null)
             {
                 Session["idUsuario"] = this.currentUsuario.Id.ToString();
+                Session["id_persona"] = this.currentUsuario.IdPersona.ToString();
             }
             else
             {

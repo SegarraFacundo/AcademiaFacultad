@@ -45,6 +45,9 @@ public partial class InscripcionCursado : System.Web.UI.Page
     private void SaveEntity(AlumnoInscripto inscripcion)
     {
         this.inscripcionLogic.Save(inscripcion);
+        Response.Redirect("VerInscripciones.aspx");
+
+
     }
     protected void Page_Load(object sender, EventArgs e)
     {

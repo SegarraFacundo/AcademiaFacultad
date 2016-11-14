@@ -18,6 +18,8 @@
         <br />
     <asp:LinkButton ID="linkMenuPlanes" runat="server" OnClick="linkMenuPlanes_Click">Planes</asp:LinkButton>
         <br />
+     <asp:LinkButton ID="linkIngresarNotasAlumnos" runat="server" OnClick="linkIngresarNotas_Click">Ingresar Notas</asp:LinkButton>
+        <br />
 
     <asp:Label ID="lblError" runat="server"></asp:Label>
 

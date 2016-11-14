@@ -43,7 +43,7 @@ namespace Data.Database
 
         public AlumnoInscripto GetOne(int ID)
         {
-            AlumnoInscripto inscripcion = new AlumnoInscripto();
+            AlumnoInscripto inscripcion;
             try
             {
                 this.OpenConnection();
@@ -52,13 +52,15 @@ namespace Data.Database
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
+                    inscripcion = new AlumnoInscripto();
                     inscripcion.Id = (int)reader["id_inscripcion"];
                     inscripcion.IdAlumno = (int)reader["id_alumno"];
                     inscripcion.IdCurso = (int)reader["id_curso"];
                     inscripcion.Condicion = (string)reader["condicion"];
                     inscripcion.Nota = (int)reader["nota"];
+                    reader.Close();
+                    return inscripcion;
                 }
-                reader.Close();
             }
 
             catch (Exception ex)
@@ -69,7 +71,7 @@ namespace Data.Database
             {
                 this.CloseConnection();
             }
-            return inscripcion;
+            return null;
         }
 
         protected void Insert(AlumnoInscripto inscripcion)
@@ -248,5 +250,34 @@ namespace Data.Database
             }
             return dt;
         }
+        public DataTable GetAlumnosCurso(int id)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                string query = "SELECT  alumnos_inscripciones.id_inscripcion, alumnos_inscripciones.condicion, alumnos_inscripciones.nota, personas.nombre, personas.apellido, personas.legajo " +
+                                "FROM alumnos_inscripciones " +
+                                "INNER JOIN personas " +
+                                    "ON alumnos_inscripciones.id_alumnos = personas.id_persona" +
+                                "WHERE tipo_persona = 'alumno' AND id_curso = @id_curso";
+
+                this.OpenConnection();
+                MySqlCommand cmd = new MySqlCommand(query, MySqlConn);
+                cmd.Parameters.AddWithValue("@id_curso", id);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+
+            catch (Exception ex)
+            {
+                throw new NotFoundException("inscripción", ex);
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+            return dt;
+        }
+        
     }
 }

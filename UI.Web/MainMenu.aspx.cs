@@ -72,6 +72,8 @@ public partial class MainMenu : System.Web.UI.Page
                         break;
                     case "permisos":
                         break;
+                    case "notas":
+                        break;
                 }
             }
 
@@ -145,5 +147,10 @@ public partial class MainMenu : System.Web.UI.Page
         Response.Redirect("Materias.aspx");
 
     }
+    protected void linkIngresarNotas_Click(object sender, EventArgs e)
+    {        
+        Response.Redirect("RegistroNotas.aspx");
+    }
     #endregion
+
 }
