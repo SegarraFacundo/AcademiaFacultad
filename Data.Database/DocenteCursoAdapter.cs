@@ -289,8 +289,7 @@ namespace Data.Database
             finally
             {
                 CloseConnection();
-            }     
-
+            }
             return dtCursos;
         }
     }

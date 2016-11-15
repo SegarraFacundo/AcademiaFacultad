@@ -33,8 +33,7 @@ public partial class VerInscripciones : System.Web.UI.Page
             }
         }
     }
-    private void LoadDGV()
-    {
+    private void LoadDGV()    {
         this.dgvInscripciones.DataSource = ail.GetInscripto(currentAlumno.Id); 
         this.dgvInscripciones.DataBind();
     }

@@ -111,7 +111,6 @@ public partial class MainMenu : System.Web.UI.Page
     protected void linkMenuPlanes_Click(object sender, EventArgs e)
     {
         Response.Redirect("Planes.aspx");
-
     }
     protected void linkMenuUsuarios_Click(object sender, EventArgs e)
     {
@@ -120,32 +119,26 @@ public partial class MainMenu : System.Web.UI.Page
     protected void linkMenuAlumnos_Click(object sender, EventArgs e)
     {
         Response.Redirect("Alumnos.aspx");
-
     }
     protected void linkMenuDocentes_Click(object sender, EventArgs e)
     {
         Response.Redirect("Docentes.aspx");
-
     }
     protected void linkMenuComisiones_Click(object sender, EventArgs e)
     {
         Response.Redirect("Comisiones.aspx");
-
     }
     protected void linkMenuCursos_Click(object sender, EventArgs e)
     {
         Response.Redirect("Cursos.aspx");
-
     }
     protected void linkMenuEspecialidades_Click(object sender, EventArgs e)
     {
         Response.Redirect("Especialidades.aspx");
-
     }
     protected void linkMenuMaterias_Click(object sender, EventArgs e)
     {
         Response.Redirect("Materias.aspx");
-
     }
     protected void linkIngresarNotas_Click(object sender, EventArgs e)
     {        

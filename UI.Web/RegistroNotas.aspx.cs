@@ -10,6 +10,8 @@ using Util.CustomException;
 using Util;
 public partial class RegistroNotas : System.Web.UI.Page
 {
+    DocenteCursoLogic dcl = new DocenteCursoLogic();
+
     private int SelectedID
     {
         get
@@ -39,6 +41,8 @@ public partial class RegistroNotas : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        int id  = Convert.ToInt32(Session["id_persona"].ToString());
+        dgvDocentesCursos.DataSource = dcl.GetCursosPorDocente(id);
 
     }
     protected void dgvDocentesCursos_SelectedIndexChanged(object sender, EventArgs e)
@@ -48,6 +52,14 @@ public partial class RegistroNotas : System.Web.UI.Page
         {
             Session["id_curso"] = dgvDocentesCursos.SelectedDataKey.Values["id_curso"];
         }
+
+    }
+    protected void linkVolver_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("MainMenu.aspx");
+    }
+    protected void odsDocentesCursos_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+    {
 
     }
 }
