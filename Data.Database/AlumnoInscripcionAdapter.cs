@@ -258,7 +258,7 @@ namespace Data.Database
                 string query = "SELECT  alumnos_inscripciones.id_inscripcion, alumnos_inscripciones.condicion, alumnos_inscripciones.nota, personas.nombre, personas.apellido, personas.legajo " +
                                 "FROM alumnos_inscripciones " +
                                 "INNER JOIN personas " +
-                                    "ON alumnos_inscripciones.id_alumnos = personas.id_persona" +
+                                    "ON alumnos_inscripciones.id_alumno = personas.id_persona " +
                                 "WHERE tipo_persona = 'alumno' AND id_curso = @id_curso";
 
                 this.OpenConnection();

@@ -59,6 +59,7 @@ public partial class MainMenu : System.Web.UI.Page
                         break;
                     case "alumnos_inscripciones":
                         noTienePermisos = false;
+                        
                         break;
                     case "materias":
                         noTienePermisos = false;

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EstadoAcademicos.aspx.cs" Inherits="VerInscripciones" MasterPageFile="~/Site.master"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EstadoAcademico.aspx.cs" Inherits="VerInscripciones" MasterPageFile="~/Site.master"%>
 
 
 <asp:Content ID="verInscripcionesContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">

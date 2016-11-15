@@ -43,6 +43,7 @@ public partial class RegistroNotas : System.Web.UI.Page
     {
         int id  = Convert.ToInt32(Session["id_persona"].ToString());
         dgvDocentesCursos.DataSource = dcl.GetCursosPorDocente(id);
+        dgvDocentesCursos.DataBind();
 
     }
     protected void dgvDocentesCursos_SelectedIndexChanged(object sender, EventArgs e)
@@ -50,7 +51,8 @@ public partial class RegistroNotas : System.Web.UI.Page
         this.SelectedID = (int)this.dgvDocentesCursos.SelectedValue;
         if (IsEntitySelected)
         {
-            Session["id_curso"] = dgvDocentesCursos.SelectedDataKey.Values["id_curso"];
+            Session["id_curso"] = dgvDocentesCursos.SelectedDataKey.Values["id_curso"].ToString();
+            Response.Redirect("Alumnos_Notas_Cursos.aspx");
         }
 
     }

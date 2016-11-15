@@ -10,7 +10,7 @@
     <asp:GridView ID="dgvAlumnosCurso" runat="server" AutoGenerateColumns="False" DataSourceID="odsAlumnosCurso"
         SelectedRowStyle-BackColor="Black"
         SelectedRowStyle-ForeColor="White"
-        DataKeyNames="ID" OnSelectedIndexChanged="dgvAlumnosCurso_SelectedIndexChanged">
+        DataKeyNames="id_inscripcion" OnSelectedIndexChanged="dgvAlumnosCurso_SelectedIndexChanged">
         <Columns>
             <asp:BoundField DataField="id_inscripcion" HeaderText="ID" />
             <asp:BoundField DataField="nombre" HeaderText="Nombre" />
@@ -26,7 +26,7 @@
         <asp:LinkButton ID="volverLinkButton" runat="server" OnClick="volverLinkButton_Click" >Volver</asp:LinkButton>   
          
     </asp:Panel>
-    <asp:Panel ID="PanelEditarNota" runat="server">
+    <asp:Panel ID="PanelEditarNota" runat="server" Visible="False">
 
             <asp:Label ID="Label1" runat="server" Text="Nota:"></asp:Label>
             <asp:TextBox ID="txtNota" runat="server"></asp:TextBox>

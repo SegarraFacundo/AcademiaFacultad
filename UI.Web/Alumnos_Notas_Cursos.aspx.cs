@@ -74,8 +74,7 @@ public partial class Alumnos_Notas_Cursos : System.Web.UI.Page
             this.PanelEditarNota.Visible = true;
             this.gridActionsPanel.Visible = false;
             AlumnoInscripto inscripcion = ail.GetOne(SelectedID);
-            txtNota.Text = inscripcion.Nota.ToString();
-            dgvAlumnosCurso.DataBind();
+            txtNota.Text = inscripcion.Nota.ToString();            
         }
        
     }
@@ -85,9 +84,14 @@ public partial class Alumnos_Notas_Cursos : System.Web.UI.Page
     }
     protected void aceptarLinkButton_Click(object sender, EventArgs e)
     {
-        this.Entity = new AlumnoInscripto();
-        this.Entity.Nota = Convert.ToInt32(txtNota.Text);
-        this.SaveEntity(Entity);
+        AlumnoInscripto inscripcion = ail.GetOne(SelectedID);
+        inscripcion.Nota = Convert.ToInt32(txtNota.Text);
+        inscripcion.State = TiposDatos.States.Modified;
+        this.SaveEntity(inscripcion);
+        dgvAlumnosCurso.DataBind();
+        this.PanelEditarNota.Visible = false;
+        this.txtNota.Text = "";
+        this.gridActionsPanel.Visible = true;
     }
     protected void cancelarLinkButton_Click(object sender, EventArgs e)
     {
