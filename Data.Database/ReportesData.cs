@@ -13,7 +13,7 @@ namespace Data.Database
     public class ReportesData : Adapter
     {
 
-        public dsCursos GetDatos()
+        public dsCursos GetDatosCursos()
         {
             try
             {
@@ -24,6 +24,26 @@ namespace Data.Database
                 {
                     da.Fill(dsCursos, "cursos");
                     return dsCursos;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public dsPlanes GetDatosPlanes()
+        {
+            try
+            {
+                OpenConnection();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM planes", MySqlConn);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                using (dsPlanes dsPlanes = new dsPlanes())
+                {
+                    da.Fill(dsPlanes, "planes");
+                    return dsPlanes;
                 }
 
             }

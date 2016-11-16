@@ -13,11 +13,17 @@ namespace Business.Logic
    public  class ReportesLogic
     {
        private ReportesData rd = new ReportesData();
-       public dsCursos GetData()
+       public dsCursos GetDataCursos()
        {
-           dsCursos ds = rd.GetDatos();
+           dsCursos ds = rd.GetDatosCursos();
            return ds;
 
+       }
+
+       public dsPlanes GetDatosPlanes()
+       {
+           dsPlanes ds = rd.GetDatosPlanes();
+           return ds;
        }
 
 

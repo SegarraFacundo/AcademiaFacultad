@@ -4,42 +4,47 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using CrystalDecisions.CrystalReports.Engine;
 using Business.Entities;
 using Business.Logic;
-using Util;
-using Util.CustomException;
+using System.Data;
+using CrystalDecisions.CrystalReports.Engine;
+using System.Configuration;
+
 
 public partial class Reportes : System.Web.UI.Page
 {
-    private ReportesLogic reportesLogic = new ReportesLogic();
+    ReportesLogic reportesLogic = new ReportesLogic();
+    ReportDocument crystalReport = new ReportDocument();
     protected void Page_Load(object sender, EventArgs e)
     {
-        ReportDocument crystalReport = new ReportDocument();
+        
         try
         {
-            crystalReport.Load(HttpContext.Current.Server.MapPath("~/CrystalReport.rpt"));
-            dsCursos dsCursos = reportesLogic.GetData();
-            crystalReport.SetDataSource(dsCursos);
-            CrystalReportViewer1.ReportSource = crystalReport;
+            dsCursos dsCursos = reportesLogic.GetDataCursos();
+            if (dsCursos.cursos.Rows.Count > 0)
+            {
+                crystalReport.Load(Server.MapPath("~/CrystalReport.rpt"));
+                crystalReport.SetDataSource(dsCursos);
+                CrystalReportViewer1.RefreshReport();
+                CrystalReportViewer1.ReportSource = crystalReport;
+            }
         }
         catch (Exception ex)
-            
         {
-            linkReporteCursos.Text = ex.Message;
+            lblError.Text = ex.Message;
         }
-       
     }
-    protected void linkReportePlanes_Click(object sender, EventArgs e)
+    protected void Img1_Click(object sender, ImageClickEventArgs e)
     {
-
-    }
-    protected void linkReporteCursos_Click(object sender, EventArgs e)
-    {
-        ReportDocument crystalReport = new ReportDocument();
-        crystalReport.Load(Server.MapPath("~/CrytalReport.rpt"));
-        dsCursos dsCursos = reportesLogic.GetData();
-        crystalReport.SetDataSource(dsCursos);
-        CrystalReportViewer1.ReportSource = crystalReport;
+        dsCursos dsCursos = reportesLogic.GetDataCursos();
+        if (dsCursos.cursos.Rows.Count > 0)
+        {
+            crystalReport.Load(Server.MapPath("~/CrystalReport.rpt"));
+            crystalReport.SetDataSource(dsCursos);
+            CrystalReportViewer1.RefreshReport();
+            CrystalReportViewer1.ReportSource = crystalReport;
+            crystalReport.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "PersonDetails");
+        }
+        
     }
 }

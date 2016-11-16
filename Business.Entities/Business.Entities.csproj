@@ -58,6 +58,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsCursos.xsd</DependentUpon>
     </Compile>
+    <Compile Include="dsPlanes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsPlanes.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Especialidad.cs" />
     <Compile Include="Materia.cs" />
     <Compile Include="Permiso.cs" />
@@ -75,6 +80,7 @@
   <ItemGroup>
     <None Include="dsCursos.xsc">
       <DependentUpon>dsCursos.xsd</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="dsCursos.xsd">
       <SubType>Designer</SubType>
@@ -83,6 +89,17 @@
     </None>
     <None Include="dsCursos.xss">
       <DependentUpon>dsCursos.xsd</DependentUpon>
+    </None>
+    <None Include="dsPlanes.xsc">
+      <DependentUpon>dsPlanes.xsd</DependentUpon>
+    </None>
+    <None Include="dsPlanes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsPlanes.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsPlanes.xss">
+      <DependentUpon>dsPlanes.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

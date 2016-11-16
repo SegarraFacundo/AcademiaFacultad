@@ -38,5 +38,11 @@ namespace UI.Desktop
             Alumnos frmAlumnos = new Alumnos();
             frmAlumnos.ShowDialog();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
