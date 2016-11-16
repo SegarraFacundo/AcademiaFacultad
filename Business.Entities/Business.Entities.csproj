@@ -49,6 +49,15 @@
     <Compile Include="Curso.cs" />
     <Compile Include="Docente.cs" />
     <Compile Include="DocenteCurso.cs" />
+    <Compile Include="dsCursos.cs">
+      <DependentUpon>dsCursos.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="dsCursos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsCursos.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Especialidad.cs" />
     <Compile Include="Materia.cs" />
     <Compile Include="Permiso.cs" />
@@ -62,6 +71,19 @@
       <Project>{e745ea14-9bcc-41af-82f0-99da1508d0ba}</Project>
       <Name>Util</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dsCursos.xsc">
+      <DependentUpon>dsCursos.xsd</DependentUpon>
+    </None>
+    <None Include="dsCursos.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsCursos.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsCursos.xss">
+      <DependentUpon>dsCursos.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

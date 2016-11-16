@@ -6,27 +6,31 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Configuration;
+using Business.Entities;
 
 namespace Data.Database
 {
     public class ReportesData : Adapter
     {
 
-        public DataSet GetDatos()
+        public dsCursos GetDatos()
         {
-            DataSet ds = new DataSet();
             try
             {
                 OpenConnection();
                 MySqlCommand cmd = new MySqlCommand("SELECT * FROM cursos", MySqlConn);
-                MySqlDataAdapter da = new MySqlDataAdapter();
-                da.Fill(ds);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                using (dsCursos dsCursos = new dsCursos())
+                {
+                    da.Fill(dsCursos, "cursos");
+                    return dsCursos;
+                }
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return ds;
         }
 
     }
