@@ -66,9 +66,19 @@ namespace Business.Logic
         {
             try
             {
-                Usuario u = this.usuarioData.LogIn(user, pass);
-                u.Permisos = this.pa.GetPorIdUsuario(u.Id);
-                return u;
+                List<Usuario> listaUsuarios = new List<Usuario>();
+                listaUsuarios = usuarioData.GetAll();
+                foreach (Usuario u in listaUsuarios)
+                {
+                    if (u.Clave == pass && u.NombreUsuario == user)
+                    {
+                        
+                        u.Permisos = this.pa.GetPorIdUsuario(u.Id);
+                        return u;
+                    }
+                }
+                
+                return null;
             }
             catch (NotFoundException ex)
             {
