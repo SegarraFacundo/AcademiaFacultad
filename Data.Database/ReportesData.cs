@@ -17,15 +17,18 @@ namespace Data.Database
         {
             try
             {
-                string query = "SELECT * FROM cursos INNER JOIN comisiones ON cursos.id_comision = comisiones.id_comision " +
-                    "INNER JOIN materias on cursos.id_materia = materias.id_materia INNER JOIN planes ON planes.id_plan = comisiones.id_plan " +
-                    "INNER JOIN especialidades ON especialidades.id_especialidad = planes.id_especialidad";
+                string query = "SELECT * FROM cursos ";
+                //INNER JOIN comisiones ON cursos.id_comision = comisiones.id_comision " +
+                //    "INNER JOIN materias on cursos.id_materia = materias.id_materia INNER JOIN planes ON planes.id_plan = comisiones.id_plan " +
+                 //   "INNER JOIN especialidades ON especialidades.id_especialidad = planes.id_especialidad";
                 OpenConnection();
                 MySqlCommand cmd = new MySqlCommand(query, MySqlConn);
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 using (dsCursos dsCursos = new dsCursos())
                 {
                     da.Fill(dsCursos, "cursos");
+                    
+
                     return dsCursos;
                 }
 

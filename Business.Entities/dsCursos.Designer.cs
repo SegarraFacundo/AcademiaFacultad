@@ -34,15 +34,15 @@ namespace Business.Entities {
         
         private especialidadesDataTable tableespecialidades;
         
-        private global::System.Data.DataRelation relationplanes_materias;
-        
-        private global::System.Data.DataRelation relationplanes_comisiones;
-        
-        private global::System.Data.DataRelation relationespecialidades_planes;
-        
         private global::System.Data.DataRelation relationmaterias_cursos;
         
         private global::System.Data.DataRelation relationcomisiones_cursos;
+        
+        private global::System.Data.DataRelation relationplanes_comisiones;
+        
+        private global::System.Data.DataRelation relationplanes_materias;
+        
+        private global::System.Data.DataRelation relationespecialidades_planes;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -300,11 +300,11 @@ namespace Business.Entities {
                     this.tableespecialidades.InitVars();
                 }
             }
-            this.relationplanes_materias = this.Relations["planes_materias"];
-            this.relationplanes_comisiones = this.Relations["planes_comisiones"];
-            this.relationespecialidades_planes = this.Relations["especialidades_planes"];
             this.relationmaterias_cursos = this.Relations["materias_cursos"];
             this.relationcomisiones_cursos = this.Relations["comisiones_cursos"];
+            this.relationplanes_comisiones = this.Relations["planes_comisiones"];
+            this.relationplanes_materias = this.Relations["planes_materias"];
+            this.relationespecialidades_planes = this.Relations["especialidades_planes"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -325,18 +325,6 @@ namespace Business.Entities {
             base.Tables.Add(this.tableplanes);
             this.tableespecialidades = new especialidadesDataTable();
             base.Tables.Add(this.tableespecialidades);
-            this.relationplanes_materias = new global::System.Data.DataRelation("planes_materias", new global::System.Data.DataColumn[] {
-                        this.tableplanes.id_planColumn}, new global::System.Data.DataColumn[] {
-                        this.tablematerias.id_planColumn}, false);
-            this.Relations.Add(this.relationplanes_materias);
-            this.relationplanes_comisiones = new global::System.Data.DataRelation("planes_comisiones", new global::System.Data.DataColumn[] {
-                        this.tableplanes.id_planColumn}, new global::System.Data.DataColumn[] {
-                        this.tablecomisiones.id_comisionColumn}, false);
-            this.Relations.Add(this.relationplanes_comisiones);
-            this.relationespecialidades_planes = new global::System.Data.DataRelation("especialidades_planes", new global::System.Data.DataColumn[] {
-                        this.tableespecialidades.id_especialidadColumn}, new global::System.Data.DataColumn[] {
-                        this.tableplanes.id_especialidadColumn}, false);
-            this.Relations.Add(this.relationespecialidades_planes);
             this.relationmaterias_cursos = new global::System.Data.DataRelation("materias_cursos", new global::System.Data.DataColumn[] {
                         this.tablematerias.id_materiaColumn}, new global::System.Data.DataColumn[] {
                         this.tablecursos.id_materiaColumn}, false);
@@ -345,6 +333,18 @@ namespace Business.Entities {
                         this.tablecomisiones.id_comisionColumn}, new global::System.Data.DataColumn[] {
                         this.tablecursos.id_comisionColumn}, false);
             this.Relations.Add(this.relationcomisiones_cursos);
+            this.relationplanes_comisiones = new global::System.Data.DataRelation("planes_comisiones", new global::System.Data.DataColumn[] {
+                        this.tableplanes.id_planColumn}, new global::System.Data.DataColumn[] {
+                        this.tablecomisiones.id_planColumn}, false);
+            this.Relations.Add(this.relationplanes_comisiones);
+            this.relationplanes_materias = new global::System.Data.DataRelation("planes_materias", new global::System.Data.DataColumn[] {
+                        this.tableplanes.id_planColumn}, new global::System.Data.DataColumn[] {
+                        this.tablematerias.id_planColumn}, false);
+            this.Relations.Add(this.relationplanes_materias);
+            this.relationespecialidades_planes = new global::System.Data.DataRelation("especialidades_planes", new global::System.Data.DataColumn[] {
+                        this.tableespecialidades.id_especialidadColumn}, new global::System.Data.DataColumn[] {
+                        this.tableplanes.id_especialidadColumn}, false);
+            this.Relations.Add(this.relationespecialidades_planes);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1199,15 +1199,15 @@ namespace Business.Entities {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public comisionesRow AddcomisionesRow(planesRow parentplanesRowByplanes_comisiones, string desc_comision, int anio_especialidad, int id_plan) {
+            public comisionesRow AddcomisionesRow(int id_comision, string desc_comision, int anio_especialidad, planesRow parentplanesRowByplanes_comisiones) {
                 comisionesRow rowcomisionesRow = ((comisionesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        null,
+                        id_comision,
                         desc_comision,
                         anio_especialidad,
-                        id_plan};
+                        null};
                 if ((parentplanesRowByplanes_comisiones != null)) {
-                    columnValuesArray[0] = parentplanesRowByplanes_comisiones[0];
+                    columnValuesArray[3] = parentplanesRowByplanes_comisiones[0];
                 }
                 rowcomisionesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowcomisionesRow);
@@ -2564,23 +2564,23 @@ namespace Business.Entities {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public materiasRow[] GetmateriasRows() {
-                if ((this.Table.ChildRelations["planes_materias"] == null)) {
-                    return new materiasRow[0];
-                }
-                else {
-                    return ((materiasRow[])(base.GetChildRows(this.Table.ChildRelations["planes_materias"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public comisionesRow[] GetcomisionesRows() {
                 if ((this.Table.ChildRelations["planes_comisiones"] == null)) {
                     return new comisionesRow[0];
                 }
                 else {
                     return ((comisionesRow[])(base.GetChildRows(this.Table.ChildRelations["planes_comisiones"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public materiasRow[] GetmateriasRows() {
+                if ((this.Table.ChildRelations["planes_materias"] == null)) {
+                    return new materiasRow[0];
+                }
+                else {
+                    return ((materiasRow[])(base.GetChildRows(this.Table.ChildRelations["planes_materias"])));
                 }
             }
         }

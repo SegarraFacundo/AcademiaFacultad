@@ -20,19 +20,13 @@ public partial class Reportes : System.Web.UI.Page
         
         
     }
-    protected void Img1_Click(object sender, ImageClickEventArgs e)
-    {
-       
-        
-        
-    }
 
     protected void lblCursos_Click(object sender, EventArgs e)
     {
         dsCursos dsCursos = reportesLogic.GetDataCursos();
         if (dsCursos.cursos.Rows.Count > 0)
         {
-            crystalReport.Load(Server.MapPath("~/CrystalReport.rpt"));
+            crystalReport.Load(Server.MapPath("~/ReporteCursos.rpt"));
             crystalReport.SetDataSource(dsCursos);
             CrystalReportViewer1.RefreshReport();
             CrystalReportViewer1.ReportSource = crystalReport;
