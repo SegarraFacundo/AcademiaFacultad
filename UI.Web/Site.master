@@ -11,7 +11,7 @@
 </head>
 <body>
     <form runat="server">
-        <div>
+        <div class="container">
             <asp:ContentPlaceHolder ID="bodyContentPlaceHolder" runat="server">
             </asp:ContentPlaceHolder>
         </div>

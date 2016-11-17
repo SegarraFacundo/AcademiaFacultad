@@ -1,13 +1,15 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LogIn.aspx.cs" Inherits="LogIn"  MasterPageFile="Site.master"%>
 
 <asp:Content ID="ContentLogin" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
-    <div>
-        <table style="width:100%;">
+        <header>
+            <h2>Login</h2>
+        </header>
+        <table>
             <tr>
                 <td class="auto-style1">
         <asp:Label ID="Label1" runat="server" Text="Usuario:"></asp:Label>
                 </td>
-                <td>
+                <td aling="center">
         <asp:TextBox ID="txtUsuario" runat="server"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rfvUsuario" runat="server" ErrorMessage="El campo usuario es obligatorio" ControlToValidate="txtUsuario" Font-Names="Arial" ForeColor="Red" SetFocusOnError="True">*</asp:RequiredFieldValidator>
                 </td>
@@ -29,11 +31,7 @@
                 </td>
             </tr>
         </table>
-    </div>
-
-    <div>
         <asp:ValidationSummary ID="vsUsuario" runat="server" ForeColor="Red" Font-Names="Calibri" HeaderText="Cambiar los campos con *" />
-    </div>
 
 </asp:Content>
 <asp:Content ID="Content1" runat="server" contentplaceholderid="head">
