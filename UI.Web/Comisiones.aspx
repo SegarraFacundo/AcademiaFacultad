@@ -40,5 +40,7 @@
 
     <asp:ObjectDataSource ID="odsPlanes" runat="server" SelectMethod="GetAll" TypeName="Data.Database.PlanAdapter"></asp:ObjectDataSource>
 
+    <asp:Label ID="lblError" runat="server"></asp:Label>
+
 </asp:Content>
 

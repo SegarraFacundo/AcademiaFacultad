@@ -186,7 +186,15 @@ namespace Data.Database
                 cmd.Parameters.AddWithValue("@desc_materia", materia.Descripcion);
                 cmd.Parameters.AddWithValue("@horas_semanales", materia.HsSemanales);
                 cmd.Parameters.AddWithValue("@hs_totales", materia.HsTotales);
-                cmd.Parameters.AddWithValue("@id_plan", materia.IdPlan);
+
+                if (materia.IdPlan == 0)
+                {
+                    cmd.Parameters.AddWithValue("@id_plan", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@id_plan", materia.IdPlan);
+                }
                 cmd.ExecuteNonQuery();
             }
             catch (Exception Ex)
@@ -221,7 +229,14 @@ namespace Data.Database
                 cmd.Parameters.AddWithValue("@desc_materia", materia.Descripcion);
                 cmd.Parameters.AddWithValue("@horas_semanales", materia.HsSemanales);
                 cmd.Parameters.AddWithValue("@hs_totales", materia.HsTotales);
-                cmd.Parameters.AddWithValue("@id_plan", materia.IdPlan);
+                if (materia.IdPlan == 0)
+                {
+                    cmd.Parameters.AddWithValue("@id_plan", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@id_plan", materia.IdPlan);
+                }
                 cmd.ExecuteNonQuery();
             }
             catch (Exception Ex)
@@ -258,6 +273,13 @@ namespace Data.Database
         {
             try
             {
+                //Hay que asignarle temporalmente id_materia = 0 al curso
+
+                CursoAdapter ca = new CursoAdapter();
+
+
+
+
                 MySqlCommand cmd = new MySqlCommand("DELETE FROM materias WHERE id_plan = @ID", transaction.Connection);
                 cmd.Parameters.AddWithValue("@ID", idPlan);
                 cmd.ExecuteNonQuery();

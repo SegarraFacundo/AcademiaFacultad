@@ -2,15 +2,16 @@
 
 <asp:Content ID="estadoAcademicoContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat ="server">
 
-
-
-
-
-<asp:GridView ID="dgvInscripcones" runat="server">
+<asp:GridView ID="dgvInscripcones" runat="server" AutoGenerateColumns="False">
+    <Columns>
+        <asp:BoundField DataField="desc_curso" HeaderText="Materia" />
+        <asp:BoundField DataField="condicion" HeaderText="Condicion" />
+        <asp:BoundField DataField="id_inscripcion" HeaderText="id_inscripcion" Visible="False" />
+    </Columns>
 </asp:GridView>
 <asp:Panel ID="pageOptions" runat="server">
-    <asp:LinkButton ID="imprimirReporte" text="Imprimir Reporte" runat="server"></asp:LinkButton>
-    <asp:LinkButton ID="lbVolver" text="Volver" runat="server"></asp:LinkButton>
+    <asp:LinkButton ID="otraInscripcion" text="Insecibirse a otra materia" runat="server" OnClick="otraInscripcion_Click"></asp:LinkButton>
+    <asp:LinkButton ID="lbVolver" text="Volver" runat="server" OnClick="lbVolver_Click"></asp:LinkButton>
 </asp:Panel>
  <asp:Label ID="lblError" runat="server"></asp:Label>
 

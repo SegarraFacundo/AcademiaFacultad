@@ -58,6 +58,37 @@ namespace Business.Logic
             }
         }
 
+        public List<Curso> GetAll()
+        {
+            List<Curso> lista = CursoData.GetAll();
+            return lista;
+        }
+
+        public List<Curso> GetCursosPorMateria(int idMateria)
+        {
+            List<Curso> listaConMateria = new List<Curso>();
+            try
+            {
+                List<Curso> listaCompleta = CursoData.GetAll();
+               
+
+                foreach (Curso c in listaCompleta)
+                {
+                    if (c.IdMateria == idMateria)
+                    {
+                        listaConMateria.Add(c);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+
+            return listaConMateria;
+
+            
+        }
 
     }
 }

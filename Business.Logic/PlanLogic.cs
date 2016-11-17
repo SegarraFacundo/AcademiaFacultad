@@ -53,11 +53,22 @@ namespace Business.Logic
             }
         }
 
-        public void Save(Plan p)
+        public bool Save(Plan p)
         {
+
             try
             {
+                if (p.State == Util.TiposDatos.States.Modified || p.State == Util.TiposDatos.States.Deleted)
+                {
+                    if (this.PuedeBorrarsePlan(p.Id) == false)
+                    {
+                        return false;
+                    }
+                }
+
                 this.planData.Save(p);
+                return true;
+
             }
             catch (InsertException ex)
             {
@@ -67,7 +78,7 @@ namespace Business.Logic
             {
                 throw ex;
             }
-            
+
         }
 
         public void Delete(int id)
@@ -102,5 +113,51 @@ namespace Business.Logic
             }
         }
 
+        private bool PuedeBorrarsePlan(int idPlan)
+        {
+            try
+            {
+
+                //Para borrar o modificar un plan verificamos que no tenga comisiones asociadas al plan o cursos asociados a la materia del plan
+                //Ni alumnos
+                //Traer todas las materias del plan
+                //Por cada materia que tiene fijarme si tiene un curso
+                MateriaLogic ml = new MateriaLogic();
+                List<Materia> listaMaterias = ml.GetMateriasPorPlan(idPlan);
+                CursoLogic cl = new CursoLogic();
+                foreach (Materia m in listaMaterias)
+                {
+                    List<Curso> cursosPorMateria = cl.GetCursosPorMateria(m.Id);
+                    if (cursosPorMateria.Count > 0)
+                    {
+                        return false;
+                    }
+                }
+
+                //Traer todas las comisiones que tiene el plan
+                ComisionLogic cml = new ComisionLogic();
+                List<Comision> listaComisiones = cml.GetComisionPorPlan(idPlan);
+                if (listaComisiones.Count > 0)
+                {
+                    return false;
+                }
+
+                //Traer todas las personas con ese idPlan
+                AlumnoLogic al = new AlumnoLogic();
+                List<Alumno> listaAlumnos = al.GetAlumnosPorPlan(idPlan);
+                if (listaAlumnos.Count > 0)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
+

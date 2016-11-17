@@ -92,11 +92,15 @@ namespace Data.Database
 
         protected void Insert(Alumno a)
         {
+            MySqlTransaction transaction = null;
+
             try
             {
                 this.OpenConnection();
+                transaction = MySqlConn.BeginTransaction();
+                
                 MySqlCommand cmd = new MySqlCommand("INSERT INTO personas (nombre, apellido, direccion, email, telefono, fecha_nac, legajo, id_plan, tipo_persona) " +
-                "VALUES (@nombre, @apellido, @direccion, @email, @telefono, @fecha_nac, @legajo, @id_plan, 'alumno');", MySqlConn);
+                "VALUES (@nombre, @apellido, @direccion, @email, @telefono, @fecha_nac, @legajo, @id_plan, 'alumno'); SELECT @@IDENTITY", MySqlConn);
                 cmd.Parameters.AddWithValue("@nombre", a.Nombre);
                 cmd.Parameters.AddWithValue("@apellido", a.Apellido);
                 cmd.Parameters.AddWithValue("@direccion", a.Direccion);
@@ -105,7 +109,23 @@ namespace Data.Database
                 cmd.Parameters.AddWithValue("@fecha_nac", a.FechaNacimiento.ToString("yyyy-MM-dd"));
                 cmd.Parameters.AddWithValue("@legajo", a.Legajo);
                 cmd.Parameters.AddWithValue("@id_plan", a.IdPlan);
-                cmd.ExecuteNonQuery();
+                a.Id = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+
+                //Le damos de alta un usuario con datos básicos, el usuario es el legajo y la pass 1234
+                UsuarioAdapter ua = new UsuarioAdapter();
+                Usuario u = new Usuario();
+                u.Nombre = a.Nombre;
+                u.Apellido = a.Apellido;
+                u.NombreUsuario = a.Legajo.ToString();
+                u.Clave = "1234";
+                u.Email = a.Email;
+                u.State = TiposDatos.States.New;
+                u.IdPersona = a.Id;
+                ua.Save(u, transaction);
+
+
+                transaction.Commit();
+
             }
             catch (Exception ex)
             {

@@ -68,7 +68,7 @@ public partial class Alumnos : System.Web.UI.Page
 
     private void SaveEntity(Alumno alumno)
     {
-        alumnoLogic.Save(alumno);
+        alumnoLogic.Save(alumno);     
     }
     private int SelectedID
     {
@@ -116,6 +116,7 @@ public partial class Alumnos : System.Web.UI.Page
                 currentAlumno.State = TiposDatos.States.New;    
                 SaveEntity(Entity);
                 currentAlumno = Entity;
+                Response.Redirect("Usuarios.aspx");
                 break;
             case TiposDatos.FormModes.Consulta:
                 this.currentAlumno.State = TiposDatos.States.Unmodified;
@@ -142,6 +143,7 @@ public partial class Alumnos : System.Web.UI.Page
         this.gridActionsPanel.Visible = true;
         this.formActionsPanel.Visible = false;
         dgvAlumnos.DataBind();
+
     }
     protected void nuevoLinkButton_Click(object sender, EventArgs e)
     {

@@ -10,7 +10,9 @@
             <asp:CommandField SelectText="Seleccionar" ShowSelectButton="true" />
         </Columns>
     </asp:GridView>
-    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+    
     <asp:LinkButton ID="linkVolver" runat="server" OnClick="linkVolver_Click">Volver</asp:LinkButton>
+    <br />
+    <asp:Label ID="lblError" runat="server"></asp:Label>
 </asp:Content>
 

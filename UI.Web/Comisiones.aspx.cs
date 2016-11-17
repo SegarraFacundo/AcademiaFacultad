@@ -55,7 +55,23 @@ public partial class Comisiones : System.Web.UI.Page
 
     private void SaveEntity(Comision comision)
     {
-        this.comisionLogic.Save(comision);
+        try
+        {
+            if (comisionLogic.ValidarDelete(comision.Id))
+            {
+                this.comisionLogic.Save(comision);
+
+            }
+            else
+            {
+                lblError.Text = "No se puede dar de baja la comisión porque hay tiene cursos asignados.";
+            }
+        }
+        catch
+        {
+            Response.Redirect("Error500.aspx");
+        }
+        
     }
 
     protected void Page_Load(object sender, EventArgs e)
@@ -63,7 +79,8 @@ public partial class Comisiones : System.Web.UI.Page
        
         if (this.IsPostBack)
         {
-            dgvComisiones.DataBind();           
+            dgvComisiones.DataBind();
+            lblError.Text = "";
         }
         //Verificamos los permisos que tenga el usuario
         int idUsuario = Convert.ToInt32(Session["idUsuario"]);
@@ -90,6 +107,7 @@ public partial class Comisiones : System.Web.UI.Page
     {
         this.ABMPanel.Visible = true;
         this.gridActionsPanel.Visible = false;
+
         this.FormMode = TiposDatos.FormModes.Alta;
         this.EnabledForm(true);
         this.ClearForm();
@@ -99,8 +117,8 @@ public partial class Comisiones : System.Web.UI.Page
     {
         if (IsEntitySelected)
         {
-            this.ABMPanel.Visible = true;
             this.gridActionsPanel.Visible = false;
+            this.ABMPanel.Visible = true;
             this.formActionsPanel.Visible = true;
             this.EnabledForm(true);
             this.FormMode = TiposDatos.FormModes.Modificacion;
@@ -184,6 +202,8 @@ public partial class Comisiones : System.Web.UI.Page
     {
         this.SelectedID = (int)this.dgvComisiones.SelectedValue;
         this.formActionsPanel.Visible = false;
+        this.gridActionsPanel.Visible = true;
+        this.ABMPanel.Visible = false;
     }
     private void LoadEntity(Comision c)
     {

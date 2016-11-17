@@ -147,4 +147,12 @@ public partial class MainMenu : System.Web.UI.Page
     }
     #endregion
 
+    protected void linkReportes_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Reportes.aspx");
+    }
+    protected void linkInscripcionCursado_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("InscripcionCursado.aspx");
+    }
 }

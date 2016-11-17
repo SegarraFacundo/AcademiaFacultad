@@ -27,6 +27,7 @@ public partial class Especialidades : System.Web.UI.Page
     }
     #endregion
     #region "metodos"
+
     private int SelectedID
     {
         get
@@ -55,29 +56,45 @@ public partial class Especialidades : System.Web.UI.Page
     
     private void SaveEntity(Especialidad especialidad)
     {
-        this.especialidadLogic.Save(especialidad);
+        try
+        {
+            this.especialidadLogic.Save(especialidad);
+        }
+        catch (Exception ex)
+        {
+            lblError.Text = "Error: " + ex.Message;
+        }
+        
     }
 
     #endregion
     #region "metodos controles"
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        if (IsPostBack)
+        {
+            lblError.Text = "";
+        }
     }
     protected void nuevoLinkButton_Click(object sender, EventArgs e)
     {
         this.ABMPanel.Visible = true;
+        this.gridActionsPanel.Visible = false;
+        this.formActionsPanel.Visible = true;
         this.FormMode = TiposDatos.FormModes.Alta;
-        txtDescripcion.Text = "";
     }
     protected void editarLinkButton_Click(object sender, EventArgs e)
     {
         if (this.IsEntitySelected)
         {
             this.ABMPanel.Visible = true;
+            this.gridActionsPanel.Visible = false;
+            this.formActionsPanel.Visible = true;
             this.FormMode = TiposDatos.FormModes.Modificacion;
             currentEspecialidad = especialidadLogic.GetOne(this.SelectedID);
             txtDescripcion.Text = currentEspecialidad.Descripcion;
+            currentEspecialidad.State = TiposDatos.States.Modified;
+
         }
     }
     protected void eliminarLinkButton_Click(object sender, EventArgs e)
@@ -85,17 +102,22 @@ public partial class Especialidades : System.Web.UI.Page
         if (this.IsEntitySelected)
         {
             this.FormMode = TiposDatos.FormModes.Baja;
+            this.ABMPanel.Visible = true;
+            this.gridActionsPanel.Visible = false;
+            this.formActionsPanel.Visible = true;
             currentEspecialidad = especialidadLogic.GetOne(this.SelectedID);
+            this.txtDescripcion.Text = currentEspecialidad.Descripcion;
+            this.txtDescripcion.Enabled = false;
             currentEspecialidad.State = TiposDatos.States.Deleted;
-            SaveEntity(currentEspecialidad);
-            dgvEspecialidades.DataBind();
 
         }
     }
     protected void dgvEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
     {
         this.SelectedID = (int)this.dgvEspecialidades.SelectedValue;
+        this.gridActionsPanel.Visible = true;
         this.ABMPanel.Visible = false;
+        this.formActionsPanel.Visible = false;
     }
     protected void cancelarLinkButton_Click(object sender, EventArgs e)
     {
@@ -131,6 +153,10 @@ public partial class Especialidades : System.Web.UI.Page
                 break;
         }
         this.ABMPanel.Visible = false;
+        this.gridActionsPanel.Visible = true;
+        this.txtDescripcion.Enabled = true;
+        this.txtDescripcion.Text = "";
+        this.formActionsPanel.Visible = false;
         dgvEspecialidades.DataBind();
 
     }
