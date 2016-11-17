@@ -14,6 +14,7 @@
         <div class="container">
             <asp:ContentPlaceHolder ID="bodyContentPlaceHolder" runat="server">
             </asp:ContentPlaceHolder>
+             <asp:LinkButton ID="linkVolverMenu" runat="server" OnClick="linkVolverMenu_Click">Volver al menu</asp:LinkButton>
         </div>
     </form>
 </body>

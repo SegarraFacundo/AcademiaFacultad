@@ -1,7 +1,14 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LogIn.aspx.cs" Inherits="LogIn"  MasterPageFile="Site.master"%>
-
-<asp:Content ID="ContentLogin" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
-        <header>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LogIn.aspx.cs" Inherits="LogIn"%>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Academia</title>
+</head>
+<body>
+    <form runat="server">
+        <div class="container">
+                   <header>
             <h2>Login</h2>
         </header>
         <table>
@@ -33,18 +40,8 @@
         </table>
         <asp:ValidationSummary ID="vsUsuario" runat="server" ForeColor="Red" Font-Names="Calibri" HeaderText="Cambiar los campos con *" />
 
-</asp:Content>
-<asp:Content ID="Content1" runat="server" contentplaceholderid="head">
-    <style type="text/css">
-    .auto-style1 {
-        width: 134px;
-    }
-    .auto-style2 {
-        width: 134px;
-        height: 29px;
-    }
-    .auto-style3 {
-        height: 29px;
-    }
-</style>
-</asp:Content>
+        </div>
+    </form>
+</body>
+</html>
+

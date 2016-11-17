@@ -1,8 +1,16 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MainMenu.aspx.cs" Inherits="MainMenu" MasterPageFile="Site.master"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MainMenu.aspx.cs" Inherits="MainMenu"%>
 
-<asp:Content ID="MainManuContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
-    
-    <asp:LinkButton ID="linkMenuUsuarios" runat="server" OnClick="linkMenuUsuarios_Click">Usuarios</asp:LinkButton>    
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Academia</title>
+</head>
+<body>
+    <form runat="server">
+        <div class="container">
+                <asp:LinkButton ID="linkMenuUsuarios" runat="server" OnClick="linkMenuUsuarios_Click">Usuarios</asp:LinkButton>    
         <br />
     <asp:LinkButton ID="linkMenuAlumnos" runat="server" OnClick="linkMenuAlumnos_Click">Alumnos</asp:LinkButton>
         <br />
@@ -26,5 +34,7 @@
         <br />
 
     <asp:Label ID="lblError" runat="server"></asp:Label>
-
-</asp:Content>
+        </div>
+    </form>
+</body>
+</html>
