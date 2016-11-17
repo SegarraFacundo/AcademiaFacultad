@@ -70,7 +70,7 @@ namespace UI.Desktop
                 {
                     Administrador administrador = this.administradorLogic.GetOne(this.usuario.IdPersona);
 
-                    if (administrador.Id != 0)
+                    if (administrador != null)
                     {
                         if (chkRecordar.Checked)
                         {
@@ -102,15 +102,15 @@ namespace UI.Desktop
                 }
                 catch (NotFoundException ex)
                 {
-                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (CustomException ex)
                 {
-                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
-                    Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
