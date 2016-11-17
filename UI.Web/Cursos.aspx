@@ -1,8 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Cursos.aspx.cs" Inherits="Cursos" MasterPageFile="Site.master"%>
 <asp:Content ID="cursosContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
-    <header>
-        <h2>Cursos</h2>
-    </header>
+
     <asp:GridView ID="dgvCursos" runat="server" AutoGenerateColumns="False" DataSourceID="obsCursos"
         SelectedRowStyle-BackColor="Black"
         SelectedRowStyle-ForeColor="White"
@@ -19,6 +17,7 @@
         </Columns>        
     </asp:GridView>
     <asp:Panel ID="gridActionsPanel" runat="server">
+        <asp:LinkButton ID="inscribirLinkButton" runat="server" OnClick="inscribirLinkButton_Click" >Inscribir a curso</asp:LinkButton>
         <asp:LinkButton ID="nuevoLinkButton" runat="server" OnClick="nuevoLinkButton_Click" >Nuevo</asp:LinkButton>
         <asp:LinkButton ID="editarLinkButton" runat="server" OnClick="editarLinkButton_Click" >Editar</asp:LinkButton>
         <asp:LinkButton ID="eliminarLinkButton" runat="server" OnClick="eliminarLinkButton_Click" >Eliminar</asp:LinkButton>        
