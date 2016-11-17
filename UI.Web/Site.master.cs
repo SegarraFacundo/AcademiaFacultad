@@ -35,14 +35,6 @@ public partial class Site : System.Web.UI.MasterPage
         {
             int idUsuario = Convert.ToInt32(Session["idUsuario"]);
             this.currentUsuario = this.usuarioLogic.GetOne(idUsuario);
-
-            bool noTienePermisos = true;
-
-            if (noTienePermisos)
-            {
-                Session["idUsuario"] = null;
-                Response.Redirect("Error404.aspx");
-            }
         }
         catch (NotFoundException)
         {
