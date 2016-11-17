@@ -24,8 +24,11 @@
         <asp:Label ID="Label1" runat="server" Text="Descripción:"></asp:Label>
         <asp:TextBox ID="txtDescripcion" runat="server"></asp:TextBox>
     </asp:Panel>
-    <asp:Panel ID="formActionsPanel" runat="server">
+    <asp:Panel ID="formActionsPanel" runat="server" Visible="False">
             <asp:LinkButton ID="aceptarLinkButton" runat="server" OnClick="aceptarLinkButton_Click">Aceptar</asp:LinkButton>
             <asp:LinkButton ID="cancelarLinkButton" runat="server" OnClick="cancelarLinkButton_Click">Cancelar</asp:LinkButton>
+            
     </asp:Panel>
+    <br />
+    <asp:Label ID="lblError" runat="server"></asp:Label>
 </asp:Content>

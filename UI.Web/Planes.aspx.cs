@@ -59,7 +59,23 @@ public partial class Planes : System.Web.UI.Page
 
     private void SaveEntity(Plan plan)
     {
-        this.planLogic.Save(plan);
+        try
+        {
+            if (this.planLogic.Save(plan))
+            {
+
+            }
+            else
+            {
+                lblError.Text = "Atencion: No se puede modificar las materias del plan porque ya tiene cursos, comisiones o alumnos asignados";
+            }
+        }
+        catch (Exception ex)
+        {
+            Response.Redirect("Error500.aspx");
+        }
+      
+
     }
 
     private List<Materia> getListaMateriasSeleccionadas()
@@ -74,6 +90,7 @@ public partial class Planes : System.Web.UI.Page
                 int materiaID = Convert.ToInt32(dgvMaterias.DataKeys[row.RowIndex].Values["Id"]);
                 Materia currentMateria = new Materia();
                 currentMateria = materiaLogic.GetOne(materiaID);
+                currentMateria.IdPlan = Entity.Id;
                 listaMaterias.Add(currentMateria);
             }
         }
@@ -88,6 +105,7 @@ public partial class Planes : System.Web.UI.Page
         if (this.IsPostBack)
         {
             dgvPlanes.DataBind();
+            lblError.Text = "";
         }
 
     }
@@ -148,8 +166,7 @@ public partial class Planes : System.Web.UI.Page
                 this.SaveEntity(Entity);
                 break;
             case TiposDatos.FormModes.Modificacion:
-                this.Entity = new Plan();
-                this.Entity.Id = this.SelectedID;
+                this.Entity = planLogic.GetOne(SelectedID);
                 this.Entity.State = TiposDatos.States.Modified;
                 this.Entity.Descripcion = txtDescripcion.Text;
                 this.Entity.IdEspecialidad = Convert.ToInt32(cbEspecialidades.SelectedValue);

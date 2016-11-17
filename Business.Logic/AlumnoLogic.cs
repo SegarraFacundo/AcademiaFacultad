@@ -94,5 +94,19 @@ namespace Business.Logic
                 throw new CustomException(ex);
             }
         }
+
+        public List<Alumno> GetAlumnosPorPlan(int idPlan)
+        {
+            List<Alumno> ListaAlumno = AlumnoData.GetAll();
+            List<Alumno> ListaAlumnosPorPlan = new List<Alumno>();
+            foreach (Alumno a in ListaAlumno)
+            {
+                if (a.IdPlan == idPlan)
+                {
+                    ListaAlumnosPorPlan.Add(a);
+                }
+            }
+            return ListaAlumnosPorPlan;
+        }
     }
 }

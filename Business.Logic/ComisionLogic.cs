@@ -59,6 +59,41 @@ namespace Business.Logic
                 throw new CustomException(ex);
             }
         }
+        public List<Comision> GetComisionPorPlan(int idPlan)
+        {
+            try
+            {
+                List<Comision> comisiones = this.ComisionData.GetAll();
+                List<Comision> comsionesConPlan = new List<Comision>();
+                foreach (Comision c in comisiones)
+                {
+                    if (c.IdPlan == idPlan)
+                    {
+                        comsionesConPlan.Add(c);
+                    }
+                }
+                return comsionesConPlan;
+            }
+            catch (NotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex);
+            }
+        }
+
+        public bool ValidarDelete(int idComision)
+        {
+            CursoAdapter ca = new CursoAdapter();
+            List<Curso> listaCursos = ca.GetAll();
+            foreach (Curso c in listaCursos)
+            {
+                if (c.IdComision == idComision) { return false; }
+            }
+            return true;
+        }
     }
 
 }

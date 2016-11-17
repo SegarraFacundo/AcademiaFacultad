@@ -3,7 +3,8 @@
 <asp:Content ID="materiasContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
     <asp:GridView ID="dgvMaterias" runat="server" AutoGenerateColumns="False" DataSourceID="obsMaterias"
         SelectedRowStyle-BackColor="Black"
-        SelectedRowStyle-ForeColor="White" 
+        SelectedRowStyle-ForeColor="White"
+        DataKeyNames="ID" 
         OnSelectedIndexChanged="dgvMaterias_SelectedIndexChanged">
         <Columns>
             <asp:BoundField DataField="Descripcion" HeaderText="Descripcion" SortExpression="Descripcion" />
@@ -12,6 +13,7 @@
             <asp:BoundField DataField="IdPlan" HeaderText="IdPlan" SortExpression="IdPlan" />
             <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />
             <asp:BoundField DataField="State" HeaderText="State" SortExpression="State" />
+            <asp:CommandField SelectText="Seleccionar" ShowSelectButton="true" />
         </Columns>
 
 <SelectedRowStyle BackColor="Black" ForeColor="White"></SelectedRowStyle>
@@ -34,10 +36,6 @@
         <asp:Label ID="Label3" runat="server" Text="Horas Totales:"></asp:Label>
         <asp:TextBox ID="txtHorasTotales" runat="server"></asp:TextBox>
         <br />
-        <asp:Label ID="Label4" runat="server" Text="Plan:"></asp:Label>
-        <asp:DropDownList ID="cbPlanes" runat="server" DataSourceID="obsPlanes" DataTextField="Descripcion" DataValueField="Descripcion">
-        </asp:DropDownList>
-        <asp:ObjectDataSource ID="obsPlanes" runat="server" SelectMethod="GetAll" TypeName="Data.Database.PlanAdapter"></asp:ObjectDataSource>
         <asp:Panel ID="formActionsPanel" runat="server">
             <asp:LinkButton ID="aceptarLinkButton" runat="server" OnClick="aceptarLinkButton_Click">Aceptar</asp:LinkButton>
             <asp:LinkButton ID="cancelarLinkButton" runat="server" OnClick="cancelarLinkButton_Click">Cancelar</asp:LinkButton>

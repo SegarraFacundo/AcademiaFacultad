@@ -87,7 +87,11 @@ namespace Data.Database
                 this.OpenConnection();
                 transaction = MySqlConn.BeginTransaction();
 
-                
+                //borramos los cursos
+                CursoAdapter ca = new CursoAdapter();
+
+
+                //borramos las materias
                 MateriaAdapter ma = new MateriaAdapter();
                 ma.DeleteMateriasPlan(Id, transaction);
 
@@ -130,8 +134,10 @@ namespace Data.Database
 
                 //Para hacerlo mas simple, borramos las materias que tenia antes el plan e insertamos las que va a tener ahora
                 
+                
                 this.OpenConnection();
                 transaction = MySqlConn.BeginTransaction();
+
 
                 MateriaAdapter ma = new MateriaAdapter();
                 ma.DeleteMateriasPlan(plan.Id, transaction);

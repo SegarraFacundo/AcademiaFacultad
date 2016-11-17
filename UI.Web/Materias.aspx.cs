@@ -42,7 +42,6 @@ public partial class Materias : System.Web.UI.Page
         materia.HsSemanales = Convert.ToInt32(txtHorasSemales.Text);
         materia.HsTotales = Convert.ToInt32(txtHorasTotales.Text);
         materia.Descripcion = txtDescripcion.Text;
-        materia.IdPlan = cbPlanes.SelectedIndex + 1;
     }
 
     private void SaveEntity(Materia materia)
@@ -131,6 +130,7 @@ public partial class Materias : System.Web.UI.Page
                 this.Entity = new Materia();
                 this.Entity.State = TiposDatos.States.New;
                 this.LoadEntity(Entity);
+                this.Entity.IdPlan = 0; //Se lo asignamos a 0 a si queda como materia de muestra
                 this.SaveEntity(Entity);
                 break;
             case TiposDatos.FormModes.Modificacion:
@@ -176,6 +176,5 @@ public partial class Materias : System.Web.UI.Page
         txtHorasTotales.Enabled = v;
         txtHorasSemales.Enabled = v;
         txtDescripcion.Enabled = v;
-        cbPlanes.Enabled = v;
     }
 }

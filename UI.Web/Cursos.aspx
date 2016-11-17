@@ -17,7 +17,6 @@
         </Columns>        
     </asp:GridView>
     <asp:Panel ID="gridActionsPanel" runat="server">
-        <asp:LinkButton ID="inscribirLinkButton" runat="server" OnClick="inscribirLinkButton_Click" >Inscribir a curso</asp:LinkButton>
         <asp:LinkButton ID="nuevoLinkButton" runat="server" OnClick="nuevoLinkButton_Click" >Nuevo</asp:LinkButton>
         <asp:LinkButton ID="editarLinkButton" runat="server" OnClick="editarLinkButton_Click" >Editar</asp:LinkButton>
         <asp:LinkButton ID="eliminarLinkButton" runat="server" OnClick="eliminarLinkButton_Click" >Eliminar</asp:LinkButton>        

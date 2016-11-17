@@ -57,14 +57,16 @@ namespace Business.Logic
             try
             {
                 List<Materia> materias = this.materiaData.GetAll();
+                List<Materia> materiasNuevas = new List<Materia>();
                 foreach (Materia m in materias)
                 {
-                    if (m.IdPlan != idPlan)
+                    if (m.IdPlan == idPlan)
                     {
-                        materias.Remove(m);
+                      
+                        materiasNuevas.Add(m);
                     }
                 }
-                return materias;
+                return materiasNuevas;
             }
             catch (NotFoundException ex)
             {

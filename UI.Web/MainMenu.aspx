@@ -20,6 +20,10 @@
         <br />
      <asp:LinkButton ID="linkIngresarNotasAlumnos" runat="server" OnClick="linkIngresarNotas_Click">Ingresar Notas</asp:LinkButton>
         <br />
+    <asp:LinkButton ID="linkInscripcionCursado" runat="server" OnClick="linkInscripcionCursado_Click">Inscribir a cursado</asp:LinkButton>
+        <br />
+    <asp:LinkButton ID="linkReportes" runat="server" OnClick="linkReportes_Click">Reportes</asp:LinkButton>
+        <br />
 
     <asp:Label ID="lblError" runat="server"></asp:Label>
 
