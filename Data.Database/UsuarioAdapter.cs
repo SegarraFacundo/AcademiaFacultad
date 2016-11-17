@@ -149,8 +149,8 @@ namespace Data.Database
         protected void Insert(Usuario usuario, MySqlTransaction transaction = null)
         {
 
-            string query = "INSERT INTO usuarios (nombre_usuario, clave, habilitado, nombre, apellido, email, cambia_clave)" +
-                    "VALUES (@nombre_usuario, @clave, @habilitado, @nombre, @apellido, @email, @cambia_clave); SELECT @@IDENTITY";
+            string query = "INSERT INTO usuarios (nombre_usuario, clave, habilitado, nombre, apellido, email, cambia_clave, id_persona)" +
+                    "VALUES (@nombre_usuario, @clave, @habilitado, @nombre, @apellido, @email, @cambia_clave, @id_persona); SELECT @@IDENTITY";
 
             try
             {
@@ -174,6 +174,8 @@ namespace Data.Database
                 cmd.Parameters.AddWithValue("@email", usuario.Email);
                 if (usuario.CambiaClave) { cmd.Parameters.AddWithValue("@cambia_clave", 1); }
                 else { cmd.Parameters.AddWithValue("@cambia_clave", 0); }
+                if (usuario.IdPersona == 0) { cmd.Parameters.AddWithValue("@id_persona", DBNull.Value); }
+                else { cmd.Parameters.AddWithValue("@id_persona", usuario.IdPersona); }
                
                 usuario.Id = Convert.ToInt32(cmd.ExecuteScalar().ToString());
             }

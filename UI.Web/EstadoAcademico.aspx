@@ -3,13 +3,10 @@
 
 <asp:Content ID="verInscripcionesContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
 
-<<<<<<< HEAD
     <header>
         <h2>Estado académico</h2>
     </header>
-=======
 
->>>>>>> b856c64105955d493269ea90d33c199b47bf234e
     <asp:GridView ID="dgvInscripciones" runat="server" AutoGenerateColumns="False">
         <Columns>
         <asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />

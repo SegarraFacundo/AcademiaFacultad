@@ -151,11 +151,13 @@ namespace Data.Database
             }
             catch (Exception ex)
             {
+                transaction.Rollback();
                 throw new InsertException("alumno", ex);
             }
             finally
             {
-                this.OpenConnection();
+                transaction.Dispose();
+                this.CloseConnection();
             }
         }
 

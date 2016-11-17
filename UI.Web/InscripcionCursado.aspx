@@ -19,7 +19,7 @@
             <asp:BoundField DataField="IdMateria" HeaderText="IdMateria" SortExpression="IdMateria" Visible="False" />
             <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" Visible="False" />
             <asp:BoundField DataField="State" HeaderText="State" SortExpression="State" Visible="False" />
-            <asp:CommandField SelectText="Inscribirse" ShowSelectButton="true" />
+            <asp:CommandField SelectText="Inscribirse" ShowSelectButton="true"  />
 
         </Columns>
     </asp:GridView>

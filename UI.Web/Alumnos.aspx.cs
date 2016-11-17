@@ -7,11 +7,16 @@ using System.Web.UI.WebControls;
 using Util;
 using Business.Entities;
 using Business.Logic;
+using Util.CustomException;
+
 public partial class Alumnos : System.Web.UI.Page
 {
     private Alumno currentAlumno = new Alumno();
 
     private AlumnoLogic alumnoLogic = new AlumnoLogic();
+
+    Usuario currentUsuario;
+    UsuarioLogic usuarioLogic;
 
     #region "Propiedades"
     public TiposDatos.FormModes FormMode
@@ -155,13 +160,51 @@ public partial class Alumnos : System.Web.UI.Page
         this.FormMode = TiposDatos.FormModes.Alta;
         this.EnableForm(true);
     }
+ 
+    
     protected void Page_Load(object sender, EventArgs e)
     {
+        bool tienePermiso = false;
+        this.nuevoLinkButton.Visible = false;
+        this.eliminarLinkButton.Visible = false;
+        this.editarLinkButton.Visible = false;
 
-        if (Session["idUsuario"] == null)
+        this.isLogged();
+
+        foreach(Permiso p in currentUsuario.Permisos) 
         {
-            Response.Redirect("LogIn.aspx");
+            if( p.Ejecuta.Equals("personas") )
+            {
+                if( p.Alta)
+                {
+                    tienePermiso = true;
+                    this.nuevoLinkButton.Visible = true;
+                }
+
+                if (p.Baja)
+                {
+                    tienePermiso = true;
+                    this.eliminarLinkButton.Visible = true;
+                }
+
+                if (p.Consulta)
+                {
+                    tienePermiso = true;
+                }
+
+                if (p.Modificacion)
+                {
+                    tienePermiso = true;
+                    this.editarLinkButton.Visible = true;
+                }
+            }
         }
+
+        if ( ! tienePermiso )
+        {
+            Response.Redirect("MainMenu.aspx");
+        }
+
     }
     protected void dgvAlumnos_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -197,6 +240,33 @@ public partial class Alumnos : System.Web.UI.Page
         this.ClearForm();
         this.ABMPanel.Visible = false;
         this.gridActionsPanel.Visible = true;
+    }
+
+    public void isLogged()
+    {
+
+        this.usuarioLogic = new UsuarioLogic();
+
+        if (Session["idUsuario"] == null)
+        {
+            Response.Redirect("LogIn.aspx");
+        }
+
+        try
+        {
+            int idUsuario = Convert.ToInt32(Session["idUsuario"]);
+            this.currentUsuario = this.usuarioLogic.GetOne(idUsuario);
+        }
+        catch (NotFoundException)
+        {
+            Session["idUsuario"] = null;
+            Response.Redirect("Error404.aspx");
+        }
+        catch (Exception)
+        {
+            Session["idUsuario"] = null;
+            Response.Redirect("Error500.aspx");
+        }
     }
     #endregion
 }
