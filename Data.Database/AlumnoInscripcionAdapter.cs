@@ -227,7 +227,7 @@ namespace Data.Database
             DataTable dt = new DataTable();
             try
             {
-                string query = "SELECT  cursos.desc_curso, alumnos_inscripciones.id_inscripcion, alumnos_inscripciones.condicion, alumnos_inscripciones.nota " +
+                string query = "SELECT  cursos.desc_curso, alumnos_inscripciones.id_inscripcion, alumnos_inscripciones.condicion " +
                                 "FROM alumnos_inscripciones " +
                                 "INNER JOIN cursos " +
                                     "ON alumnos_inscripciones.id_curso = cursos.id_curso " +

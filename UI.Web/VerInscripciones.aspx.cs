@@ -18,6 +18,12 @@ public partial class VerInscripciones : System.Web.UI.Page
     Alumno currentAlumno;
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        if (IsPostBack)
+        {
+            lblError.Text = "";
+        }
+
         try
         {
             currentUser = UsuarioLogic.GetOne(Convert.ToInt32(Session["idUsuario"]));
@@ -37,7 +43,15 @@ public partial class VerInscripciones : System.Web.UI.Page
     }
     private void LoadGrid()
     {
-        this.dgvInscripcones.DataSource = ail.GetAllByIdAlumno(currentAlumno.Id);
+        this.dgvInscripcones.DataSource = ail.GetInscripto(currentAlumno.Id);
         this.dgvInscripcones.DataBind();
+    }
+    protected void otraInscripcion_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("InscripcionCursado.aspx");
+    }
+    protected void lbVolver_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("MainMenu.aspx");
     }
 }

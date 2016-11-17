@@ -31,7 +31,14 @@ namespace Data.Database
                     currentUser.Nombre = (string)reader["nombre"];
                     currentUser.Apellido = (string)reader["apellido"];
                     currentUser.Email = (string)reader["email"];
-                    //currentUser.IdPersona = (int)reader["id_persona"];
+                    if (reader["id_persona"].Equals(DBNull.Value))
+                    {
+                        currentUser.IdPersona = 0;
+                    }
+                    else
+                    {
+                        currentUser.IdPersona = (int)reader["id_persona"];
+                    }
                     usuarios.Add(currentUser);
                 }
                 reader.Close();
@@ -139,14 +146,24 @@ namespace Data.Database
             }
         }
 
-        protected void Insert(Usuario usuario)
+        protected void Insert(Usuario usuario, MySqlTransaction transaction = null)
         {
+
+            string query = "INSERT INTO usuarios (nombre_usuario, clave, habilitado, nombre, apellido, email, cambia_clave)" +
+                    "VALUES (@nombre_usuario, @clave, @habilitado, @nombre, @apellido, @email, @cambia_clave); SELECT @@IDENTITY";
+
             try
             {
-                this.OpenConnection();
-
-                MySqlCommand cmd = new MySqlCommand("INSERT INTO usuarios (nombre_usuario, clave, habilitado, nombre, apellido, email, cambia_clave)" +
-                    "VALUES (@nombre_usuario, @clave, @habilitado, @nombre, @apellido, @email, @cambia_clave); SELECT @@IDENTITY", MySqlConn);
+                MySqlCommand cmd;
+                if (transaction == null)
+                {
+                    this.OpenConnection();
+                    cmd = new MySqlCommand(query, MySqlConn);
+                }
+                else
+                {
+                    cmd = new MySqlCommand(query, transaction.Connection);
+                }                 
 
                 cmd.Parameters.AddWithValue("@nombre_usuario", usuario.NombreUsuario);
                 cmd.Parameters.AddWithValue("@clave", usuario.Clave);
@@ -166,15 +183,19 @@ namespace Data.Database
             }
             finally
             {
-                this.CloseConnection();
+                if (transaction == null)
+                {
+                    this.CloseConnection();
+
+                }
             }
         }
 
-        public void Save(Usuario usuario)
+        public void Save(Usuario usuario, MySqlTransaction transaction =null)
         {
             if (usuario.State == TiposDatos.States.New)
             {
-                this.Insert(usuario);
+                this.Insert(usuario, transaction);
             }
             else if (usuario.State == TiposDatos.States.Deleted)
             {

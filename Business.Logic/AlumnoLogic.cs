@@ -73,6 +73,7 @@ namespace Business.Logic
         public void Save(Alumno a)
         {
             AlumnoData.Save(a);
+            
         }
 
         public int obtenerProximoLegajo()
