@@ -116,7 +116,29 @@ namespace Data.Database
                 u.IdPersona = d.Id;
                 ua.Save(u, transaction);
 
+                //Estos son los modulos del usuario del tipo docentes
 
+                int[] arregloAlta = { 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 };
+                int[] arregloBaja = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+                int[] arregloModi = { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+                int[] arregloCons = { 1, 1, 1, 1, 0, 1, 0, 0, 0, 0 };
+                string queryModulos = "INSERT INTO modulos_usuarios (id_modulo, id_usuario, alta, baja, modificacion, consulta) VALUES ";
+                for (int i = 0; i < 10; i++)
+                {
+                    if (i == 9)
+                    {
+                        queryModulos += "(" + (i + 1).ToString() + ", " + u.Id + ", " + arregloAlta[i].ToString() + ", " + arregloBaja[i].ToString() + ", " + arregloModi[i].ToString() +
+                   ", " + arregloCons[i].ToString() + ")";
+                    }
+                    else
+                    {
+                        queryModulos += "(" + (i + 1).ToString() + ", " + u.Id + ", " + arregloAlta[i].ToString() + ", " + arregloBaja[i].ToString() + ", " + arregloModi[i].ToString() +
+                   ", " + arregloCons[i].ToString() + "),";
+                    }
+
+                }
+                cmd.CommandText = queryModulos;
+                cmd.ExecuteNonQuery();
                 transaction.Commit();
 
             }

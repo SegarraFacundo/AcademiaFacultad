@@ -175,7 +175,7 @@ namespace Data.Database
                 if (usuario.CambiaClave) { cmd.Parameters.AddWithValue("@cambia_clave", 1); }
                 else { cmd.Parameters.AddWithValue("@cambia_clave", 0); }
                
-                cmd.ExecuteNonQuery();
+                usuario.Id = Convert.ToInt32(cmd.ExecuteScalar().ToString());
             }
             catch (Exception ex)
             {
