@@ -1,6 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Docentes.aspx.cs" Inherits="Docentes" MasterPageFile="Site.master" %>
 
 <asp:Content ID="AlumnosContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
+    <header>
+        <h2>Docentes</h2>
+</header>
     <asp:GridView ID="dgvDocentes" runat="server" AutoGenerateColumns="False" DataSourceID="odsDocentes"
             SelectedRowStyle-BackColor="Black"
             SelectedRowStyle-ForeColor="White"

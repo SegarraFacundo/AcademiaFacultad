@@ -1,7 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Comisiones.aspx.cs" Inherits="Comisiones" MasterPageFile="site.Master" %>
 
 <asp:Content ID="ComisionesContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
-
+    <header>
+        <h2>Comisiones</h2>
+    </header>
     <asp:GridView ID="dgvComisiones" runat="server" DataSourceID="obsComisiones" AutoGenerateColumns="False"
         SelectedRowStyle-BackColor="Black"
         SelectedRowStyle-ForeColor="White"

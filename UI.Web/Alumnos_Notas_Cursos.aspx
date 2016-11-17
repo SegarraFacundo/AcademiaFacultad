@@ -2,11 +2,9 @@
 
 <asp:Content ID="alumnosNotasCursosContent" ContentPlaceHolderID ="bodyContentPlaceHolder" runat="server">
 
-
-
-
-
-
+    <header>
+        <h2>Notas de los alumnos</h2>
+    </header>
     <asp:GridView ID="dgvAlumnosCurso" runat="server" AutoGenerateColumns="False" DataSourceID="odsAlumnosCurso"
         SelectedRowStyle-BackColor="Black"
         SelectedRowStyle-ForeColor="White"

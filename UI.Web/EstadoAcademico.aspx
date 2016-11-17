@@ -3,7 +3,9 @@
 
 <asp:Content ID="verInscripcionesContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
 
-
+    <header>
+        <h2>Estado académico</h2>
+    </header>
     <asp:GridView ID="dgvInscripciones" runat="server" AutoGenerateColumns="False">
         <Columns>
         <asp:BoundField DataField="Id" HeaderText="Id" Visible="false" />

@@ -1,7 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="VerInscripciones.aspx.cs" Inherits="VerInscripciones" MasterPageFile="Site.master" %>
 
 <asp:Content ID="estadoAcademicoContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat ="server">
-
+    <header>
+        <h2>Inscripciones</h2>
+    </header>
 <asp:GridView ID="dgvInscripcones" runat="server" AutoGenerateColumns="False">
     <Columns>
         <asp:BoundField DataField="desc_curso" HeaderText="Materia" />

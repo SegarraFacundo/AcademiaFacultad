@@ -2,7 +2,9 @@
 
 <asp:Content ID="cambiarPassContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
 
-
+    <header>
+        <h2>Cambiar contraseña</h2>
+    </header>
     <table style="width: 22%;">
         <tr>
             <td class="auto-style1">

@@ -11,4 +11,8 @@ public partial class Site : System.Web.UI.MasterPage
     {
 
     }
+    protected void linkVolverMenu_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("MainMenu.aspx");
+    }
 }

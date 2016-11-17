@@ -3,6 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyContentPlaceHolder" Runat="Server">
+    <header>
+        <h2>Usuarios</h2>
+    </header>
     <asp:GridView ID="gridView" runat="server" AutoGenerateColumns="false" 
         SelectedRowStyle-BackColor="Black"
         SelectedRowStyle-ForeColor="White"

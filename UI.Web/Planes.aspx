@@ -2,7 +2,9 @@
 
 <asp:Content ID="PlanesConent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
 
-
+    <header>
+        <h2>Planes</h2>
+    </header>
     <asp:GridView ID="dgvPlanes" runat="server" AutoGenerateColumns="False" DataSourceID="odsPlanes"
         SelectedRowStyle-BackColor="Black"
         SelectedRowStyle-ForeColor="White"
