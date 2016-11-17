@@ -18,23 +18,16 @@ public partial class Reportes : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         
-        try
-        {
-            dsCursos dsCursos = reportesLogic.GetDataCursos();
-            if (dsCursos.cursos.Rows.Count > 0)
-            {
-                crystalReport.Load(Server.MapPath("~/CrystalReport.rpt"));
-                crystalReport.SetDataSource(dsCursos);
-                CrystalReportViewer1.RefreshReport();
-                CrystalReportViewer1.ReportSource = crystalReport;
-            }
-        }
-        catch (Exception ex)
-        {
-            lblError.Text = ex.Message;
-        }
+        
     }
     protected void Img1_Click(object sender, ImageClickEventArgs e)
+    {
+       
+        
+        
+    }
+
+    protected void lblCursos_Click(object sender, EventArgs e)
     {
         dsCursos dsCursos = reportesLogic.GetDataCursos();
         if (dsCursos.cursos.Rows.Count > 0)
@@ -45,6 +38,17 @@ public partial class Reportes : System.Web.UI.Page
             CrystalReportViewer1.ReportSource = crystalReport;
             crystalReport.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "PersonDetails");
         }
-        
+    }
+    protected void lblPlanes_Click(object sender, EventArgs e)
+    {
+        dsPlanes dsPlanes = reportesLogic.GetDataPlanes();
+        if (dsPlanes.planes.Rows.Count > 0)
+        {
+            crystalReport.Load(Server.MapPath("~/ReportePlanes.rpt"));
+            crystalReport.SetDataSource(dsPlanes);
+            CrystalReportViewer1.RefreshReport();
+            CrystalReportViewer1.ReportSource = crystalReport;
+            crystalReport.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "PersonDetails");
+        }
     }
 }

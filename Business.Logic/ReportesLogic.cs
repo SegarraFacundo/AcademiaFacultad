@@ -20,7 +20,7 @@ namespace Business.Logic
 
        }
 
-       public dsPlanes GetDatosPlanes()
+       public dsPlanes GetDataPlanes()
        {
            dsPlanes ds = rd.GetDatosPlanes();
            return ds;
