@@ -3,6 +3,9 @@
 <%@ Register assembly="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" namespace="CrystalDecisions.Web" tagprefix="CR" %>
 
 <asp:Content ID="reportesContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
+    <header>
+        <h2>Reportes</h2>
+    </header>
     <asp:LinkButton ID="lblCursos" Text="Imprimir reporte Cursos" runat="server" OnClick="lblCursos_Click"></asp:LinkButton>
     <br />
     <asp:LinkButton ID="lblPlanes" Text ="Imprimir reporte Planes" runat="server" OnClick="lblPlanes_Click"></asp:LinkButton>

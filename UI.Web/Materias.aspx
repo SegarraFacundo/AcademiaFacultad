@@ -1,7 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Materias.aspx.cs" Inherits="Materias" MasterPageFile="Site.master"%>
 
 <asp:Content ID="materiasContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
-    <asp:GridView ID="dgvMaterias" runat="server" AutoGenerateColumns="False" DataSourceID="obsMaterias"
+    <header>
+        <h2>Materias</h2>
+    </header>
+     <asp:GridView ID="dgvMaterias" runat="server" AutoGenerateColumns="False" DataSourceID="obsMaterias"
         SelectedRowStyle-BackColor="Black"
         SelectedRowStyle-ForeColor="White"
         DataKeyNames="ID" 

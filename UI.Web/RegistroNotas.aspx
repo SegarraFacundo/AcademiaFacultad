@@ -1,6 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="RegistroNotas.aspx.cs" Inherits="RegistroNotas" MasterPageFile="Site.master"%>
 
 <asp:Content ID="registroNotasContent" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
+    <header>
+        <h2>Registro de notas</h2>
+    </header>
     <asp:GridView ID="dgvDocentesCursos" runat="server" AutoGenerateColumns="False" DataKeyNames="id_curso" OnSelectedIndexChanged="dgvDocentesCursos_SelectedIndexChanged">
         <Columns>
             <asp:BoundField DataField="id_dictado" HeaderText="ID" Visible="False" />

@@ -8,8 +8,12 @@
     <title>Academia</title>
 </head>
 <body>
+
     <form runat="server">
         <div class="container">
+            <header>
+        <h2>Menu</h2>
+    </header>
                 <asp:LinkButton ID="linkMenuUsuarios" runat="server" OnClick="linkMenuUsuarios_Click">Usuarios</asp:LinkButton>    
         <br />
     <asp:LinkButton ID="linkMenuAlumnos" runat="server" OnClick="linkMenuAlumnos_Click">Alumnos</asp:LinkButton>
