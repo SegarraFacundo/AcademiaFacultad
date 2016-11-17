@@ -72,9 +72,12 @@ namespace Business.Logic
                 {
                     if (u.Clave == pass && u.NombreUsuario == user)
                     {
+                        if (u.Habilitado)
+                        {
+                            u.Permisos = this.pa.GetPorIdUsuario(u.Id);
+                            return u;
+                        }
                         
-                        u.Permisos = this.pa.GetPorIdUsuario(u.Id);
-                        return u;
                     }
                 }
                 

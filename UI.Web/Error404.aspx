@@ -1,6 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Error404.aspx.cs" Inherits="Error404" %>
-
-
+<!DOCTYPE html>
+<html>
+<head  runat="server">
+    <title>Error 404</title>
+</head>
+    <body>
 <form id="form1" runat="server">
     <asp:Label ID="Label1" runat="server" Font-Size="Large" Text="Ups! Algo salió mal. No se supone que usted este aquí."></asp:Label>
     <br />
@@ -9,6 +13,9 @@
     <br />
     <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click">Clickeame para volver a Login</asp:LinkButton>
 </form>
+
+    </body>
+    </html>
 
 
 

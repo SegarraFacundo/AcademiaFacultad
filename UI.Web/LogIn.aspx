@@ -41,6 +41,7 @@
         <asp:ValidationSummary ID="vsUsuario" runat="server" ForeColor="Red" Font-Names="Calibri" HeaderText="Cambiar los campos con *" />
 
         </div>
+        <asp:Label ID="lbError" runat="server" Text=""></asp:Label>
     </form>
 </body>
 </html>

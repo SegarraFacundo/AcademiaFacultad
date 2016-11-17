@@ -51,24 +51,25 @@ public partial class LogIn : System.Web.UI.Page
             {
                 Session["idUsuario"] = this.currentUsuario.Id.ToString();
                 Session["id_persona"] = this.currentUsuario.IdPersona.ToString();
+
+                Response.Redirect("MainMenu.aspx", false);
             }
             else
             {
                 Session["idUsuario"] = null;
-                Response.Redirect("Error404.aspx");
+                this.lbError.Text = "Credenciales incorrectas";
             }
         }
         catch(NotFoundException)
         {
             Session["idUsuario"] = null;
-            Response.Redirect("Error404.aspx");
+            throw;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             Session["idUsuario"] = null;
-            Response.Redirect("Error500.aspx");
+            throw ex;  
         }
 
-        Response.Redirect("MainMenu.aspx", false);
     }
 }

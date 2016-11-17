@@ -60,7 +60,7 @@ namespace UI.Desktop
 
 
             if (this.usuario == null) {
-                Notificar("Error", "Error de inicio de sesión, credenciales incorrectas", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Notificar("Error", "Error de inicio de sesión, credenciales incorrectas o usuario inhabilitado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 txtUser.Focus();
                 return;
             }
