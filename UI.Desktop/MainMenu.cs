@@ -17,8 +17,7 @@ namespace UI.Desktop
         public MainMenu(Usuario u)
         {
             InitializeComponent();
-            usuario = u;
-            label1.Text = u.Apellido + ", " + u.Nombre;
+            usuario = u;            
         }
 
         private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -39,10 +38,29 @@ namespace UI.Desktop
             frmAlumnos.ShowDialog();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
+        private void menuUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Usuarios frmUsuario = new Usuarios();
+            frmUsuario.ShowDialog();
+            frmUsuario.Dispose();
         }
+
+        private void menuAlumnosToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            Alumnos frmAlumnos = new Alumnos();
+            frmAlumnos.ShowDialog();
+            frmAlumnos.Dispose();
+        }
+
+        private void menuDocentesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Docentes frmDocentes = new Docentes();
+            frmDocentes.ShowDialog();
+            frmDocentes.Dispose();
+        }
+
+
 
     }
 }

@@ -53,6 +53,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Docentes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Docentes.Designer.cs">
+      <DependentUpon>Docentes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DocentesDesktop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DocentesDesktop.Designer.cs">
+      <DependentUpon>DocentesDesktop.cs</DependentUpon>
+    </Compile>
     <Compile Include="EspecialidadDesktop.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +121,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Docentes.resx">
+      <DependentUpon>Docentes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DocentesDesktop.resx">
+      <DependentUpon>DocentesDesktop.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EspecialidadDesktop.resx">
       <DependentUpon>EspecialidadDesktop.cs</DependentUpon>
     </EmbeddedResource>
