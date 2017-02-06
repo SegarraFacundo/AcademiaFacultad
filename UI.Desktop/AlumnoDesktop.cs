@@ -128,15 +128,15 @@ namespace UI.Desktop
             }
             catch (NotFoundException ex)
             {
-                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (CustomException ex)
             {
-                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                Notificar(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -176,7 +176,6 @@ namespace UI.Desktop
                 txtNombre.Focus();
                 return false;
             }
-            //Falta validar
 
             return true;
         }
@@ -234,8 +233,6 @@ namespace UI.Desktop
             {
                 Notificar("No se pudo encontrar el alumno", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
         }
 
         public override void MapearADatos()
@@ -253,7 +250,6 @@ namespace UI.Desktop
                     a.Telefono = this.txtTelefono.Text;
                     a.FechaNacimiento = this.dtpFechaNacimiento.Value;
                     a.State = TiposDatos.States.New;
-
                     this.alumno = a;
                     break;
                 case ModoForm.Consulta:
@@ -283,8 +279,5 @@ namespace UI.Desktop
         }
 
         #endregion
-
-
-
     }
 }

@@ -98,5 +98,21 @@ namespace Business.Logic
             }
             return null;
         }
+        public List<Materia> GetAllSinPlan()
+        {
+            try
+            {
+                List<Materia> materias = this.materiaData.GetAllSinPlan();
+                return materias;
+            }
+            catch (NotFoundException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex);
+            }
+        }
     }
 }

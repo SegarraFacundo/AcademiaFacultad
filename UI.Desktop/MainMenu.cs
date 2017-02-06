@@ -26,11 +26,7 @@ namespace UI.Desktop
             formUsuarios.ShowDialog();
         }
 
-        private void especialidadesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Especialidades frmEspecialidades = new Especialidades();
-            frmEspecialidades.ShowDialog();
-        }
+
 
         private void menuAlumnosToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -58,6 +54,27 @@ namespace UI.Desktop
             Docentes frmDocentes = new Docentes();
             frmDocentes.ShowDialog();
             frmDocentes.Dispose();
+        }
+
+        private void planesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Planes frmPlanes = new Planes();
+            frmPlanes.ShowDialog();
+            frmPlanes.Dispose();
+        }
+
+
+
+        private void comisionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Comisiones frmComisiones = new Comisiones();
+            frmComisiones.ShowDialog();
+        }
+
+        private void especialidadesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Especialidades frmEspecialidades = new Especialidades();
+            frmEspecialidades.ShowDialog();
         }
 
 
