@@ -121,11 +121,6 @@ namespace UI.Desktop
             {
                 btnIngresar_Click(null, null);
             }
-
-
         }
-
-
-
     }
 }
